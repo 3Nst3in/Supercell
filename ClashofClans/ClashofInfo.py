@@ -220,7 +220,7 @@ def GetClanInfo(tag):
             print("[!] Sorry, invalid input !")
             sleep(1)
             count=int(input("[::] Please enter again the number of members to display: "))
-        page = requests.get(f"https://api.clashofclans.com/v1/clans/%23{tag}/members?limit={count}")
+        page = requests.get(f"https://api.clashofclans.com/v1/clans/%23{tag}/members?limit={count}", headers=headers)
         js = page.json()
         print("[+] Information: ")
         print("-" * 75)
@@ -239,7 +239,7 @@ def GetClanInfo(tag):
             print("[!] Sorry, invalid number !")
             sleep(1)
             count=int(input("[?] How many results to display (enter an integer number) ? "))
-        page = requests.get(f"https://api.clashofclans.com/v1/clans?name={name}&limit={count}")
+        page = requests.get(f"https://api.clashofclans.com/v1/clans?name={name}&limit={count}", headers=headers)
         js = page.json()
         wl_pub = "yes"
         for i in range(len(js['items'])):
