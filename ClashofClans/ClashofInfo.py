@@ -31,7 +31,7 @@ except ImportError as imp:
 
 headers = {
     'Accept': 'application/json',
-    'authorization': 'Bearer <Replace this with your API key. After the word: Bearer>'
+    'authorization': 'Bearer <Replace this with your API key. Start the replacing after the word: (Bearer)>'
 }
 
 def ProgInfo():
@@ -315,7 +315,7 @@ tprint("CLASH   OF   INFO", font='tarty1')
 print("\n")
 print("[+] Github: @new92")
 print("\n")
-print("[+] ClashStats: Program for getting information about clans, users, leagues and much more... :)")
+print("[+] ClashofInfo: Program for getting information about clans, users, leagues and much more... :)")
 print("\n")
 print("[1] Display info for a player")
 print("[2] Display info for a clan")
