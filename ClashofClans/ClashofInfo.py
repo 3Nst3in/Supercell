@@ -31,7 +31,7 @@ except ImportError as imp:
 
 headers = {
     'Accept': 'application/json',
-    'authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiIsImtpZCI6IjI4YTMxOGY3LTAwMDAtYTFlYi03ZmExLTJjNzQzM2M2Y2NhNSJ9.eyJpc3MiOiJzdXBlcmNlbGwiLCJhdWQiOiJzdXBlcmNlbGw6Z2FtZWFwaSIsImp0aSI6IjdlMGY3NDlkLTFjODAtNGZhMy1hMjA5LTNiNThlZWU3Yzg3OCIsImlhdCI6MTY2NDQ4Mzk3Mywic3ViIjoiZGV2ZWxvcGVyL2Q1MWY1YWE2LWEwNjktNmUzMC04NTJjLTA1OTFhYjAyNDQ2OCIsInNjb3BlcyI6WyJjbGFzaCJdLCJsaW1pdHMiOlt7InRpZXIiOiJkZXZlbG9wZXIvc2lsdmVyIiwidHlwZSI6InRocm90dGxpbmcifSx7ImNpZHJzIjpbIjIuODUuMTc5LjE0NCJdLCJ0eXBlIjoiY2xpZW50In1dfQ.ALJ5vOkEqV66ZqUxenR-nT5xtngJEJdnyYon7jm-MA0fU8l4Ffs-K661-DpShrKMqQgulhr_1cVMdB1qO5tQ0g'
+    'authorization': 'Bearer <Replace this with your API key. After the word: Bearer>'
 }
 
 def ProgInfo():
