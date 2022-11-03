@@ -11,11 +11,9 @@ try:
     from time import sleep
     from os import system
     import json
-    import http
     import requests
-    from art import tprint
 except ImportError as imp:
-    print("[!] WARNING: Not all modules used in this program have been installed !")
+    print("[!] WARNING: Not all packages used in this program have been installed !")
     sleep(2)
     print("[+] Ignoring Warning...")
     sleep(1)
@@ -31,26 +29,28 @@ except ImportError as imp:
 
 headers = {
     'Accept': 'application/json',
-    'authorization': 'Bearer <Replace this with your API key. Start the replacing after the word: (Bearer)>'
+    'authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiIsImtpZCI6IjI4YTMxOGY3LTAwMDAtYTFlYi03ZmExLTJjNzQzM2M2Y2NhNSJ9.eyJpc3MiOiJzdXBlcmNlbGwiLCJhdWQiOiJzdXBlcmNlbGw6Z2FtZWFwaSIsImp0aSI6IjdlMGY3NDlkLTFjODAtNGZhMy1hMjA5LTNiNThlZWU3Yzg3OCIsImlhdCI6MTY2NDQ4Mzk3Mywic3ViIjoiZGV2ZWxvcGVyL2Q1MWY1YWE2LWEwNjktNmUzMC04NTJjLTA1OTFhYjAyNDQ2OCIsInNjb3BlcyI6WyJjbGFzaCJdLCJsaW1pdHMiOlt7InRpZXIiOiJkZXZlbG9wZXIvc2lsdmVyIiwidHlwZSI6InRocm90dGxpbmcifSx7ImNpZHJzIjpbIjIuODUuMTc5LjE0NCJdLCJ0eXBlIjoiY2xpZW50In1dfQ.ALJ5vOkEqV66ZqUxenR-nT5xtngJEJdnyYon7jm-MA0fU8l4Ffs-K661-DpShrKMqQgulhr_1cVMdB1qO5tQ0g'
 }
 
 def ProgInfo():
     __author__ = 'new92'
     __license__ = 'MIT'
-    __language__ = 'Python'
+    __prog_lang__ = 'Python'
     __lang__ = 'EN-us'
     __name__ = 'ClashofInfo'
-    __contributors__ = None
+    __contributors__ = 'None so far ...'
     __stars__ = 0
     __forks__ = 0
+    __lines_of_code__ = 370
     print("[+] Author: "+str(__author__))
     print("[+] License: "+str(__license__))
     print("[+] Programming language: "+str(__language__))
     print("[+] Program's language: "+str(__lang__))
     print("[+] Program's name: "+str(__name__))
-    print("[+] Contributors: "+str(__contributors__))
-    print("[+] Stars: "+str(__stars__))
-    print("[+] Forks: "+str(__forks__))
+    print("[+] Contributors on the Github repository: "+str(__contributors__))
+    print("[+] Github stars: "+str(__stars__))
+    print("[+] Github forks: "+str(__forks__))
+    print("[+] Lines of code: "+str(__lines_of_code__))
     exit(0)
 
 def GetUserInfo(tag):
@@ -220,7 +220,7 @@ def GetClanInfo(tag):
             print("[!] Sorry, invalid input !")
             sleep(1)
             count=int(input("[::] Please enter again the number of members to display: "))
-        page = requests.get(f"https://api.clashofclans.com/v1/clans/%23{tag}/members?limit={count}", headers=headers)
+        page = requests.get(f"https://api.clashofclans.com/v1/clans/%23{tag}/members?limit={count}")
         js = page.json()
         print("[+] Information: ")
         print("-" * 75)
@@ -239,7 +239,7 @@ def GetClanInfo(tag):
             print("[!] Sorry, invalid number !")
             sleep(1)
             count=int(input("[?] How many results to display (enter an integer number) ? "))
-        page = requests.get(f"https://api.clashofclans.com/v1/clans?name={name}&limit={count}", headers=headers)
+        page = requests.get(f"https://api.clashofclans.com/v1/clans?name={name}&limit={count}")
         js = page.json()
         wl_pub = "yes"
         for i in range(len(js['items'])):
@@ -311,9 +311,16 @@ def GetLeagueInfo(id):
 
 
 #Main program
-tprint("CLASH   OF   INFO", font='tarty1')
+print("""
+░█████╗░██╗░░░░░░█████╗░░██████╗██╗░░██╗   ░█████╗░███████╗   ██╗███╗░░██╗███████╗░█████╗░
+██╔══██╗██║░░░░░██╔══██╗██╔════╝██║░░██║   ██╔══██╗██╔════╝   ██║████╗░██║██╔════╝██╔══██╗
+██║░░╚═╝██║░░░░░███████║╚█████╗░███████║   ██║░░██║█████╗░░   ██║██╔██╗██║█████╗░░██║░░██║
+██║░░██╗██║░░░░░██╔══██║░╚═══██╗██╔══██║   ██║░░██║██╔══╝░░   ██║██║╚████║██╔══╝░░██║░░██║
+╚█████╔╝███████╗██║░░██║██████╔╝██║░░██║   ╚█████╔╝██║░░░░░   ██║██║░╚███║██║░░░░░╚█████╔╝
+░╚════╝░╚══════╝╚═╝░░╚═╝╚═════╝░╚═╝░░╚═╝   ░╚════╝░╚═╝░░░░░   ╚═╝╚═╝░░╚══╝╚═╝░░░░░░╚════╝░
+""")
 print("\n")
-print("[+] Github: @new92")
+print("[+] Github: https://www.github.com/new92")
 print("\n")
 print("[+] ClashofInfo: Program for getting information about clans, users, leagues and much more... :)")
 print("\n")
@@ -322,11 +329,11 @@ print("[2] Display info for a clan")
 print("[3] Display info for a league")
 print("[4] Display program's info and exit")
 print("[5] Exit")
-option=int(input("[::] Please enter the option: "))
+option=int(input("[::] Please enter the number: "))
 while option < 1 or option > 5 or option == None:
     print("[!] Sorry, invalid input !")
     sleep(1)
-    option=int(input("[::] Please enter again the option: "))
+    option=int(input("[::] Please enter again the number: "))
 if option == 1:
     id=str(input("[::] Please enter the tag of the user's account (without tag(#)): "))
     while id == None:
