@@ -50,7 +50,7 @@ def ProgInfo():
     print("[+] Contributors on the Github repository: "+str(__contributors__))
     print("[+] Github stars: "+str(__stars__))
     print("[+] Github forks: "+str(__forks__))
-    print("[+] Lines of code: "+str(__lines_of_code__))
+    print("[+] Number of lines: "+str(__lines_of_code__))
     exit(0)
 
 def GetUserInfo(tag):
