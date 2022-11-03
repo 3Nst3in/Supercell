@@ -1,6 +1,6 @@
 """
 Author: new92
-Github: @new92
+Github: https://www.github.com/new92
 This is a program designed with clash of clans API. 
 And its basic usage is to gather and display info about users, clans, leagues etc.
 """
@@ -51,7 +51,7 @@ def ProgInfo():
     print("[+] Github stars: "+str(__stars__))
     print("[+] Github forks: "+str(__forks__))
     print("[+] Number of lines: "+str(__lines_of_code__))
-    exit(0)
+    quit(0)
 
 def GetUserInfo(tag):
     print("\n")
