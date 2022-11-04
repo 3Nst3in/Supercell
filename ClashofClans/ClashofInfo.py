@@ -8,8 +8,8 @@ And its basic usage is to gather and display info about users, clans, leagues et
 try:
     import sys
     import platform
-    from time import sleep
     from os import system
+    from time import sleep
     import json
     import requests
 except ImportError as imp:
@@ -29,7 +29,7 @@ except ImportError as imp:
 
 headers = {
     'Accept': 'application/json',
-    'authorization': 'Bearer  ENTER YOUR API KEY HERE'
+    'authorization': 'Bearer    ENTER YOUR API KEY HERE'
 }
 
 def ProgInfo():
@@ -38,21 +38,13 @@ def ProgInfo():
     __prog_lang__ = 'Python'
     __lang__ = 'EN-us'
     __name__ = 'ClashofInfo'
-    __contributors__ = 'None so far ...'
-    __stars__ = 0
-    __forks__ = 0
     __lines_of_code__ = 366
     print("[+] Author: "+str(__author__))
     print("[+] License: "+str(__license__))
     print("[+] Programming language: "+str(__language__))
     print("[+] Program's language: "+str(__lang__))
     print("[+] Program's name: "+str(__name__))
-    print("[+] Contributors on the Github repository: "+str(__contributors__))
-    print("[+] Github stars: "+str(__stars__))
-    print("[+] Github forks: "+str(__forks__))
-    print("[+] Number of lines: "+str(__lines_of_code__))
-    quit(0)
-
+    print("[+] Lines of code: "+str(__lines_of_code__))
 def GetUserInfo(tag):
     print("\n")
     tag = tag.upper()
@@ -115,9 +107,6 @@ def GetUserInfo(tag):
     print("[+] User own's these troops: "+str(troops))
     print("[+] User own's these spells: "+str(spells))
     print("-" * 75)
-    sleep(30)
-    exit(0)
-
 def GetClanInfo(tag):
     print("\n")
     print("[1] Get and Display info for a clan")
@@ -212,7 +201,6 @@ def GetClanInfo(tag):
         else:
             pass
         print("-" * 75)
-
     elif option == 2:
         print("\n")
         count=int(input("[::] Please enter the number of members to display: "))
@@ -226,7 +214,6 @@ def GetClanInfo(tag):
         print("-" * 75)
         print(js['items'])
         print("-" * 75)
-    
     elif option == 3:
         print("\n")
         name=str(input("[::] Please enter the name of the clan: "))
@@ -266,10 +253,9 @@ def GetClanInfo(tag):
             print("[+] Required TownHall level: "+str(js['items']['requiredTownhallLevel']))
             print("[+] Chat language: "+str(js['items']['chatLanguage']['name']))
             print("[+] Number of members: "+str(js['items']['members']))
-
     else:
         print("[+] Exiting...")
-        exit(0)
+        quit(0)
 
 def GetLeagueInfo(id):
     print("\n")
@@ -307,7 +293,7 @@ def GetLeagueInfo(id):
         print("-" * 75)
     else:
         print("[+] Exiting...")
-        exit(0)
+        quit(0)
 
 
 #Main program
@@ -341,7 +327,6 @@ if option == 1:
         sleep(1)
         id=str(input("[::] Please enter again the tag of the user's account (without the tag(#)): "))
     GetUserInfo(id)
-
 elif option == 2:
     id=str(input("[::] Please enter the tag of the clan: "))
     while id == None:
@@ -349,7 +334,6 @@ elif option == 2:
         sleep(1)
         id=str(input("[::] Please enter again the tag of the clan: "))
     GetClanInfo(id)
-
 elif option == 3:
     id=str(input("[::] Please enter the ID of the league: "))
     while id == None:
@@ -363,4 +347,4 @@ elif option == 4:
 
 else:
     print("[+] Exiting...")
-    exit(0)
+    quit(0)
