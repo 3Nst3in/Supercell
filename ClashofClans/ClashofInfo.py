@@ -1,8 +1,7 @@
 """
 Author: new92
-Github: https://www.github.com/new92
-This is a program designed with clash of clans API. 
-And its basic usage is to gather and display info about users, clans, leagues etc.
+This is a script designed with Supercell API. 
+And it can be used to display info about a player, a clan, a league, an event etc.
 """
 
 try:
@@ -12,14 +11,24 @@ try:
     from time import sleep
     import json
     import requests
+    import os
 except ImportError as imp:
     print("[!] WARNING: Not all packages used in this program have been installed !")
     sleep(2)
-    print("[+] Ignoring Warning...")
+    print("[+] Ignoring warning...")
     sleep(1)
     if sys.platform.startswith('linux') == True:
-        system("sudo pip install -r requirements.txt")
-        pass
+        if os.geteuid() != 0:
+            print("[!] Root user not detected !")
+            sleep(2)
+            print("[+] Please enable root access with the command: sudo su")
+            sleep(2)
+            print("[+] And execute again the script !")
+            sleep(1)
+            exit(0)
+        else:
+            system("sudo pip install -r requirements.txt")
+            pass
     elif sys.platform == 'darwin':
         system("python -m pip install requirements.txt")
         pass
@@ -29,22 +38,26 @@ except ImportError as imp:
 
 headers = {
     'Accept': 'application/json',
-    'authorization': 'Bearer    ENTER YOUR API KEY HERE'
+    'authorization': 'Bearer <ENTER YOUR API TOKEN HERE>'
 }
 
 def ProgInfo():
-    __author__ = 'new92'
-    __license__ = 'MIT'
-    __prog_lang__ = 'Python'
-    __lang__ = 'EN-us'
-    __name__ = 'ClashofInfo'
-    __lines_of_code__ = 366
-    print("[+] Author: "+str(__author__))
-    print("[+] License: "+str(__license__))
-    print("[+] Programming language: "+str(__language__))
-    print("[+] Program's language: "+str(__lang__))
-    print("[+] Program's name: "+str(__name__))
-    print("[+] Lines of code: "+str(__lines_of_code__))
+    author = 'new92'
+    license_ = 'MIT'
+    lang = 'Python'
+    language = 'en-US'
+    name = 'ClashofInfo'
+    lines = 364
+    stars = 6
+    forks = 4
+    print("[+] Author: "+str(author))
+    print("[+] License: "+str(license))
+    print("[+] Program's language: "+str(lang))
+    print("[+] Language: "+str(language))
+    print("[+] Program's name: "+str(name))
+    print("[+] Lines of code: "+str(lines))
+    print("[+] Github repo stars: "+str(stars))
+    print("[+] Github repo forks: "+str(forks))
 def GetUserInfo(tag):
     print("\n")
     tag = tag.upper()
@@ -180,7 +193,7 @@ def GetClanInfo(tag):
         print("[+] VS battle points: "+str(clan_vs_points))
         print("[+] Required Trophies: "+str(req_trophies))
         print("[+] War frequency: "+str(warf))
-        print("[+] Current war win streak: "+str(www))
+        print("[+] Current war win streak: "+str(wws))
         print("[+] War wins: "+str(war_wins))
         print("[+] War ties: "+str(war_ties))
         print("[+] War losses: "+str(war_losses))
@@ -278,7 +291,7 @@ def GetLeagueInfo(id):
         print("[+] List of leagues: ")
         print("-" * 25)
         print("\n")
-        print(js[items])
+        print(js['items'])
     elif option == 2:
         page = requests.get("https://api.clashofclans.com/v1/leagues/"+str(id))
         js = page.json()
@@ -296,7 +309,7 @@ def GetLeagueInfo(id):
         quit(0)
 
 
-#Main program
+#Logo
 print("""
 ░█████╗░██╗░░░░░░█████╗░░██████╗██╗░░██╗   ░█████╗░███████╗   ██╗███╗░░██╗███████╗░█████╗░
 ██╔══██╗██║░░░░░██╔══██╗██╔════╝██║░░██║   ██╔══██╗██╔════╝   ██║████╗░██║██╔════╝██╔══██╗
@@ -305,10 +318,13 @@ print("""
 ╚█████╔╝███████╗██║░░██║██████╔╝██║░░██║   ╚█████╔╝██║░░░░░   ██║██║░╚███║██║░░░░░╚█████╔╝
 ░╚════╝░╚══════╝╚═╝░░╚═╝╚═════╝░╚═╝░░╚═╝   ░╚════╝░╚═╝░░░░░   ╚═╝╚═╝░░╚══╝╚═╝░░░░░░╚════╝░
 """)
+
+#Main program
 print("\n")
-print("[+] Github: https://www.github.com/new92")
+print("[+] Author: new92")
+print("[+] Github: @new92")
 print("\n")
-print("[+] ClashofInfo: Program for getting information about clans, users, leagues and much more... :)")
+print("[+] Description: Script for getting information about clans, users, leagues and much more... :)")
 print("\n")
 print("[1] Display info for a player")
 print("[2] Display info for a clan")
@@ -317,22 +333,22 @@ print("[4] Display program's info and exit")
 print("[5] Exit")
 option=int(input("[::] Please enter the number: "))
 while option < 1 or option > 5 or option == None:
-    print("[!] Sorry, invalid input !")
+    print("[!] Sorry, invalid number !")
     sleep(1)
     option=int(input("[::] Please enter again the number: "))
 if option == 1:
-    id=str(input("[::] Please enter the tag of the user's account (without tag(#)): "))
+    id=str(input("[::] Please enter the tag of the user's account (without the tag(#) symbol): "))
     while id == None:
-        print("[!] Invalid Tag !")
+        print("[!] Invalid tag !")
         sleep(1)
-        id=str(input("[::] Please enter again the tag of the user's account (without the tag(#)): "))
+        id=str(input("[::] Please enter again the tag of the user's account (without the tag(#) symbol): "))
     GetUserInfo(id)
 elif option == 2:
-    id=str(input("[::] Please enter the tag of the clan: "))
+    id=str(input("[::] Please enter the tag of the clan (without the tag(#) symbol): "))
     while id == None:
-        print("[!] Invalid Tag !")
+        print("[!] Invalid tag !")
         sleep(1)
-        id=str(input("[::] Please enter again the tag of the clan: "))
+        id=str(input("[::] Please enter again the tag of the clan (without the tag(#) symbol): "))
     GetClanInfo(id)
 elif option == 3:
     id=str(input("[::] Please enter the ID of the league: "))
@@ -341,10 +357,8 @@ elif option == 3:
         sleep(1)
         id=str(input("[::] Please enter again the ID of the league: "))
     GetLeagueInfo(id)
-
 elif option == 4:
     ProgInfo()
-
 else:
     print("[+] Exiting...")
     quit(0)
