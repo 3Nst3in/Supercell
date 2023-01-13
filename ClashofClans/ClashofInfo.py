@@ -1,7 +1,8 @@
 """
 Author: new92
-This is a script designed with Supercell API. 
-And it can be used to display info about a player, a clan, a league, an event etc.
+Github: @new92
+Script built using Supercell's API.
+It can be used to display info about a player, a clan, a league, an event etc.
 """
 
 try:
@@ -21,21 +22,16 @@ except ImportError as imp:
         if os.geteuid() != 0:
             print("[!] Root user not detected !")
             sleep(2)
-            print("[+] Please enable root access with the command: sudo su")
-            sleep(2)
-            print("[+] And execute again the script !")
+            print("[+] Trying to enable root user...")
             sleep(1)
-            exit(0)
+            system(sudo su)
+            system("sudo pip install -r requirements.txt")
         else:
             system("sudo pip install -r requirements.txt")
-            pass
     elif sys.platform == 'darwin':
         system("python -m pip install requirements.txt")
-        pass
     elif platform.system() == 'Windows':
         system("pip install -r requirements.txt")
-        pass
-
 headers = {
     'Accept': 'application/json',
     'authorization': 'Bearer <ENTER YOUR API TOKEN HERE>'
@@ -324,7 +320,7 @@ print("\n")
 print("[+] Author: new92")
 print("[+] Github: @new92")
 print("\n")
-print("[+] Description: Script for getting information about clans, users, leagues and much more... :)")
+print("[+] Description: Script for getting information (on Clash of Clans) about clans, users, leagues and much more... :)")
 print("\n")
 print("[1] Display info for a player")
 print("[2] Display info for a clan")
