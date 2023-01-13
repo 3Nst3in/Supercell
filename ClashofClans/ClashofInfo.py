@@ -43,7 +43,7 @@ def ProgInfo():
     lang = 'Python'
     language = 'en-US'
     name = 'ClashofInfo'
-    lines = 364
+    lines = 361
     stars = 6
     forks = 4
     print("[+] Author: "+str(author))
