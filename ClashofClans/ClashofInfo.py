@@ -48,12 +48,13 @@ def ProgInfo():
     forks = 4
     print("[+] Author: "+str(author))
     print("[+] License: "+str(license))
-    print("[+] Program's language: "+str(lang))
-    print("[+] Language: "+str(language))
+    print("[+] Programming language(s) used: "+str(lang))
+    print("[+] Language(s): "+str(language))
     print("[+] Program's name: "+str(name))
     print("[+] Lines of code: "+str(lines))
     print("[+] Github repo stars: "+str(stars))
     print("[+] Github repo forks: "+str(forks))
+    
 def GetUserInfo(tag):
     print("\n")
     tag = tag.upper()
