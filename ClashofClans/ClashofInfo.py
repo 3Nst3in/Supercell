@@ -311,13 +311,11 @@ print("""
 ╚█████╔╝███████╗██║░░██║██████╔╝██║░░██║   ╚█████╔╝██║░░░░░   ██║██║░╚███║██║░░░░░╚█████╔╝
 ░╚════╝░╚══════╝╚═╝░░╚═╝╚═════╝░╚═╝░░╚═╝   ░╚════╝░╚═╝░░░░░   ╚═╝╚═╝░░╚══╝╚═╝░░░░░░╚════╝░
 """)
-
-#Main program
 print("\n")
 print("[+] Author: new92")
 print("[+] Github: @new92")
 print("\n")
-print("[+] Description: Script for getting information (on Clash of Clans) about clans, users, leagues and much more... :)")
+print("[+] Description: Script for getting information (on Clash of Clans videogame) about clans, users, leagues and much more... :)")
 print("\n")
 print("[1] Display info for a player")
 print("[2] Display info for a clan")
