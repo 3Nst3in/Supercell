@@ -128,11 +128,11 @@ def GetClanInfo(tag):
     print("[2] Get and Display info for the members of a clan")
     print("[3] Search clans")
     print("[4] Exit")
-    option=int(input("[::] Please enter the number of the option: "))
+    option=int(input("[::] Please enter a number (from the above ones): "))
     while option < 1 or option > 4 or option == None:
         print("[!] Invalid number !")
         sleep(1)
-        option=int(input("[::] Please enter again the number of the option: "))
+        option=int(input("[::] Please enter again the number: "))
     if option == 1:
         disp_mems_info = False
         disp_labs = False
@@ -269,7 +269,7 @@ def GetLeagueInfo(id):
     print("[1] Display a list of leagues")
     print("[2] Get and Display info about a league")
     print("[3] Exit")
-    option=int(input("[::] Please enter the number of the option: "))
+    option=int(input("[::] Please enter a number (from the above ones): "))
     while option < 1 or option > 3 or option == None:
         print("[!] Sorry, invalid number !")
         sleep(1)
@@ -322,7 +322,7 @@ print("[2] Display info for a clan")
 print("[3] Display info for a league")
 print("[4] Display program's info and exit")
 print("[5] Exit")
-option=int(input("[::] Please enter the number: "))
+option=int(input("[::] Please enter a number (from the above ones): "))
 while option < 1 or option > 5 or option == None:
     print("[!] Sorry, invalid number !")
     sleep(1)
