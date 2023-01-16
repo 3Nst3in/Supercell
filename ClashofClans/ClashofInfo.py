@@ -181,7 +181,7 @@ def GetClanInfo(tag):
         req_vs_trophies = js['requiredVersusTrophies']
         req_th_lvl = js['requiredTownhallLevel']
         chat_lang_name = js['chatLanguage']['name']
-        print("-" * 75)
+        print("-" * 40)
         print("[+] Name: "+str(name))
         print("[+] Type: "+str(clan_type))
         print("[+] Description: "+str(description))
@@ -205,15 +205,9 @@ def GetClanInfo(tag):
         print("[+] Chat language: "+str(chat_lang_name))
         if disp_labs == True:
             print(js['labels'])
-            pass
-        else:
-            pass
         if clan_cap == True:
             print(js['clanCapital'])
-            pass
-        else:
-            pass
-        print("-" * 75)
+        print("-" * 40)
     elif option == 2:
         print("\n")
         count=int(input("[::] Please enter the number of members to display: "))
@@ -224,9 +218,11 @@ def GetClanInfo(tag):
         page = requests.get(f"https://api.clashofclans.com/v1/clans/%23{tag}/members?limit={count}")
         js = page.json()
         print("[+] Information: ")
-        print("-" * 75)
+        print("-" * 40)
+        print("\n")
         print(js['items'])
-        print("-" * 75)
+        print("\n")
+        print("-" * 40)
     elif option == 3:
         print("\n")
         name=str(input("[::] Please enter the name of the clan: "))
@@ -256,9 +252,7 @@ def GetClanInfo(tag):
             print("[+] War wins: "+str(js['items']['warWins']))
             print("[+] War ties: "+str(js['items']['warTies']))
             print("[+] War losses: "+str(js['items']['warLosses']))
-            if js['items']['isWarLogPublic'] == True:
-                pass
-            else:
+            if not js['items']['isWarLogPublic']:
                 wl_pub = "no"
             print("[+] Is the war log public ? "+str(wl_pub))
             print("[+] War league: "+str(js['items']['warLeague']['name']))
@@ -289,7 +283,7 @@ def GetLeagueInfo(id):
         page = requests.get("https://api.clashofclans.com/v1/leagues?limit="+str(count), headers=headers)
         js = page.json()
         print("[+] List of leagues: ")
-        print("-" * 25)
+        print("-" * 30)
         print("\n")
         print(js['items'])
     elif option == 2:
@@ -299,17 +293,16 @@ def GetLeagueInfo(id):
         small_icon_url = js['iconUrls']['small']
         medium_icon_url = js['iconUrls']['medium']
 
-        print("-" * 75)
+        print("-" * 40)
         print("[+] Name: "+str(name))
-        print("[+] Small icon url: "+str(small_icon_url))
-        print("[+] Medium icon url: "+str(medium_icon_url))
-        print("-" * 75)
+        print("[+] Small size icon url: "+str(small_icon_url))
+        print("[+] Medium size icon url: "+str(medium_icon_url))
+        print("-" * 40)
     else:
         print("[+] Exiting...")
         quit(0)
 
 
-#Logo
 print("""
 ░█████╗░██╗░░░░░░█████╗░░██████╗██╗░░██╗   ░█████╗░███████╗   ██╗███╗░░██╗███████╗░█████╗░
 ██╔══██╗██║░░░░░██╔══██╗██╔════╝██║░░██║   ██╔══██╗██╔════╝   ██║████╗░██║██╔════╝██╔══██╗
