@@ -46,11 +46,11 @@ headers = {
 
 def ProgInfo():
     author = 'new92'
-    license_ = 'MIT'
+    license = 'MIT'
     lang = 'Python'
     language = 'en-US'
     name = 'ClashofInfo'
-    lines = 361
+    lines = 368
     stars = 6
     forks = 4
     print("[+] Author: "+str(author))
@@ -93,11 +93,9 @@ def GetUserInfo(tag):
     labels = js['labels']
     troops = js['troops']
     spells = js['spells']
-    if warpf == 'in':
-        war = True
-    else:
+    if warpf != 'in':
         war = False
-    print("-" * 75)
+    print("-" * 40)
     print("[+] Name: "+str(name))
     print("[+] TownHall level: "+str(thlvl))
     print("[+] Experience level: "+str(explvl))
@@ -123,7 +121,7 @@ def GetUserInfo(tag):
     print("[+] User's label(s): "+str(labels))
     print("[+] User own's these troops: "+str(troops))
     print("[+] User own's these spells: "+str(spells))
-    print("-" * 75)
+    print("-" * 40)
 def GetClanInfo(tag):
     print("\n")
     print("[1] Get and Display info for a clan")
@@ -167,10 +165,8 @@ def GetClanInfo(tag):
             disp_labels=str(input("[?] Do you want to display the labels of the clan ? [yes/no]"))
         if disp_labels == "y" or disp_labels == "yes" or disp_labels == "Yes" or disp_labels == "YES":
             disp_labs = True
-            pass
         else:
             print("[OK]")
-            pass
         disp_clan_cap=str(input("[?] Do you want to display info about clan capital ? [yes/no] "))
         while disp_clan_cap == None or disp_clan_cap != "y" and disp_clan_cap != "yes" and disp_clan_cap != "Yes" and disp_clan_cap != "YES":
             print("[!] Sorry invalid input !")
