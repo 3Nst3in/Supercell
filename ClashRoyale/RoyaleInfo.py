@@ -2,6 +2,7 @@
 Author: new92
 Script for displaying info for players, clans, tournaments, cards etc. in Clash Royale.
 Built with Python and Supercell API.
+Hope you like it :)
 """
 
 try:
@@ -44,7 +45,7 @@ except ImportError as imp:
 
 headers = {
     'Accept': 'application/json',
-    'authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiIsImtpZCI6IjI4YTMxOGY3LTAwMDAtYTFlYi03ZmExLTJjNzQzM2M2Y2NhNSJ9.eyJpc3MiOiJzdXBlcmNlbGwiLCJhdWQiOiJzdXBlcmNlbGw6Z2FtZWFwaSIsImp0aSI6IjhjNzU0MDIxLTMzZGQtNDhjZC1iYzI3LTgwMjE4NjkxYjViYiIsImlhdCI6MTY2NDQ4OTQ3OSwic3ViIjoiZGV2ZWxvcGVyLzRhYTA2OTVkLWRmNTUtMTNlZi1jMDBlLWIwZGZjOGU5Mzk4OCIsInNjb3BlcyI6WyJyb3lhbGUiXSwibGltaXRzIjpbeyJ0aWVyIjoiZGV2ZWxvcGVyL3NpbHZlciIsInR5cGUiOiJ0aHJvdHRsaW5nIn0seyJjaWRycyI6WyIyLjg1LjE3OS4xNDQiXSwidHlwZSI6ImNsaWVudCJ9XX0.2E5962gpklW5xqgla2AegJJW4jwsRe93tEwhny1jmdpRqRLhAc3AivTyuKLkO4Ho_FPY7olYayz8oGTUSfjVUg'
+    'authorization': 'Bearer <ENTER YOUR API TOKEN HERE>'
 }
 
 ANS = ['yes','YES','Yes','y','Y','YeS','yEs','yES','YEs','yeS']
