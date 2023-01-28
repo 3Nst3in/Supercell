@@ -55,20 +55,20 @@ def ProgInfo():
     author = 'new92'
     lang = 'en-US'
     name = 'RoyaleInfo'
-    prog_lang = 'Python'
+    language = 'Python'
     license = 'MIT'
-    lines = 525
+    lines = 529
     api = 'Clash Royale API'
     stars = 6
     forks = 4
-    print("[+] Author: "+str(__author__))
-    print("[+] Github: @"+str(__author__))
-    print("[+] Natural Language: "+str(__lang__))
-    print("[+] Program's name: "+str(__name__))
-    print("[+] Programming language(s) used: "+str(__prog_lang__))
-    print("[+] License: "+str(__license__))
+    print("[+] Author: "+str(author))
+    print("[+] Github: @"+str(author))
+    print("[+] Natural Language: "+str(lang))
+    print("[+] Program's name: "+str(name))
+    print("[+] Programming language(s) used: "+str(language))
+    print("[+] License: "+str(license))
     print("[+] API used: "+str(api))
-    print("[+] Number of lines: "+str(__ln__num__))
+    print("[+] Number of lines: "+str(lines))
     print("[+] Github repository stars: "+str(stars))
     print("[+] Github repository forks: "+str(forks))
 
