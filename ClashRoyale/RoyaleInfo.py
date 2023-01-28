@@ -57,7 +57,7 @@ def ProgInfo():
     name = 'RoyaleInfo'
     language = 'Python'
     license = 'MIT'
-    lines = 531
+    lines = 533
     api = 'Clash Royale API'
     size = 27.5
     stars = 6
@@ -529,3 +529,5 @@ def main():
         print("See you next time 👋")
         sleep(1)
         exit(0)
+if __name__ == '__main__':
+    main()
