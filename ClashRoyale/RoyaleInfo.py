@@ -1,7 +1,7 @@
 """
 Author: new92
 Script for displaying info for players, clans, tournaments, cards etc. in Clash Royale.
-Built with Python and Supercell API.
+Built with Python and Supercell's API.
 Hope you like it :)
 """
 
