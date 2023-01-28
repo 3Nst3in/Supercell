@@ -354,5 +354,8 @@ elif option == 3:
 elif option == 4:
     ProgInfo()
 else:
-    print("[+] Exiting...")
-    quit(0)
+    print("[+] Thank you for using my script 😁")
+    sleep(2)
+    print("See you next time 👋")
+    sleep(1)
+    exit(0)
