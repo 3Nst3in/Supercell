@@ -130,7 +130,6 @@ def GetClanInfo(tag):
     print("[1] Get and Display info for a clan")
     print("[2] Get and Display info for the members of a clan")
     print("[3] Search clans")
-    print("[4] Exit")
     option=int(input("[::] Please enter a number (from the above ones): "))
     while option < 1 or option > 4 or option == None:
         print("[!] Invalid number !")
@@ -177,10 +176,8 @@ def GetClanInfo(tag):
             disp_clan_cap=str(input("[?] Do you want to display info about clan capital ? [yes/no] "))
         if disp_clan_cap == "y" or disp_clan_cap == "yes" or disp_clan_cap == "Yes" or disp_clan_cap == "YES":
             clan_cap = True
-            pass
         else:
             print("[OK]")
-            pass
         req_vs_trophies = js['requiredVersusTrophies']
         req_th_lvl = js['requiredTownhallLevel']
         chat_lang_name = js['chatLanguage']['name']
@@ -218,7 +215,7 @@ def GetClanInfo(tag):
             print("[!] Sorry, invalid input !")
             sleep(1)
             count=int(input("[::] Please enter again the number of members to display: "))
-        page = requests.get(f"https://api.clashofclans.com/v1/clans/%23{tag}/members?limit={count}")
+        page = requests.get(f"https://api.clashofclans.com/v1/clans/%23{tag}/members?limit={count}", headers=headers)
         js = page.json()
         print("[+] Information: ")
         print("-" * 40)
@@ -238,7 +235,7 @@ def GetClanInfo(tag):
             print("[!] Sorry, invalid number !")
             sleep(1)
             count=int(input("[?] How many results to display (enter an integer number) ? "))
-        page = requests.get(f"https://api.clashofclans.com/v1/clans?name={name}&limit={count}")
+        page = requests.get(f"https://api.clashofclans.com/v1/clans?name={name}&limit={count}", headers=headers)
         js = page.json()
         wl_pub = "yes"
         for i in range(len(js['items'])):
@@ -263,15 +260,11 @@ def GetClanInfo(tag):
             print("[+] Required TownHall level: "+str(js['items']['requiredTownhallLevel']))
             print("[+] Chat language: "+str(js['items']['chatLanguage']['name']))
             print("[+] Number of members: "+str(js['items']['members']))
-    else:
-        print("[+] Exiting...")
-        quit(0)
 
 def GetLeagueInfo(id):
     print("\n")
     print("[1] Display a list of leagues")
-    print("[2] Get and Display info about a league")
-    print("[3] Exit")
+    print("[2] Display info about a league")
     option=int(input("[::] Please enter a number (from the above ones): "))
     while option < 1 or option > 3 or option == None:
         print("[!] Sorry, invalid number !")
@@ -290,7 +283,7 @@ def GetLeagueInfo(id):
         print("\n")
         print(js['items'])
     elif option == 2:
-        page = requests.get("https://api.clashofclans.com/v1/leagues/"+str(id))
+        page = requests.get("https://api.clashofclans.com/v1/leagues/"+str(id), headers=headers)
         js = page.json()
         name = js['name']
         small_icon_url = js['iconUrls']['small']
@@ -329,27 +322,33 @@ option=int(input("[::] Please enter a number (from the above ones): "))
 while option < 1 or option > 5 or option == None:
     print("[!] Sorry, invalid number !")
     sleep(1)
-    option=int(input("[::] Please enter again the number: "))
+    option=int(input("[::] Please enter again a number (from the above ones): "))
 if option == 1:
-    id=str(input("[::] Please enter the tag of the user's account (without the tag(#) symbol): "))
-    while id == None:
+    id=str(input("[::] Please enter the tag of the user's account (please do not include the tag(#) symbol): "))
+    while id == None or id[0] == '#':
         print("[!] Invalid tag !")
         sleep(1)
-        id=str(input("[::] Please enter again the tag of the user's account (without the tag(#) symbol): "))
+        if id[0] == '#':
+            print("[!] Please DO NOT include the tag (#) symbol in your next input !")
+        id=str(input("[::] Please enter again the tag of the user's account (do not include the tag(#) symbol): "))
     GetUserInfo(id)
 elif option == 2:
-    id=str(input("[::] Please enter the tag of the clan (without the tag(#) symbol): "))
-    while id == None:
+    id=str(input("[::] Please enter the tag of the user's account (please do not include the tag(#) symbol): "))
+    while id == None or id[0] == '#':
         print("[!] Invalid tag !")
         sleep(1)
-        id=str(input("[::] Please enter again the tag of the clan (without the tag(#) symbol): "))
+        if id[0] == '#':
+            print("[!] Please DO NOT include the tag (#) symbol in your next input !")
+        id=str(input("[::] Please enter again the tag of the user's account (do not include the tag(#) symbol): "))
     GetClanInfo(id)
 elif option == 3:
-    id=str(input("[::] Please enter the ID of the league: "))
-    while id == None:
-        print("[!] Invalid ID !")
+    id=str(input("[::] Please enter the tag of the user's account (please do not include the tag(#) symbol): "))
+    while id == None or id[0] == '#':
+        print("[!] Invalid tag !")
         sleep(1)
-        id=str(input("[::] Please enter again the ID of the league: "))
+        if id[0] == '#':
+            print("[!] Please DO NOT include the tag (#) symbol in your next input !")
+        id=str(input("[::] Please enter again the tag of the user's account (do not include the tag(#) symbol): "))
     GetLeagueInfo(id)
 elif option == 4:
     ProgInfo()
