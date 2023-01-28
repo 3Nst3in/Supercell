@@ -52,6 +52,7 @@ def ProgInfo():
     name = 'ClashofInfo'
     api = 'Clash of Clans API'
     lines = 360
+    size = 16.5
     stars = 6
     forks = 4
     print("[+] Author: "+str(author))
@@ -62,6 +63,7 @@ def ProgInfo():
     print("[+] Program's name: "+str(name))
     print("[+] Lines of code: "+str(lines))
     print("[+] API used: "+str(api))
+    print("[+] File size: "+str(size)+"KB")
     print("[+] Github repo stars: "+str(stars))
     print("[+] Github repo forks: "+str(forks))
     
