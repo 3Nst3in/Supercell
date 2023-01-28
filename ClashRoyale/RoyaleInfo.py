@@ -57,8 +57,9 @@ def ProgInfo():
     name = 'RoyaleInfo'
     language = 'Python'
     license = 'MIT'
-    lines = 529
+    lines = 531
     api = 'Clash Royale API'
+    size = 27.4
     stars = 6
     forks = 4
     print("[+] Author: "+str(author))
@@ -68,6 +69,7 @@ def ProgInfo():
     print("[+] Programming language(s) used: "+str(language))
     print("[+] License: "+str(license))
     print("[+] API used: "+str(api))
+    print("[+] File size: "+str(size)+"kb")
     print("[+] Number of lines: "+str(lines))
     print("[+] Github repository stars: "+str(stars))
     print("[+] Github repository forks: "+str(forks))
