@@ -50,6 +50,7 @@ def ProgInfo():
     lang = 'Python'
     language = 'en-US'
     name = 'ClashofInfo'
+    api = 'Clash of Clans API'
     lines = 368
     stars = 6
     forks = 4
@@ -59,6 +60,7 @@ def ProgInfo():
     print("[+] Language(s): "+str(language))
     print("[+] Program's name: "+str(name))
     print("[+] Lines of code: "+str(lines))
+    print("[+] API used: "+str(api))
     print("[+] Github repo stars: "+str(stars))
     print("[+] Github repo forks: "+str(forks))
     
