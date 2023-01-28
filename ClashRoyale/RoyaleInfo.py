@@ -2,7 +2,6 @@
 Author: new92
 Github: @new92
 Script for displaying info for players, clans, tournaments, cards etc. in Clash Royale.
-Built with Python and Supercell's API.
 Hope you like it :)
 """
 
@@ -53,19 +52,22 @@ ANS = ['yes','YES','Yes','y','Y','YeS','yEs','yES','YEs','yeS']
 NANS = ['no','NO','n','N','No','nO']
 
 def ProgInfo():
-    __author__ = 'new92'
-    __lang__ = 'en-US'
-    __name__ = 'RoyaleInfo'
-    __prog_lang__ = 'Python'
-    __license__ = 'MIT'
-    __ln__num__ = 525
+    author = 'new92'
+    lang = 'en-US'
+    name = 'RoyaleInfo'
+    prog_lang = 'Python'
+    license = 'MIT'
+    lines = 525
+    api = 'Clash Royale API'
     stars = 6
     forks = 4
     print("[+] Author: "+str(__author__))
+    print("[+] Github: @"+str(__author__))
     print("[+] Natural Language: "+str(__lang__))
     print("[+] Program's name: "+str(__name__))
     print("[+] Programming language(s) used: "+str(__prog_lang__))
     print("[+] License: "+str(__license__))
+    print("[+] API used: "+str(api))
     print("[+] Number of lines: "+str(__ln__num__))
     print("[+] Github repository stars: "+str(stars))
     print("[+] Github repository forks: "+str(forks))
