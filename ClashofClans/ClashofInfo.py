@@ -301,62 +301,71 @@ def GetLeagueInfo(id):
         quit(0)
 
 
-print("""
+def Logo():
+    return """
 ░█████╗░██╗░░░░░░█████╗░░██████╗██╗░░██╗   ░█████╗░███████╗   ██╗███╗░░██╗███████╗░█████╗░
 ██╔══██╗██║░░░░░██╔══██╗██╔════╝██║░░██║   ██╔══██╗██╔════╝   ██║████╗░██║██╔════╝██╔══██╗
 ██║░░╚═╝██║░░░░░███████║╚█████╗░███████║   ██║░░██║█████╗░░   ██║██╔██╗██║█████╗░░██║░░██║
 ██║░░██╗██║░░░░░██╔══██║░╚═══██╗██╔══██║   ██║░░██║██╔══╝░░   ██║██║╚████║██╔══╝░░██║░░██║
 ╚█████╔╝███████╗██║░░██║██████╔╝██║░░██║   ╚█████╔╝██║░░░░░   ██║██║░╚███║██║░░░░░╚█████╔╝
 ░╚════╝░╚══════╝╚═╝░░╚═╝╚═════╝░╚═╝░░╚═╝   ░╚════╝░╚═╝░░░░░   ╚═╝╚═╝░░╚══╝╚═╝░░░░░░╚════╝░
-""")
-print("\n")
-print("[+] Author: new92")
-print("[+] Github: @new92")
-print("\n")
-print("[+] Description: Script for getting information (on Clash of Clans videogame) about clans, users, leagues and much more... :)")
-print("\n")
-print("[1] Display info for a player")
-print("[2] Display info for a clan")
-print("[3] Display info for a league")
-print("[4] Display program's info and exit")
-print("[5] Exit")
-option=int(input("[::] Please enter a number (from the above ones): "))
-while option < 1 or option > 5 or option == None:
-    print("[!] Sorry, invalid number !")
-    sleep(1)
-    option=int(input("[::] Please enter again a number (from the above ones): "))
-if option == 1:
-    id=str(input("[::] Please enter the tag of the user's account (please do not include the tag(#) symbol): "))
-    while id == None or id[0] == '#':
-        print("[!] Invalid tag !")
+"""
+
+def main():
+    Logo()
+    print("\n")
+    print("[+] Author: new92")
+    print("[+] Github: @new92")
+    print("\n")
+    print("[+] Description: Script for getting information (on Clash of Clans videogame) about clans, users, leagues and much more... :)")
+    print("\n")
+    print("[1] Display info for a player")
+    print("[2] Display info for a clan")
+    print("[3] Display info for a league")
+    print("[4] Display program's info and exit")
+    print("[5] Exit")
+    option=int(input("[::] Please enter a number (from the above ones): "))
+    while option < 1 or option > 5 or option == None:
+        print("[!] Sorry, invalid number !")
         sleep(1)
-        if id[0] == '#':
-            print("[!] Please DO NOT include the tag (#) symbol in your next input !")
-        id=str(input("[::] Please enter again the tag of the user's account (do not include the tag(#) symbol): "))
-    GetUserInfo(id)
-elif option == 2:
-    id=str(input("[::] Please enter the tag of the user's account (please do not include the tag(#) symbol): "))
-    while id == None or id[0] == '#':
-        print("[!] Invalid tag !")
+        option=int(input("[::] Please enter again a number (from the above ones): "))
+    if option == 1:
+        id=str(input("[::] Please enter the tag of the user's account (please do not include the tag(#) symbol): "))
+        while id == None or id[0] == '#':
+            print("[!] Invalid tag !")
+            sleep(1)
+            if id[0] == '#':
+                print("[!] Please DO NOT include the tag (#) symbol in your next input !")
+            id=str(input("[::] Please enter again the tag of the user's account (do not include the tag(#) symbol): "))
+        GetUserInfo(id)
+    elif option == 2:
+        id=str(input("[::] Please enter the tag of the user's account (please do not include the tag(#) symbol): "))
+        while id == None or id[0] == '#':
+            print("[!] Invalid tag !")
+            sleep(1)
+            if id[0] == '#':
+                print("[!] Please DO NOT include the tag (#) symbol in your next input !")
+            id=str(input("[::] Please enter again the tag of the user's account (do not include the tag(#) symbol): "))
+        GetClanInfo(id)
+    elif option == 3:
+        id=str(input("[::] Please enter the tag of the user's account (please do not include the tag(#) symbol): "))
+        while id == None or id[0] == '#':
+            print("[!] Invalid tag !")
+            sleep(1)
+            if id[0] == '#':
+                print("[!] Please DO NOT include the tag (#) symbol in your next input !")
+            id=str(input("[::] Please enter again the tag of the user's account (do not include the tag(#) symbol): "))
+        GetLeagueInfo(id)
+    elif option == 4:
+        ProgInfo()
+    else:
+        print("[+] Thank you for using my script 😁")
+        sleep(2)
+        print("See you next time 👋")
         sleep(1)
-        if id[0] == '#':
-            print("[!] Please DO NOT include the tag (#) symbol in your next input !")
-        id=str(input("[::] Please enter again the tag of the user's account (do not include the tag(#) symbol): "))
-    GetClanInfo(id)
-elif option == 3:
-    id=str(input("[::] Please enter the tag of the user's account (please do not include the tag(#) symbol): "))
-    while id == None or id[0] == '#':
-        print("[!] Invalid tag !")
-        sleep(1)
-        if id[0] == '#':
-            print("[!] Please DO NOT include the tag (#) symbol in your next input !")
-        id=str(input("[::] Please enter again the tag of the user's account (do not include the tag(#) symbol): "))
-    GetLeagueInfo(id)
-elif option == 4:
-    ProgInfo()
-else:
-    print("[+] Thank you for using my script 😁")
-    sleep(2)
-    print("See you next time 👋")
-    sleep(1)
-    exit(0)
+        exit(0)
+
+if __name__ == '__main__':
+    main()
+        
+        
