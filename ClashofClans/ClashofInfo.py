@@ -1,0 +1,500 @@
+"""
+Author: new92
+Github: @new92
+
+Script for displaying info for players, clans, leagues etc. in the famous game: Clash of Clans.
+Hope you enjoy it :)
+"""
+
+try:
+    import sys
+    import platform
+    from os import system
+    from time import sleep
+    import json
+    import requests
+    import os
+except ImportError as imp:
+    print("[!] WARNING: Not all packages used in this program have been installed !")
+    sleep(2)
+    print("[+] Ignoring warning...")
+    sleep(1)
+    if sys.platform.startswith('linux'):
+        if os.geteuid() != 0:
+            print("[!] Root user not detected !")
+            sleep(2)
+            print("[+] Trying to enable root user...")
+            sleep(1)
+            system("sudo su")
+            try:
+                system("sudo pip install -r requirements.txt")
+            except Exception as ex:
+                print("[!] Error !")
+                sleep(1)
+                print(ex)
+                sleep(2)
+                print("[+] Exiting...")
+                quit(0)
+        else:
+            system("sudo pip install -r requirements.txt")
+    elif sys.platform == 'darwin':
+        system("python -m pip install requirements.txt")
+    elif platform.system() == 'Windows':
+        system("pip install -r requirements.txt")
+
+headers = {
+    'Accept': 'application/json',
+    'authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiIsImtpZCI6IjI4YTMxOGY3LTAwMDAtYTFlYi03ZmExLTJjNzQzM2M2Y2NhNSJ9.eyJpc3MiOiJzdXBlcmNlbGwiLCJhdWQiOiJzdXBlcmNlbGw6Z2FtZWFwaSIsImp0aSI6ImQ4NDk5OThmLThlZjUtNDZiZC05ZjA1LWMyYWI0OTY2MThhNCIsImlhdCI6MTY3NDkwNDU0Niwic3ViIjoiZGV2ZWxvcGVyLzRhYTA2OTVkLWRmNTUtMTNlZi1jMDBlLWIwZGZjOGU5Mzk4OCIsInNjb3BlcyI6WyJyb3lhbGUiXSwibGltaXRzIjpbeyJ0aWVyIjoiZGV2ZWxvcGVyL3NpbHZlciIsInR5cGUiOiJ0aHJvdHRsaW5nIn0seyJjaWRycyI6WyI5NC42Ny4xNDkuMjAzIl0sInR5cGUiOiJjbGllbnQifV19.9JDUJOfvGhLRcyaXb4xQekTo7_2hZ8dlqLQ3K1J3PvMqo_CsthANvyk66QYf93IItae0k0auDqDwI6Pz-ht0EA'
+}
+
+def ProgInfo():
+    if platform.system() == 'Windows':
+        system("cls")
+    else:
+        system("clear")
+    author = 'new92'
+    license = 'MIT'
+    lang = 'Python'
+    language = 'en-US'
+    name = 'ClashofInfo'
+    api = 'Clash of Clans API'
+    lines = 360
+    size = 16.5
+    stars = 6
+    forks = 4
+    print("[+] Author: "+str(author))
+    print("[+] Github: @"+str(author))
+    print("[+] License: "+str(license))
+    print("[+] Programming language(s) used: "+str(lang))
+    print("[+] Language(s): "+str(language))
+    print("[+] Program's name: "+str(name))
+    print("[+] Lines of code: "+str(lines))
+    print("[+] API used: "+str(api))
+    print("[+] File size: "+str(size)+"KB")
+    print("[+] Github repo stars: "+str(stars))
+    print("[+] Github repo forks: "+str(forks))
+
+ANS = ["yes","YES","Yes","y","Y","YeS","yEs","YEs","yES"]
+NANS = ["no","NO","No","n","N","nO"]
+
+def Player(tag):
+    if platform.system() == 'Windows':
+        system("cls")
+    else:
+        system("clear")
+    tag = tag.upper()
+    war = ''
+    page = requests.get("https://api.clashofclans.com/v1/players/%23"+str(tag), headers=headers)
+    js = page.json()
+    if js['role'] == 'admin':
+        role = 'Elder'
+    elif js['role'] == 'coLeader':
+        role = 'Co-Leader'
+    else:
+        role = 'Leader'
+    print("-" * 45)
+    print("[+] Name: "+str(js['name']))
+    print("[+] Townhall level: "+str(js['townHallLevel']))
+    print("[+] Experience level: "+str(js['expLevel']))
+    print("[+] Number of trophies (in Home Village): "+str(js['trophies']))
+    print("[+] Highest number of trophies from multiplayer battles player reached: "+str(js['bestTrophies']))
+    print("[+] Stars from war: "+str(js['warStars']))
+    print("[+] Attack wins: "+str(js['attackWins']))
+    print("[+] Defence wins: "+str(js['defenseWins']))
+    print("[+] Builderhall level: "+str(js['builderHallLevel']))
+    print("[+] Number of trophies (Builder Base): "+str(js['versusTrophies']))
+    print("[+] Highest number of trophies from versus battles player reached: "+str(js['bestVersusTrophies']))
+    print("[+] Versus battles - number of wins: "+str(js['versusBattleWins']))
+    print("[+] Player's role in clan: "+str(role))
+    print("[+] Donations made: "+str(js['donations']))
+    print("[+] Troops received: "+str(js['donationsReceived']))
+    print("[+] Clan capital contributions: "+str(js['clanCapitalContributions']))
+    print("[+] Clan's tag: "+str(js['clan']['tag']))
+    print("[+] Clan's name: "+str(js['clan']['name']))
+    print("[+] Clan's level: "+str(js['clan']['clanLevel']))
+    print("[+] Clan's icon: "+str(js['clan']['badgeUrls']['medium']))
+    print("[+] Total number of versus battles wins: "+str(js['versusBattleWinCount']))
+    print("-"*10+"labels".upper()+"-"*10)
+    if len(js['labels']) != 0:
+        for i in range(len(js['labels'])):
+            print("[+] Name: "+str(js['labels'][i]['name']))
+            print("[+] Icon: "+str(js['labels'][i]['iconUrls']['medium']))
+    else:
+        print("[!] User has no registered labels !")
+    dispach=str(input("[?] Do you want to display player's achievements ? [yes/no] "))
+    while dispach not in ANS and dispach not in NANS:
+        print("[!] Invalid input !")
+        sleep(1)
+        dispach=str(input("[?] Do you want to display player's achievements ? [yes/no] "))
+    if dispach in ANS:
+        def isCompleted(num):
+            if num == 3:
+                return True
+            return False
+        for i in range(len(js['achievements'])):
+            print("[+] Name: "+str(js['achievements'][i]['name']))
+            print("[+] Achievement completed: "+str(isCompleted(js['achievements'][i]['stars'])))
+            print("[+] Description: "+str(js['achievements'][i]['info']))
+            print("[+] Highest value: "+str(js['achievements'][i]['value']))
+            print(f"[+] Only need {js['achievements'][i]['target']} to receive the achievement")
+            print("[+] Village: "+str(js['achievements'][i]['village']))
+    distr=str(input("[?] Do you want to display player's troops ? [yes/no] "))
+    while distr not in ANS and distr not in NANS:
+        print("[!] Invalid input !")
+        sleep(1)
+        distr=str(input("[?] Do you want to display player's troops ? [yes/no] "))
+    if distr in ANS:
+        x = 0
+        t = 0
+        maxed = 0
+        for i in range(len(js['troops'])):
+            if js['troops'][i]['village'] == 'home' and 'Spell' not in js['troops'][i]['name']:
+                x += 1
+                print("[+] Name: "+str(js['troops'][i]['name']))
+                print("[+] Level: "+str(js['troops'][i]['level']))
+                print("[+] Max level: "+str(js['troops'][i]['maxLevel']))
+                if js['troops'][i]['maxLevel'] == js['troops'][i]['level']:
+                    maxed += 1
+                    print("[+] Maxed troop !")
+                else:
+                    print("[+] "+str(js['troops'][i]['maxLevel'] - js['troops'][i]['level'])+" more levels to max the troop")
+                print("[+] Village: "+str(js['troops'][i]['village']))
+            elif js['troops'][i]['village'] == 'builderBase' and 'Spell' not in js['troops'][i]['name']:
+                t += 1
+                print("[+] Name: "+str(js['troops'][i]['name']))
+                print("[+] Level: "+str(js['troops'][i]['level']))
+                print("[+] Max level: "+str(js['troops'][i]['maxLevel']))
+                if js['troops'][i]['maxLevel'] == js['troops'][i]['level']:
+                    maxed += 1
+                    print("[+] Maxed troop !")
+                else:
+                    print("[+] "+str(js['troops'][i]['maxLevel'] - js['troops'][i]['level'])+" more levels to max the troop")
+                print("[+] Village: "+str(js['troops'][i]['village']))
+            elif 'Spell' in js['troops'][i]['name']:
+                pass
+        perx = (x / 40.0)*100
+        pert = (t / 11.0)*100
+        permx = (maxed / len(js['troops']))*100
+        print("[+] Percentage of troops (in the Home Village) owned by the player: "+str(perx)+"%")
+        print("[+] Percentage of troops (in the Builder Base) owned by the player: "+str(pert)+"%")
+        print("[+] Percentage of max troops owned by the player: "+str(permx)+"%")
+        print("[+] Number of maxed troops: "+str(maxed)+"/"+str(len(js['troops'])))
+    disph=str(input("[?] Do you want to display player's heroes ? [yes/no] "))
+    while disph not in ANS and disph not in NANS:
+        print("[!] Invalid input !")
+        sleep(1)
+        disph=str(input("[?] Do you want to display player's heroes ? [yes/no] "))
+    if disph in ANS:
+        maxedh = 0
+        for i in range(len(js['heroes'])):
+            print("[+] Name: "+str(js['heroes'][i]['name']))
+            print("[+] Level: "+str(js['heroes'][i]['level']))
+            print("[+] Max level: "+str(js['heroes'][i]['maxLevel']))
+            if js['heroes'][i]['maxLevel'] == js['heroes'][i]['level']:
+                maxedh += 1
+                print("[+] Maxed hero !")
+            else:
+                print("[+] "+str(js['heroes'][i]['maxLevel'] - js['heroes'][i]['level'])+" more levels to max the hero")
+        per = (len(js['heroes'] / 5.0))*100
+        print("[+] Player own's "+str(per)+"% of the heroes")
+        print("[+] Percentage of maxed heroes: "+str((maxedh / len(js['heroes']))*100))
+        print("[+] Number of maxed heroes: "+str(maxedh)+"/"+str(len(js['heroes'])))
+    disps=str(input("[?] Do you want to display player's spells ? [yes/no] "))
+    while disph not in ANS and disph not in NANS:
+        print("[!] Invalid input !")
+        sleep(1)
+        disph=str(input("[?] Do you want to display player's spells ? [yes/no] "))
+    if disph in ANS:
+        maxeds = 0
+        pers = (len(js['spells']) / 13.0)*100
+        for i in range(len(js['spells'])):
+            print("[+] Name: "+str(js['spells'][i]['name']))
+            print("[+] Level: "+str(js['spells'][i]['level']))
+            print("[+] Max level: "+str(js['spells'][i]['maxLevel']))
+            if js['spells'][i]['maxLevel'] == js['spells'][i]['level']:
+                maxeds += 1
+                print("[!] Maxed spell !")
+            else:
+                print("[+] "+str(js['spells'][i]['maxLevel'] - js['spells'][i]['level'])+" more levels to max the spell")
+        print("[+] Percentage of spells owned by the player: "+str(pers)+"%")
+        print("[+] Percentage of maxed spells: "+str((maxeds / len(js['spells'])*100))+"%")
+        print("[+] Number of maxed spells: "+str(maxeds)+"/"+str(len(js['spells'])))
+    print("-" * 45)
+
+def Clan(tag):
+    if platform.system() == 'Windows':
+        system("cls")
+    else:
+        system("clear")
+    print("\n")
+    tag = tag.upper()
+    print("[1] Display info for a clan")
+    print("[2] Display info for the members of a clan")
+    print("[3] Search clans")
+    print("[4] Return to menu")
+    option=int(input("[::] Please enter a number (from the above ones): "))
+    while option < 1 or option > 4 or option == None:
+        print("[!] Invalid number !")
+        sleep(1)
+        option=int(input("[::] Please enter again a number (from the above ones): "))
+    if option == 1:
+        tag = tag.upper()
+        page = requests.get("https://api.clashofclans.com/v1/clans/%23"+str(tag), headers=headers)
+        js = page.json()
+        print("-" * 40)
+        print("[+] Name: "+str(js['name']))
+        print("[+] Type: "+str(js['type']))
+        print("[+] Description: "+str(js['description']))
+        print("[+] Chat language: "+str(js['chatLanguage']['name']))
+        print("[+] Is family friendly: "+str(js['isFamilyFriendly']))
+        print("[+] Number of members: "+str(js['members']))
+        print("[+] Required VS trophies: "+str(js['requiredVersusTrophies']))
+        print("[+] Required town hall level: "+str(js['requiredTownhallLevel']))
+        print("[+] Location: "+str(js['location']['name']))
+        print("[+] Is country: "+str(js['isCountry']))
+        print("[+] Icon: "+str(js['badgeUrls']['medium']))
+        print("[+] Level: "+str(js['clanLevel']))
+        print("[+] Points: "+str(js['clanPoints']))
+        print("[+] Required Trophies: "+str(js['requiredTrophies']))
+        print("[+] War frequency: "+str(js['warFrequency']))
+        print("[+] Current war win streak: "+str(js['warWinStreak']))
+        print("[+] War wins: "+str(js['warWins']))
+        print("[+] War ties: "+str(js['warTies']))
+        print("[+] War losses: "+str(js['warLosses']))
+        print("[+] Is war log public: "+str(js['isWarLogPublic']))
+        print("[+] War league: "+str(js['warLeague']['name']))
+        print("[+] Clan capital league: "+str(js['capitalLeague']['name']))
+        print("[+] Clan capital hall level: "+str(js['clanCapital']['capitalHallLevel']))
+        print("-"*10+"districts".upper()+"-"*10)
+        for i in range(len(js['clanCapital']['districts'])):
+            print("[+] Name: "+str(js['clanCapital']['districts'][i]['name']))
+            print("[+] Level: "+str(js['clanCapital']['districts'][i]['districtHallLevel']))
+        print("-"*10+"labels".upper()+"-"*10)
+        for i in range(len(js['labels'])):
+            print("[+] Name: "+str(js['labels'][i]['name']))
+            print("[+] Icon: "+str(js['labels'][i]['iconUrls']['medium']))
+        print("-" * 40)
+    elif option == 2:
+        page = requests.get(f"https://api.clashofclans.com/v1/clans/%23{tag}/members", headers=headers)
+        js = page.json()
+        role = ''
+        for i in range(len(js['items'])):
+            print("[+] Name: "+str(js['items'][i]['name']))
+            print("[+] Tag: "+str(js['items'][i]['tag']))
+            if js['items'][i]['role'] == 'admin':
+                role = 'Elder'
+            elif js['items'][i]['role'] == 'coLeader':
+                role = 'Co-Leader'
+            else:
+                role = 'Leader'
+            print("[+] Role: "+str(role))
+            print("[+] Clan rank: "+str(js['items'][i]['clanRank']))
+            print("[+] Previous clan rank: "+str(js['items'][i]['previousClanRank']))
+            print("[+] Experience level: "+str(js['items'][i]['expLevel']))
+            print("[+] League: "+str(js['items'][i]['league']['name']))
+            print("[+] Trophies: "+str(js['items'][i]['trophies']))
+            print("[+] Versus trophies: "+str(js['items'][i]['versusTrophies']))
+            print("[+] Donations made: "+str(js['items'][i]['donations']))
+            print("[+] Troops received: "+str(js['items'][i]['donationsReceived']))
+        print("\n")
+    elif option == 3:
+        print("\n")
+        name=str(input("[::] Please enter the name of the clan: "))
+        while name == None:
+            print("[!] Invalid name !")
+            sleep(1)
+            name=str(input("[::] Please enter again the name of the clan: "))
+        count=int(input("[?] How many results to display (enter an integer number) ? "))
+        while count == None or count == 0:
+            print("[!] Invalid number !")
+            sleep(1)
+            count=int(input("[?] How many results to display (enter an integer number) ? "))
+        page = requests.get(f"https://api.clashofclans.com/v1/clans?name={name}&limit={count}", headers=headers)
+        js = page.json()
+        wl_pub = "yes"
+        for i in range(len(js['items'])):
+            print("[+] Name: "+str(js['items'][i]['name']))
+            print("[+] Type: "+str(js['items'][i]['type']))
+            print("[+] Location: "+str(js['items'][i]['location']['name']))
+            print("[+] Badge: "+str(js['items'][i]['badgeUrls']['medium']))
+            print("[+] Level: "+str(js['items'][i]['clanLevel']))
+            print("[+] Points: "+str(js['items'][i]['clanPoints']))
+            print("[+] Versus points: "+str(js['items'][i]['clanVerusPoints']))
+            print("[+] Required trophies: "+str(js['items'][i]['requiredTrophies']))
+            print("[+] War frequency: "+str(js['items'][i]['warFrequency']))
+            print("[+] War win streak: "+str(js['items'][i]['warWinStreak']))
+            print("[+] War wins: "+str(js['items'][i]['warWins']))
+            print("[+] War ties: "+str(js['items'][i]['warTies']))
+            print("[+] War losses: "+str(js['items'][i]['warLosses']))
+            if not js['items'][i]['isWarLogPublic']:
+                wl_pub = "No"
+            print("[+] Is the war log public ? "+str(wl_pub))
+            print("[+] War league: "+str(js['items'][i]['warLeague']['name']))
+            print("[+] Required versus trophies: "+str(js['items'][i]['requiredVersusTrophies']))
+            print("[+] Required TownHall level: "+str(js['items'][i]['requiredTownhallLevel']))
+            print("[+] Chat language: "+str(js['items'][i]['chatLanguage']['name']))
+            print("[+] Number of members: "+str(js['items'][i]['members']))
+    else:
+        main()
+
+def League():
+    if platform.system() == 'Windows':
+        system("cls")
+    else:
+        system("clear")
+    print("\n")
+    print("[1] Display the leagues")
+    print("[2] Display the clan capital leagues")
+    print("[3] Display the war leagues")
+    print("[4] Display info about a league")
+    print("[5] Display info about a clan capital league")
+    print("[6] Display info about a war league")
+    print("[7] Display season IDs")
+    print("[8] Display season rankings")
+    print("[9] Return to menu")
+    print("\n")
+    print("-> NOTE: If you want display info about a league you need to enter first one of the three number (1-3) to get the league ID (if you don't already have it):)")
+    print("\n")
+    option=int(input("[::] Please enter a number (from the above ones): "))
+    while option < 1 or option > 9 or option == None:
+        print("[!] Invalid number !")
+        sleep(1)
+        option=int(input("[::] Please enter again a number (from the above ones): "))
+    if option == 1:
+        page = requests.get("https://api.clashofclans.com/v1/leagues", headers=headers)
+        js = page.json()
+        print("-"*20+"leagues".upper()+"-"*20)
+        for i in range(len(js['items'])):
+            print("[+] ID: "+str(js['items'][i]['id']))
+            print("[+] Name: "+str(js['items'][i]['name']))
+            print("[+] Icon Url: "+str("js['items'][i]['iconUrls']['small']"))
+    elif option == 2:
+        page = requests.get("https://api.clashofclans.com/v1/capitalleagues", headers=headers)
+        js = page.json()
+        print("-"*20+"clan capital leagues".upper()+"-"*20)
+        for i in range(len(js['items'])):
+            print("[+] ID: "+str(js['items'][i]['id']))
+            print("[+] Name: "+str(js['items'][i]['name']))
+    elif option == 3:
+        page = requests.get("https://api.clashofclans.com/v1/warleagues", headers=headers)
+        js = page.json()
+        print("-"*20+"war leagues".upper()+"-"*20)
+        for i in range(len(js['items'])):
+            print("[+] ID: "+str(js['items'][i]['id']))
+            print("[+] Name: "+str(js['items'][i]['name']))
+    elif option == 4:
+        id=int(input("[::] Please enter here the league ID: "))
+        while id == None or len(id) < 8 or len(id) > 8:
+            print("[!] Invalid league ID !")
+            sleep(1)
+            id=int(input("[::] Please enter again the league ID: "))
+        page = requests.get("https://api.clashofclans.com/v1/leagues/"+str(id), headers=headers)
+        js = page.json()
+        print("[+] Name: "+str(js['name']))
+        print("[+] Icon: "+str(js['iconUrls']['small']))
+    elif option == 5:
+        id=int(input("[::] Please enter here the clan capital league ID: "))
+        while id == None or len(id) < 8 or len(id) > 8:
+            print("[!] Invalid league ID !")
+            sleep(1)
+            id=int(input("[::] Please enter again the clan capital league ID: "))
+        page = requests.get("https://api.clashofclans.com/v1/capitalleagues/"+str(id), headers=headers)
+        js = page.json()
+        print("[+] Name: "+str(js['name']))
+    elif option == 6:
+        id=int(input("[::] Please enter here the war league ID: "))
+        while id == None or len(id) < 8 or len(id) > 8:
+            print("[!] Invalid league ID !")
+            sleep(1)
+            id=int(input("[::] Please enter again the war league ID: "))
+        page = requests.get("https://api.clashofclans.com/v1/warleagues/"+str(id), headers=headers)
+        js = page.json()
+        print("[+] Name: "+str(js['name']))
+    elif option == 7:
+        page = requests.get("https://api.clashofclans.com/v1/leagues/29000022/seasons", headers=headers)
+        js = page.json()
+        print("-"*20+"season ids".upper()+"-"*20)
+        for i in range(len(js['items'])):
+            print(f"[+] ID No{i+1}: {js['items'][i]['id']}")
+    elif option == 8:
+        id=input("[::] Please enter here the season ID: ")
+        while id == None or '-' not in id:
+            print("[!] Invalid league ID !")
+            sleep(1)
+            id=input("[::] Please enter again the season ID: ")
+        page = requests.get("https://api.clashofclans.com/v1/leagues/29000022/seasons/"+str(id), headers=headers)
+        js = page.json()
+        print("-"*20+"rankings".upper()+"-"*20)
+        for i in range(len(js['items'])):
+            print("[+] Name: "+str(js['items'][i]['name']))
+            print("[+] Tag: "+str(js['items'][i]['tag']))
+            print("[+] Rank: "+str(js['items'][i]['rank']))
+            print("[+] Experience level: "+str(js['items'][i]['expLevel']))
+            print("[+] Trophies: "+str(js['items'][i]['trophies']))
+            print("[+] Number of attack wins: "+str(js['items'][i]['attackWins']))
+            print("[+] Number of defence wins: "+str(js['items'][i]['defenseWins']))
+            print("[+] Clan: "+str(js['items'][i]['clan']['name']))
+    else:
+        main()
+
+
+def banner():
+    return  """
+░█████╗░██╗░░░░░░█████╗░░██████╗██╗░░██╗   ░█████╗░███████╗   ██╗███╗░░██╗███████╗░█████╗░
+██╔══██╗██║░░░░░██╔══██╗██╔════╝██║░░██║   ██╔══██╗██╔════╝   ██║████╗░██║██╔════╝██╔══██╗
+██║░░╚═╝██║░░░░░███████║╚█████╗░███████║   ██║░░██║█████╗░░   ██║██╔██╗██║█████╗░░██║░░██║
+██║░░██╗██║░░░░░██╔══██║░╚═══██╗██╔══██║   ██║░░██║██╔══╝░░   ██║██║╚████║██╔══╝░░██║░░██║
+╚█████╔╝███████╗██║░░██║██████╔╝██║░░██║   ╚█████╔╝██║░░░░░   ██║██║░╚███║██║░░░░░╚█████╔╝
+░╚════╝░╚══════╝╚═╝░░╚═╝╚═════╝░╚═╝░░╚═╝   ░╚════╝░╚═╝░░░░░   ╚═╝╚═╝░░╚══╝╚═╝░░░░░░╚════╝░
+"""
+
+def main():
+    print(banner())
+    print("\n")
+    print("[+] Author: new92")
+    print("[+] Github: @new92")
+    print("\n")
+    print("[+] Description: Script for getting information about clans, users, leagues and much more... in the famous game: Clash of Clans :)")
+    print("\n")
+    print("[1] Display info for a player")
+    print("[2] Display info for a clan")
+    print("[3] Display info for a league")
+    print("[4] Display program's info and exit")
+    print("[5] Exit")
+    option=int(input("[::] Please enter a number (from the above ones): "))
+    while option < 1 or option > 5 or option == None:
+        print("[!] Sorry, invalid number !")
+        sleep(1)
+        option=int(input("[::] Please enter again a number (from the above ones): "))
+    if option == 1:
+        tag=str(input("[::] Please enter the tag of the player (please do not include the tag(#) symbol): "))
+        while tag == None or "#" in tag:
+            print("[!] Invalid tag !")
+            sleep(1)
+            if "#" in tag:
+                print("[!] Please do not include the tag (#) symbol in your next input !")
+                sleep(2)
+            tag=str(input("[::] Please enter again the tag of the player (please do not include the tag(#) symbol): "))
+        Player(tag)
+    elif option == 2:
+        tag=str(input("[::] Please enter the tag of the clan (please do not include the tag(#) symbol): "))
+        while tag == None or "#" in tag:
+            print("[!] Invalid tag !")
+            sleep(1)
+            if "#" in tag:
+                print("[!] Please do not include the tag (#) symbol in your next input !")
+                sleep(2)
+            tag=str(input("[::] Please enter again the tag of the clan (please do not include the tag(#) symbol): "))
+        Clan(tag)
+    elif option == 3:
+        League()
+    elif option == 4:
+        ProgInfo()
+    else:
+        print("[+] Thank you for using my script 😁")
+        sleep(2)
+        print("See you next time 👋")
+        sleep(1)
+        exit(0)
+if __name__ == '__main__':
+    main()
