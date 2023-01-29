@@ -44,8 +44,9 @@ except ImportError as imp:
 
 headers = {
     'Accept': 'application/json',
-    'authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiIsImtpZCI6IjI4YTMxOGY3LTAwMDAtYTFlYi03ZmExLTJjNzQzM2M2Y2NhNSJ9.eyJpc3MiOiJzdXBlcmNlbGwiLCJhdWQiOiJzdXBlcmNlbGw6Z2FtZWFwaSIsImp0aSI6ImQ4NDk5OThmLThlZjUtNDZiZC05ZjA1LWMyYWI0OTY2MThhNCIsImlhdCI6MTY3NDkwNDU0Niwic3ViIjoiZGV2ZWxvcGVyLzRhYTA2OTVkLWRmNTUtMTNlZi1jMDBlLWIwZGZjOGU5Mzk4OCIsInNjb3BlcyI6WyJyb3lhbGUiXSwibGltaXRzIjpbeyJ0aWVyIjoiZGV2ZWxvcGVyL3NpbHZlciIsInR5cGUiOiJ0aHJvdHRsaW5nIn0seyJjaWRycyI6WyI5NC42Ny4xNDkuMjAzIl0sInR5cGUiOiJjbGllbnQifV19.9JDUJOfvGhLRcyaXb4xQekTo7_2hZ8dlqLQ3K1J3PvMqo_CsthANvyk66QYf93IItae0k0auDqDwI6Pz-ht0EA'
+    'authorization': 'Bearer <ENTER YOUR API TOKEN HERE>'
 }
+
 
 def ProgInfo():
     if platform.system() == 'Windows':
@@ -58,7 +59,7 @@ def ProgInfo():
     language = 'en-US'
     name = 'ClashofInfo'
     api = 'Clash of Clans API'
-    lines = 360
+    lines = 500
     size = 16.5
     stars = 6
     forks = 4
