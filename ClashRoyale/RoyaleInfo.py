@@ -55,7 +55,7 @@ def ProgInfo():
     language = 'Python'
     license = 'MIT'
     lines = 559
-    size = 0
+    f = "/Supercell/ClashRoyale/RoyaleInfo.py"
     stars = 6
     forks = 4
     print("[+] Author: "+str(author))
@@ -64,7 +64,7 @@ def ProgInfo():
     print("[+] Programming language(s) used: "+str(language))
     print("[+] License: "+str(license))
     print("[+] Number of lines: "+str(lines))
-    print("[+] File size: "+str())
+    print("[+] File size: "+str((os.stat(f)).st_size)+" bytes"))
     print("[+] Github repository stars: "+str(stars))
     print("[+] Github repository forks: "+str(forks))
 
