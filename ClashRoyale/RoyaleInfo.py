@@ -37,10 +37,8 @@ except ImportError as imp:
             system("sudo pip install -r requirements.txt")
     elif sys.platform == 'darwin':
         system("python -m pip install requirements.txt")
-        pass
     elif platform.system() == 'Windows':
         system("pip install -r requirements.txt")
-        pass
 
 headers = {
     'Accept': 'application/json',
@@ -57,6 +55,7 @@ def ProgInfo():
     language = 'Python'
     license = 'MIT'
     lines = 559
+    size = 0
     stars = 6
     forks = 4
     print("[+] Author: "+str(author))
@@ -65,6 +64,7 @@ def ProgInfo():
     print("[+] Programming language(s) used: "+str(language))
     print("[+] License: "+str(license))
     print("[+] Number of lines: "+str(lines))
+    print("[+] File size: "+str())
     print("[+] Github repository stars: "+str(stars))
     print("[+] Github repository forks: "+str(forks))
 
