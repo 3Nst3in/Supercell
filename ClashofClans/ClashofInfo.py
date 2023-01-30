@@ -522,7 +522,7 @@ def main():
             print("[!] Invalid tag !")
             sleep(1)
             if tag[0] == "#":
-                print("[!] Please do not include the tag (#) symbol in your next input !")
+                print("[!] Please DO NOT include the tag (#) symbol in your next input !")
                 sleep(2)
             tag=str(input("[::] Please enter again the tag of the player (please do not include the tag(#) symbol): "))
         Player(tag)
