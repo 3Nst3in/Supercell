@@ -1,8 +1,7 @@
 """
 Author: new92
-Github: @new92
 Script for displaying info for players, clans, tournaments, cards etc. in Clash Royale.
-Hope you like it :)
+Built with Python and Supercell API.
 """
 
 try:
@@ -57,48 +56,50 @@ def ProgInfo():
     name = 'RoyaleInfo'
     language = 'Python'
     license = 'MIT'
-    lines = 533
-    api = 'Clash Royale API'
-    size = 27.5
+    lines = 559
     stars = 6
     forks = 4
     print("[+] Author: "+str(author))
-    print("[+] Github: @"+str(author))
     print("[+] Natural Language: "+str(lang))
     print("[+] Program's name: "+str(name))
     print("[+] Programming language(s) used: "+str(language))
     print("[+] License: "+str(license))
-    print("[+] API used: "+str(api))
-    print("[+] File size: "+str(size)+"KB")
     print("[+] Number of lines: "+str(lines))
     print("[+] Github repository stars: "+str(stars))
     print("[+] Github repository forks: "+str(forks))
 
-def Logo():
-    print("""
+def banner():
+    return """
     ██████╗░░█████╗░██╗░░░██╗░█████╗░██╗░░░░░███████╗    ██╗███╗░░██╗███████╗░█████╗░
     ██╔══██╗██╔══██╗╚██╗░██╔╝██╔══██╗██║░░░░░██╔════╝    ██║████╗░██║██╔════╝██╔══██╗
     ██████╔╝██║░░██║░╚████╔╝░███████║██║░░░░░█████╗░░    ██║██╔██╗██║█████╗░░██║░░██║
     ██╔══██╗██║░░██║░░╚██╔╝░░██╔══██║██║░░░░░██╔══╝░░    ██║██║╚████║██╔══╝░░██║░░██║
     ██║░░██║╚█████╔╝░░░██║░░░██║░░██║███████╗███████╗    ██║██║░╚███║██║░░░░░╚█████╔╝
     ╚═╝░░╚═╝░╚════╝░░░░╚═╝░░░╚═╝░░╚═╝╚══════╝╚══════╝    ╚═╝╚═╝░░╚══╝╚═╝░░░░░░╚════╝░
-    """)
+    """
 
-def GetPlayerInfo() -> str:
+def Player() -> str:
+    if platform.system() == 'Windows':
+        system('cls')
+    else:
+        system('clear')
     print("\n")
     print("[1] Display info for a player")
     print("[2] Display info about the upcoming chests of a player")
     print("[3] Display the battlelog of a player")
+    print("[4] Return to menu")
     option=int(input("[::] Please enter a number (from the above ones): "))
-    while option < 1 or option > 3 or option == None:
+    while option < 1 or option > 4 or option == None:
         print("[!] Invalid number !")
         sleep(1)
         option=int(input("[::] Please enter again a number (from the above ones): "))
     tag=str(input("[::] Please enter the tag of the player (please do not include the tag symbol(#)): "))
-    while tag == None:
+    while tag == None or "#" in tag:
         print("[!] Invalid tag !")
         sleep(1)
-        tag=str(input("[::] Please enter again the tag of the player (without the tag symbol(#)): "))
+        if "#" in tag:
+            print("[!] Please do not include the tag (#) symbol in your next input !")
+        tag=str(input("[::] Please enter again the tag of the player (please do not include the tag symbol(#)): "))
     if option == 1:
         page = requests.get("https://api.clashroyale.com/v1/players/%23"+str(tag), headers=headers)
         js = page.json()
@@ -142,9 +143,8 @@ def GetPlayerInfo() -> str:
                 print("-" * 25)
         else:
             print("[OK]")
-            pass
         disp_ach = str(input("[?] Do you want to display player's achievements ? [yes/no] "))
-        while disp_ach == None or disp_ach not in ANS and disp_ach not in NANS:
+        while disp_ach == None or (disp_ach not in ANS and disp_ach not in NANS):
             print("[!] Invalid input !")
             sleep(1)
             disp_ach = str(input("[?] Do you want to display player's achievements ? [yes/no] "))
@@ -161,7 +161,6 @@ def GetPlayerInfo() -> str:
                 print("-" * 25)
         else:
             print("[OK]")
-            pass
         disp_cards = str(input("[?] Do you want to display the cards the player owns ? [yes/no] "))
         while disp_cards == None or disp_cards not in ANS and disp_cards not in NANS:
             print("[!] Invalid input !")
@@ -185,13 +184,13 @@ def GetPlayerInfo() -> str:
             print("[+] Chest: "+str(js['items'][item]['name']))
             print("-" * 15)
 
-    else:
+    elif option == 3:
         page = requests.get("https://api.clashroyale.com/v1/players/%23"+str(tag)+"/battlelog", headers=headers)
         js = page.json()
         for i in range(len(js[:])):
             print("[+] Type of battle: "+str(js['type'][i]))
             if js['type'][i] == "challenge":
-                if js['isLadderTournament'][i] == True:
+                if js['isLadderTournament'][i]:
                     is_lad_t = "yes"
                 else:
                     is_lad_t = "no"
@@ -224,15 +223,21 @@ def GetPlayerInfo() -> str:
                 print("[+] Card's name: "+str(js[i]['opponent']['cards'][card]['name']))
                 print("[+] Card's level: "+str(js[i]['opponent']['cards'][card]['level']))
             print("-"*15)
-        quit(0)
+    else:
+        main()
 
-def GetClanInfo() -> str:
+def Clan() -> str:
+    if platform.system() == 'Windows':
+        system('cls')
+    else:
+        system('clear')
     print("[1] Display info for a clan")
     print("[2] Display clan members and info for each member")
     print("[3] Display info about clan's current river race")
     print("[4] Search a clan")
+    print("[5] Return to menu")
     num=int(input("[::] Please enter a number (from the above ones): "))
-    while num < 1 or num > 4 or num == None:
+    while num < 1 or num > 5 or num == None:
         print("[!] Invalid number !")
         sleep(1)
         num=int(input("[::] Please enter again a number (from the above ones): "))
@@ -299,7 +304,7 @@ def GetClanInfo() -> str:
             print("[-] Participants names for "+str(js['clans'][i]['name']))
             for j in range(len(js['clans'][i]['participants'])):
                 print(f"[+] Name No{j+1}: {js['clans'][i]['participants'][j]['name']}")
-    else:
+    elif num == 4:
         name=str(input("[::] Please enter the name of the clan: "))
         while name == None:
             print("[!] Invalid name !")
@@ -366,7 +371,7 @@ def GetClanInfo() -> str:
         else:
             incl = False
             print("[OK]")
-        if inc_min == True and inc_max == True and inc_mscore == True and incl == True:
+        if inc_min and inc_max and inc_mscore and incl:
             page = requests.get("https://api.clashroyale.com/v1/clans?name={name}&minMembers={count_min}&maxMembers={count}&minScore={score}&limit={lim}", headers=headers)
             js = page.json()
             for i in range(len(js['items'])):
@@ -379,15 +384,26 @@ def GetClanInfo() -> str:
                 print("[+] Donations per week: "+str(js['items'][i]['donationsPerWeek']))
                 print("[+] Clan chest level: "+str(js['items'][i]['clanChestLevel']))
                 print("[+] Number of members: "+str(js['items'][i]['members']))
+    else:
+        main()
 def Cards() -> str:
+    if platform.system() == 'Windows':
+        system('cls')
+    else:
+        system('clear')
     page = requests.get("https://api.clashroyale.com/v1/cards", headers=headers)
     js = page.json()
+    print("-"*10+"cards".upper()+"-"*10)
     for i in range(len(js['items'])):
         print("[+] Name: "+str(js['items'][i]['name']))
         print("[+] Max level: "+str(js['items'][i]['maxLevel']))
         print("[+] Icon url: "+str(js['items'][i]['iconUrls']['medium']))
         sleep(1)
-def SearchT(name):
+def Search(name):
+    if platform.system() == 'Windows':
+        system('cls')
+    else:
+        system('clear')
     def convert(x: int, num: int) -> int:
         if x == 1: #1 to convert seconds to minutes and minutes to hours
             return num // 60
@@ -416,7 +432,11 @@ def SearchT(name):
         print("[+] Creator's name: "+str(jsn['name']))
         print("[+] Creator's clan: "+str(jsn['clan']['name']))
     
-def getTourInfo(tag):
+def Tour(tag):
+    if platform.system() == 'Windows':
+        system('cls')
+    else:
+        system('clear')
     def convert(x: int, num: int) -> int:
         if x == 1: #1 to convert seconds to minutes and minutes to hours
             return num // 60
@@ -451,6 +471,10 @@ def getTourInfo(tag):
         print("[+] Participant's clan: "+str(js['membersList'][i]['clan']['name']))
 
 def UpcEvents():
+    if platform.system() == 'Windows':
+        system('cls')
+    else:
+        system('clear')
     page = requests.get("https://api.clashroyale.com/v1/challenges", headers=headers)
     js = page.json()
     retypes = ['resource','consumable','tradeToken','chest']
@@ -477,14 +501,14 @@ def UpcEvents():
                 print(f"[+] Prize No{j+1}: {retypes[3]}")
                 print(f"[+] Chest type: {js[i]['challenges']['prizes'][j]['chest']}")
 def main():
-    Logo()
+    banner()
     print("\n")
     print("[+] Author: new92")
     print("[+] Github: @new92")
     print("\n")
-    print("[+] RoyaleInfo: Script which provides info for players, clans, tournaments, cards etc. for Clash Royale")
+    print("[+] RoyaleInfo: Script which provides info for players, clans, tournaments, cards etc. for the famous video game Clash Royale")
     print("\n")
-    print("[1] Display info for a player")
+    print("[1] Display info for a player (popular)")
     print("[2] Display info for a clan")
     print("[3] Display a list of all available cards (Updated)")
     print("[4] Search tournaments")
@@ -498,9 +522,9 @@ def main():
         sleep(1)
         option=int(input("[::] Please enter again a number (from the above ones): "))
     if option == 1:
-        GetPlayerInfo()
+        Player()
     elif option == 2:
-        GetClanInfo()
+        Clan()
     elif option == 3:
         Cards()
     elif option == 4:
@@ -508,17 +532,18 @@ def main():
         while tour == None:
             print("[!] Invalid name !")
             sleep(1)
-        SearchT(name=tour)
+            tour=str(input("[::] Please enter again the name of the tournament: "))
+        Search(name=tour)
     elif option == 5:
         tag=str(input("[::] Please enter the tag of the tournament (please don't include the tag (#) symbol): "))
         while tag == None or tag[0] == '#':
             print("[!] Invalid tag !")
             sleep(1)
-            if tag[0] == '0':
+            if tag[0] == '#':
                 print("[!] Please DO NOT include the tag (#) symbol in your next input !")
                 sleep(1)
             tag=str(input("[::] Please enter the tag of the tournament: "))
-        getTourInfo(tag)
+        Tour(tag)
     elif option == 6:
         UpcEvents()
     elif option == 7:
@@ -529,5 +554,6 @@ def main():
         print("See you next time 👋")
         sleep(1)
         exit(0)
+
 if __name__ == '__main__':
     main()
