@@ -1,5 +1,8 @@
 """
 Author: new92
+Github: @new92
+
+
 Script for displaying info for players, clans, tournaments, cards etc. in Clash Royale.
 Built with Python and Supercell API.
 """
@@ -551,7 +554,7 @@ def main():
     else:
         print("[+] Thank you for using my script 😁")
         sleep(2)
-        print("See you next time 👋")
+        print("[+] See you next time 👋")
         sleep(1)
         exit(0)
 
