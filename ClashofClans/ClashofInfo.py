@@ -59,7 +59,7 @@ def ProgInfo():
     name = 'ClashofInfo'
     api = 'Clash of Clans API'
     api_url = 'https://developer.clashofclans.com/#/login'
-    lines = 550
+    lines = 549
     stars = 6
     forks = 4
     print("[+] Author: "+str(author))
