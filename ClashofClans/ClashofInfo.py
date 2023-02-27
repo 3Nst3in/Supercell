@@ -3,7 +3,6 @@ Author: new92
 Github: @new92
 
 Script for displaying info for players, clans, leagues etc. in the famous game: Clash of Clans.
-Hope you enjoy it :)
 """
 
 try:
