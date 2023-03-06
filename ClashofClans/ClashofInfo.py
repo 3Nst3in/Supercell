@@ -52,7 +52,7 @@ def ProgInfo():
     else:
         system("clear")
     author = 'new92'
-    license = 'MIT'
+    license1 = 'MIT'
     f = "/Supercell/ClashRoyale/RoyaleInfo.py"
     lang = 'Python'
     language = 'en-US'
@@ -62,7 +62,7 @@ def ProgInfo():
     lines = 549
     stars = 6
     forks = 4
-    print("[+] Author: "+str(author))
+    print("[+] Author: "+str(author)
     print("[+] Github: @"+str(author))
     print("[+] License: "+str(license))
     print("[+] Programming language(s) used: "+str(lang))
