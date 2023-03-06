@@ -14,7 +14,7 @@ try:
     import requests
     import os
 except ImportError as imp:
-    print("[!] WARNING: Not all packages used in this program have been installed !")
+    print("[!] WARNING: Not all packages used in this script have been installed !")
     sleep(2)
     print("[+] Ignoring warning...")
     sleep(1)
