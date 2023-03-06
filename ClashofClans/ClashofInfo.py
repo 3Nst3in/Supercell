@@ -67,7 +67,7 @@ def ProgInfo():
     print("[+] License: "+license1)
     print("[+] Programming language(s) used: "+lang)
     print("[+] Language(s): "+language)
-    print("[+] Program's name: "+strname)
+    print("[+] Program's name: "+name)
     print("[+] Lines of code: "+str(lines))
     print("[+] API used: "+str(api))
     print("[+] URL: "+str(api_url))
