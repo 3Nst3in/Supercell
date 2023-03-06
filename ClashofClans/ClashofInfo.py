@@ -62,7 +62,7 @@ def ProgInfo():
     lines = 549
     stars = 6
     forks = 4
-    print("[+] Author: "+strauthor)
+    print("[+] Author: "+stauthor)
     print("[+] Github: @"+str(author))
     print("[+] License: "+str(license))
     print("[+] Programming language(s) used: "+str(lang))
