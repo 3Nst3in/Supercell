@@ -70,7 +70,7 @@ def ProgInfo():
     print("[+] Program's name: "+name)
     print("[+] Lines of code: "+str(lines))
     print("[+] API used: "+str(api))
-    print("[+] URL: "+str(api_url))
+    print("[+] URL: "+api_url)
     print("[+] File size: "+str((os.stat(f)).st_size)+" bytes")
     print("[+] Github repo stars: "+str(stars))
     print("[+] Github repo forks: "+str(forks))
