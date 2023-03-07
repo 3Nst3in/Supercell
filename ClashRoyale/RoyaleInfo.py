@@ -57,7 +57,7 @@ def ProgInfo():
     name = 'RoyaleInfo'
     language = 'Python'
     license1 = 'MIT'
-    lines = 565
+    lines = 571
     f = "/Supercell/ClashRoyale/RoyaleInfo.py"
     if os.path.exists(os.path.abspath(f)):
         fsize = (os.stat(f)).st_size
