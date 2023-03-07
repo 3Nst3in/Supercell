@@ -54,6 +54,10 @@ def ProgInfo():
     author = 'new92'
     license1 = 'MIT'
     f = "/Supercell/ClashRoyale/RoyaleInfo.py"
+    if os.path.exists(os.path.abspath(f)):
+        fsize = (os.stat(f)).st_size
+    else:
+        fsize = 0
     lang = 'Python'
     language = 'en-US'
     name = 'ClashofInfo'
@@ -71,7 +75,7 @@ def ProgInfo():
     print("[+] Lines of code: "+str(lines))
     print("[+] API used: "+str(api))
     print("[+] URL: "+api_url)
-    print("[+] File size: "+str((os.stat(f)).st_size)+" bytes")
+    print(f"[+] File size: {fsize} bytes")
     print("[+] Github repo stars: "+str(stars))
     print("[+] Github repo forks: "+str(forks))
 
