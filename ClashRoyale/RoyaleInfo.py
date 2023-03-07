@@ -57,7 +57,7 @@ def ProgInfo():
     name = 'RoyaleInfo'
     language = 'Python'
     license = 'MIT'
-    lines = 563
+    lines = 565
     f = "/Supercell/ClashRoyale/RoyaleInfo.py"
     api = None
     stars = 6
