@@ -68,6 +68,7 @@ def ProgInfo():
     print("[+] Program's name: "+str(name))
     print("[+] Programming language(s) used: "+str(language))
     print("[+] License: "+str(license))
+    print("[+] API used: "+str(api))
     print("[+] Number of lines: "+str(lines))
     print("[+] File size: "+str((os.stat(f)).st_size)+" bytes")
     print("[+] Github repository stars: "+str(stars))
