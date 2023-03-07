@@ -59,6 +59,7 @@ def ProgInfo():
     license = 'MIT'
     lines = 563
     f = "/Supercell/ClashRoyale/RoyaleInfo.py"
+    api = None
     stars = 6
     forks = 4
     print("[+] Author: "+str(author))
