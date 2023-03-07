@@ -67,7 +67,7 @@ def ProgInfo():
     print("[+] Natural Language: "+lang)
     print("[+] Program's name: "+name)
     print("[+] Programming language(s) used: "+language)
-    print("[+] License: "+str(license))
+    print("[+] License: "+str(license)
     print("[+] API used: "+str(api))
     print("[+] Number of lines: "+str(lines))
     print("[+] File size: "+str((os.stat(f)).st_size)+" bytes")
