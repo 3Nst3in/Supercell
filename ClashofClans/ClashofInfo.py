@@ -66,18 +66,18 @@ def ProgInfo():
     lines = 553
     stars = 6
     forks = 4
-    print("[+] Author: "+author)
-    print("[+] Github: @"+author)
-    print("[+] License: "+license1)
-    print("[+] Programming language(s) used: "+lang)
-    print("[+] Language(s): "+language)
-    print("[+] Program's name: "+name)
-    print("[+] Lines of code: "+str(lines))
-    print("[+] API used: "+str(api))
-    print("[+] URL: "+api_url)
+    print(f"[+] Author: {author}")
+    print(f"[+] Github: @{author}")
+    print(f"[+] License: {license1}")
+    print(f"[+] Programming language(s) used: {lang}")
+    print(f"[+] Language(s): {language}")
+    print(f"[+] Program's name: {name}")
+    print(f"[+] Lines of code: {str(lines)}")
+    print(f"[+] API used: {str(api)}")
+    print(f"[+] URL: {api_url}")
     print(f"[+] File size: {fsize} bytes")
-    print("[+] Github repo stars: "+str(stars))
-    print("[+] Github repo forks: "+str(forks))
+    print(f"[+] Github repo stars: {str(stars)}")
+    print(f"[+] Github repo forks: {str(forks)}")
 
 ANS = ["yes","YES","Yes","y","Y","YeS","yEs","YEs","yES"]
 NANS = ["no","NO","No","n","N","nO"]
