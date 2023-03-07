@@ -59,7 +59,12 @@ def ProgInfo():
     license1 = 'MIT'
     lines = 565
     f = "/Supercell/ClashRoyale/RoyaleInfo.py"
+    if os.path.exists(os.path.abspath(f)):
+        fsize = (os.stat(f)).st_size
+    else:
+        fsize = 0
     api = None
+    api_url = 'https://developer.clashroyale.com/#/login'
     stars = 6
     forks = 4
     print("[+] Author: "+author)
