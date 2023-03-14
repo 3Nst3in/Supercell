@@ -90,7 +90,7 @@ def Player(tag):
         system("clear")
     tag = tag.upper()
     war = ''
-    page = requests.get("https://api.clashofclans.com/v1/players/%23"+str(tag), headers=headers)
+    page = requests.get(f"https://api.clashofclans.com/v1/players/%23{tag}", headers=headers)
     if page.status_code == 200:
         js = page.json()
         if js['role'] == 'admin':
