@@ -72,7 +72,7 @@ def ProgInfo():
     print(f"[+] Programming language(s) used: {lang}")
     print(f"[+] Language(s): {language}")
     print(f"[+] Program's name: {name}")
-    print(f"[+] Lines of code: {str(lines)}")
+    print(f"[+] Lines of code: {lines}")
     print(f"[+] API used: {str(api)}")
     print(f"[+] URL: {api_url}")
     print(f"[+] File size: {fsize} bytes")
