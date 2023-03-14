@@ -83,7 +83,7 @@ ANS = ["yes","YES","Yes","y","Y","YeS","yEs","YEs","yES"]
 NANS = ["no","NO","No","n","N","nO"]
 
 
-def Player(tag):
+def Player(tag: str):
     if platform.system() == 'Windows':
         system("cls")
     else:
