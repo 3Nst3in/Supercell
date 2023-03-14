@@ -74,11 +74,11 @@ def ProgInfo():
     print(f"[+] Programming language(s) used: {language}")
     print(f"[+] License: {lice}")
     print(f"[+] API used: {api}")
-    print(f"[+] URL: "+api_url)
-    print(f"[+] Number of lines: "+str(lines))
+    print("[+] URL: "+api_url)
+    print("[+] Number of lines: "+str(lines))
     print(f"[+] File size: {fsize} bytes")
-    print(f"[+] Github repository stars: "+str(stars))
-    print(f"[+] Github repository forks: "+str(forks))
+    print("[+] Github repository stars: "+str(stars))
+    print("[+] Github repository forks: "+str(forks))
 
 def banner():
     return """
