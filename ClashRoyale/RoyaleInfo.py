@@ -70,7 +70,7 @@ def ProgInfo():
     print(f"[+] Author: {author}")
     print(f"[+] Github: @{author}")
     print(f"[+] Natural Language: {lang}")
-    print("[+] Program's name: "+name)
+    print(f"[+] Program's name: "+name)
     print("[+] Programming language(s) used: "+language)
     print("[+] License: "+license1)
     print("[+] API used: "+str(api))
