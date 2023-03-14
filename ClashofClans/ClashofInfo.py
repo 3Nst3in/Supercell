@@ -76,7 +76,7 @@ def ProgInfo():
     print(f"[+] API used: {api}")
     print(f"[+] URL: {api_url}")
     print(f"[+] File size: {fsize} bytes")
-    print(f"[+] Github repo stars: {str(stars)}")
+    print(f"[+] Github repo stars: {stars}")
     print(f"[+] Github repo forks: {str(forks)}")
 
 ANS = ["yes","YES","Yes","y","Y","YeS","yEs","YEs","yES"]
