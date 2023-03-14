@@ -52,7 +52,7 @@ def ProgInfo():
     else:
         system("clear")
     author = 'new92'
-    license1 = 'MIT'
+    lice = 'MIT'
     f = "/Supercell/ClashRoyale/RoyaleInfo.py"
     if os.path.exists(os.path.abspath(f)):
         fsize = (os.stat(f)).st_size
