@@ -77,7 +77,7 @@ def ProgInfo():
     print(f"[+] URL: {api_url}")
     print(f"[+] File size: {fsize} bytes")
     print(f"[+] Github repo stars: {stars}")
-    print(f"[+] Github repo forks: {str(forks)}")
+    print(f"[+] Github repo forks: {forks}")
 
 ANS = ["yes","YES","Yes","y","Y","YeS","yEs","YEs","yES"]
 NANS = ["no","NO","No","n","N","nO"]
