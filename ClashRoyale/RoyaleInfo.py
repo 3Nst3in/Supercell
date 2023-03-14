@@ -67,7 +67,7 @@ def ProgInfo():
     api_url = 'https://developer.clashroyale.com/#/login'
     stars = 6
     forks = 4
-    print(f"[+] Author: {author}"+author)
+    print(f"[+] Author: {author}"+)
     print("[+] Github: @"+author)
     print("[+] Natural Language: "+lang)
     print("[+] Program's name: "+name)
