@@ -228,7 +228,7 @@ def Player(tag):
             print("[+] Number of maxed spells: "+str(maxeds)+"/"+str(len(js['spells'])))
         print("-" * 45)
     else:
-        print("[!] Failed to retrieve data ! Error code: "+str(page.status_code))
+        print(f"[!] Failed to retrieve data ! Error code: {page.status_code}")
         exit(0)
 def Clan(tag):
     if platform.system() == 'Windows':
