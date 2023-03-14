@@ -69,7 +69,7 @@ def ProgInfo():
     forks = 4
     print(f"[+] Author: {author}")
     print(f"[+] Github: @{author}")
-    print(f"[+] Natural Language: "+lang)
+    print(f"[+] Natural Language: {lang}"+lang)
     print("[+] Program's name: "+name)
     print("[+] Programming language(s) used: "+language)
     print("[+] License: "+license1)
