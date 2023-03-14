@@ -230,7 +230,7 @@ def Player(tag: str):
     else:
         print(f"[!] Failed to retrieve data ! Error code: {page.status_code}")
         exit(0)
-def Clan(tag):
+def Clan(tag: str):
     if platform.system() == 'Windows':
         system("cls")
     else:
