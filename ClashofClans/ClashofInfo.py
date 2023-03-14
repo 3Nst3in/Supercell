@@ -374,7 +374,7 @@ def League():
     print("[8] Display season rankings")
     print("[9] Return to menu")
     print("\n")
-    print("-> NOTE: If you want display info about a league you need to enter first one of the three number (1-3) to get the league ID (if you don't already have it):)")
+    print("[+] -> NOTE: If you want display info about a league you need to enter first one of the three number (1-3) to get the league ID (if you don't already have it):)")
     print("\n")
     option=int(input("[::] Please enter a number (from the above ones): "))
     while option < 1 or option > 9 or option == None:
