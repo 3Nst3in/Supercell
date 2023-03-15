@@ -111,7 +111,7 @@ def Player(tag: str):
         print(f"[+] Builderhall level: {js['builderHallLevel']}")
         print(f"[+] Number of trophies (Builder Base): {js['versusTrophies']}")
         print(f"[+] Highest number of trophies from versus battles player reached: {js['bestVersusTrophies']}")
-        print(f"[+] Versus battles - number of wins: {js['versusBattleWins']}"+str(js['versusBattleWins']))
+        print(f"[+] Versus battles - number of wins: {js['versusBattleWins']}")
         print("[+] Player's role in clan: "+str(role))
         print("[+] Donations made: "+str(js['donations']))
         print("[+] Troops received: "+str(js['donationsReceived']))
