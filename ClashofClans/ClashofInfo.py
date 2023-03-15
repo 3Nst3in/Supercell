@@ -100,7 +100,7 @@ def Player(tag: str):
         else:
             role = 'Leader'
         print("-" * 45)
-        print("[+] Name: "+str(js['name']))
+        print(f"[+] Name: {js['name']}")
         print("[+] Townhall level: "+str(js['townHallLevel']))
         print("[+] Experience level: "+str(js['expLevel']))
         print("[+] Number of trophies (in Home Village): "+str(js['trophies']))
