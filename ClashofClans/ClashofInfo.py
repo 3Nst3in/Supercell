@@ -113,7 +113,7 @@ def Player(tag: str):
         print(f"[+] Highest number of trophies from versus battles player reached: {js['bestVersusTrophies']}")
         print(f"[+] Versus battles - number of wins: {js['versusBattleWins']}")
         print(f"[+] Player's role in clan: {role}")
-        print(f"[+] Donations made: {js['donations']}"+str(js['donations']))
+        print(f"[+] Donations made: {js['donations']}")
         print("[+] Troops received: "+str(js['donationsReceived']))
         print("[+] Clan capital contributions: "+str(js['clanCapitalContributions']))
         print("[+] Clan's tag: "+str(js['clan']['tag']))
