@@ -115,7 +115,7 @@ def Player(tag: str):
         print(f"[+] Player's role in clan: {role}")
         print(f"[+] Donations made: {js['donations']}")
         print(f"[+] Troops received: {js['donationsReceived']}")
-        print(f"[+] Clan capital contributions: {js['clanCapitalContributions']}"+str(js['clanCapitalContributions']))
+        print(f"[+] Clan capital contributions: {js['clanCapitalContributions']}")
         print("[+] Clan's tag: "+str(js['clan']['tag']))
         print("[+] Clan's name: "+str(js['clan']['name']))
         print("[+] Clan's level: "+str(js['clan']['clanLevel']))
