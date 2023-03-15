@@ -120,7 +120,7 @@ def Player(tag: str):
         print(f"[+] Clan's name: {js['clan']['name']}")
         print(f"[+] Clan's level: {js['clan']['clanLevel']}")
         print(f"[+] Clan's icon: {js['clan']['badgeUrls']['medium']}")
-        print("[+] Total number of versus battles wins: "+str(js['versusBattleWinCount']))
+        print(f"[+] Total number of versus battles wins: {js['versusBattleWinCount']}")
         print("-"*10+"labels".upper()+"-"*10)
         if len(js['labels']) != 0:
             for i in range(len(js['labels'])):
