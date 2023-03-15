@@ -124,8 +124,8 @@ def Player(tag: str):
         print("-"*10+"labels".upper()+"-"*10)
         if len(js['labels']) != 0:
             for i in range(len(js['labels'])):
-                print("[+] Name: "+str(js['labels'][i]['name']))
-                print("[+] Icon: "+str(js['labels'][i]['iconUrls']['medium']))
+                print(f"[+] Name: {js['labels'][i]['name']}")
+                print(f"[+] Icon: {js['labels'][i]['iconUrls']['medium']}")
         else:
             print("[!] User has no registered labels !")
         dispach=str(input("[?] Do you want to display player's achievements ? [yes/no] "))
