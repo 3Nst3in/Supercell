@@ -101,7 +101,7 @@ def Player(tag: str):
             role = 'Leader'
         print("-" * 45)
         print(f"[+] Name: {js['name']}")
-        print(f"[+] Townhall level: {js['townHallLevel']}"+str(js['townHallLevel']))
+        print(f"[+] Townhall level: {js['townHallLevel']}")
         print("[+] Experience level: "+str(js['expLevel']))
         print("[+] Number of trophies (in Home Village): "+str(js['trophies']))
         print("[+] Highest number of trophies from multiplayer battles player reached: "+str(js['bestTrophies']))
