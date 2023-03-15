@@ -105,7 +105,7 @@ def Player(tag: str):
         print(f"[+] Experience level: {js['expLevel']}")
         print(f"[+] Number of trophies (in Home Village): {js['trophies']}")
         print(f"[+] Highest number of trophies from multiplayer battles player reached: {js['bestTrophies']}")
-        print(f"[+] Stars from war: {js['warStars']}"+str(js['warStars']))
+        print(f"[+] Stars from war: {js['warStars']}")
         print("[+] Attack wins: "+str(js['attackWins']))
         print("[+] Defence wins: "+str(js['defenseWins']))
         print("[+] Builderhall level: "+str(js['builderHallLevel']))
