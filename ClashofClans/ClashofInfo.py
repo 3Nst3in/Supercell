@@ -141,7 +141,7 @@ def Player(tag: str):
             for i in range(len(js['achievements'])):
                 print(f"[+] Name: {js['achievements'][i]['name']}")
                 print(f"[+] Achievement completed: {isCompleted(js['achievements'][i]['stars'])}")
-                print(f"[+] Description: {js['achievements'][i]['info']}"+str(js['achievements'][i]['info']))
+                print(f"[+] Description: {js['achievements'][i]['info']}")
                 print("[+] Highest value: "+str(js['achievements'][i]['value']))
                 print(f"[+] Only need {js['achievements'][i]['target']} to receive the achievement")
                 print("[+] Village: "+str(js['achievements'][i]['village']))
