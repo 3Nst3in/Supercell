@@ -142,7 +142,7 @@ def Player(tag: str):
                 print(f"[+] Name: {js['achievements'][i]['name']}")
                 print(f"[+] Achievement completed: {isCompleted(js['achievements'][i]['stars'])}")
                 print(f"[+] Description: {js['achievements'][i]['info']}")
-                print(f"[+] Highest value: {js['achievements'][i]['value']}"+str(js['achievements'][i]['value']))
+                print(f"[+] Highest value: {js['achievements'][i]['value']}")
                 print(f"[+] Only need {js['achievements'][i]['target']} to receive the achievement")
                 print("[+] Village: "+str(js['achievements'][i]['village']))
         distr=str(input("[?] Do you want to display player's troops ? [yes/no] "))
