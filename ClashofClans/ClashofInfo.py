@@ -159,7 +159,7 @@ def Player(tag: str):
                     x += 1
                     print(f"[+] Name: {js['troops'][i]['name']}")
                     print(f"[+] Level: {js['troops'][i]['level']}")
-                    print("[+] Max level: "+str(js['troops'][i]['maxLevel']))
+                    print(f"[+] Max level: {js['troops'][i]['maxLevel']}")
                     if js['troops'][i]['maxLevel'] == js['troops'][i]['level']:
                         maxed += 1
                         print("[+] Maxed troop !")
