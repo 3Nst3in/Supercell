@@ -144,7 +144,7 @@ def Player(tag: str):
                 print(f"[+] Description: {js['achievements'][i]['info']}")
                 print(f"[+] Highest value: {js['achievements'][i]['value']}")
                 print(f"[+] Only need {js['achievements'][i]['target']} to receive the achievement")
-                print("[+] Village: "+str(js['achievements'][i]['village']))
+                print(f"[+] Village: {js['achievements'][i]['village']}"+str(js['achievements'][i]['village']))
         distr=str(input("[?] Do you want to display player's troops ? [yes/no] "))
         while distr not in ANS and distr not in NANS:
             print("[!] Invalid input !")
