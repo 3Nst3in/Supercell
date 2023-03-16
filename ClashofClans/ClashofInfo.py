@@ -139,7 +139,7 @@ def Player(tag: str):
                     return True
                 return False
             for i in range(len(js['achievements'])):
-                print("[+] Name: "+str(js['achievements'][i]['name']))
+                print(f"[+] Name: {js['achievements'][i]['name']}"+str(js['achievements'][i]['name']))
                 print("[+] Achievement completed: "+str(isCompleted(js['achievements'][i]['stars'])))
                 print("[+] Description: "+str(js['achievements'][i]['info']))
                 print("[+] Highest value: "+str(js['achievements'][i]['value']))
