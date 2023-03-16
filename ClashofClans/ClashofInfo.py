@@ -140,7 +140,7 @@ def Player(tag: str):
                 return False
             for i in range(len(js['achievements'])):
                 print(f"[+] Name: {js['achievements'][i]['name']}")
-                print(f"[+] Achievement completed: {isCompleted(js['achievements'][i]['stars'])}"+str(isCompleted(js['achievements'][i]['stars'])))
+                print(f"[+] Achievement completed: {isCompleted(js['achievements'][i]['stars'])}")
                 print("[+] Description: "+str(js['achievements'][i]['info']))
                 print("[+] Highest value: "+str(js['achievements'][i]['value']))
                 print(f"[+] Only need {js['achievements'][i]['target']} to receive the achievement")
