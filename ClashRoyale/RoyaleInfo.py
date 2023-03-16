@@ -75,7 +75,7 @@ def ProgInfo():
     print(f"[+] License: {lice}")
     print(f"[+] API used: {api}")
     print(f"[+] URL: {api_url}")
-    print(f"[+] Number of lines: "+str(lines))
+    print(f"[+] Number of lines: {lines}"+str(lines))
     print(f"[+] File size: {fsize} bytes")
     print("[+] Github repository stars: "+str(stars))
     print("[+] Github repository forks: "+str(forks))
