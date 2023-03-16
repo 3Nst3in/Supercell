@@ -78,7 +78,7 @@ def ProgInfo():
     print(f"[+] Number of lines: {lines}")
     print(f"[+] File size: {fsize} bytes")
     print(f"[+] Github repository stars: {stars}")
-    print(f"[+] Github repository forks: "+str(forks))
+    print(f"[+] Github repository forks: "+str())
 
 def banner():
     return """
