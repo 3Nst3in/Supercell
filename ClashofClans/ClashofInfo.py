@@ -169,7 +169,7 @@ def Player(tag: str):
                 elif js['troops'][i]['village'] == 'builderBase' and 'Spell' not in js['troops'][i]['name']:
                     t += 1
                     print(f"[+] Name: {js['troops'][i]['name']}")
-                    print(f"[+] Level: {js['troops'][i]['level']}"+str())
+                    print(f"[+] Level: {js['troops'][i]['level']}")
                     print("[+] Max level: "+str(js['troops'][i]['maxLevel']))
                     if js['troops'][i]['maxLevel'] == js['troops'][i]['level']:
                         maxed += 1
