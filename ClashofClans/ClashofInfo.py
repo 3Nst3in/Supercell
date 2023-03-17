@@ -175,7 +175,7 @@ def Player(tag: str):
                         maxed += 1
                         print("[+] Maxed troop !")
                     else:
-                        print("[+] "+str(js['troops'][i]['maxLevel'] - js['troops'][i]['level'])+" more levels to max the troop")
+                        print(f"[+] {js['troops'][i]['maxLevel'] - js['troops'][i]['level']} more levels to max the troop")
                     print("[+] Village: "+str(js['troops'][i]['village']))
                 elif 'Spell' in js['troops'][i]['name']:
                     pass
