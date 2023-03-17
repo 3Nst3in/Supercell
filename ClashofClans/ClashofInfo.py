@@ -183,7 +183,7 @@ def Player(tag: str):
             pert = (t / 11.0)*100
             permx = (maxed / len(js['troops']))*100
             print(f"[+] Percentage of troops (in the Home Village) owned by the player: {perx}%")
-            print("[+] Percentage of troops (in the Builder Base) owned by the player: "+str(pert)+"%")
+            print(f"[+] Percentage of troops (in the Builder Base) owned by the player: {pert}%")
             print("[+] Percentage of max troops owned by the player: "+str(permx)+"%")
             print("[+] Number of maxed troops: "+str(maxed)+"/"+str(len(js['troops'])))
         disph=str(input("[?] Do you want to display player's heroes ? [yes/no] "))
