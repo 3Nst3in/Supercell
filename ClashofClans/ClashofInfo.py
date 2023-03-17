@@ -205,7 +205,7 @@ def Player(tag: str):
             per = (len(js['heroes'] / 5.0))*100
             print(f"[+] Player own's {per}% of the heroes")
             print(f"[+] Percentage of maxed heroes: {(maxedh / len(js['heroes']))*100}")
-            print(f"[+] Number of maxed heroes: {maxedh}/"+str(len(js['heroes'])))
+            print(f"[+] Number of maxed heroes: {maxedh}/{len(js['heroes'])}"+str(len(js['heroes'])))
         disps=str(input("[?] Do you want to display player's spells ? [yes/no] "))
         while disph not in ANS and disph not in NANS:
             print("[!] Invalid input !")
