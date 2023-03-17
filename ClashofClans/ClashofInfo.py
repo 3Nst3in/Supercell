@@ -201,7 +201,7 @@ def Player(tag: str):
                     maxedh += 1
                     print("[+] Maxed hero !")
                 else:
-                    print("[+] "+str(js['heroes'][i]['maxLevel'] - js['heroes'][i]['level'])+" more levels to max the hero")
+                    print(f"[+] {js['heroes'][i]['maxLevel'] - js['heroes'][i]['level']} more levels to max the hero")
             per = (len(js['heroes'] / 5.0))*100
             print("[+] Player own's "+str(per)+"% of the heroes")
             print("[+] Percentage of maxed heroes: "+str((maxedh / len(js['heroes']))*100))
