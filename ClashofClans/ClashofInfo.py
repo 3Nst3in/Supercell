@@ -194,7 +194,7 @@ def Player(tag: str):
         if disph in ANS:
             maxedh = 0
             for i in range(len(js['heroes'])):
-                print("[+] Name: "+str(js['heroes'][i]['name']))
+                print(f"[+] Name: {js['heroes'][i]['name']}")
                 print("[+] Level: "+str(js['heroes'][i]['level']))
                 print("[+] Max level: "+str(js['heroes'][i]['maxLevel']))
                 if js['heroes'][i]['maxLevel'] == js['heroes'][i]['level']:
