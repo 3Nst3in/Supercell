@@ -195,7 +195,7 @@ def Player(tag: str):
             maxedh = 0
             for i in range(len(js['heroes'])):
                 print(f"[+] Name: {js['heroes'][i]['name']}")
-                print(f"[+] Level: {js['heroes'][i]['level']}"+str(js['heroes'][i]['level']))
+                print(f"[+] Level: {js['heroes'][i]['level']}")
                 print("[+] Max level: "+str(js['heroes'][i]['maxLevel']))
                 if js['heroes'][i]['maxLevel'] == js['heroes'][i]['level']:
                     maxedh += 1
