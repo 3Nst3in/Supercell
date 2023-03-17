@@ -217,7 +217,7 @@ def Player(tag: str):
             for i in range(len(js['spells'])):
                 print(f"[+] Name: {js['spells'][i]['name']}")
                 print(f"[+] Level: {js['spells'][i]['level']}")
-                print(f"[+] Max level: {js['spells'][i]['maxLevel']}"+str(js['spells'][i]['maxLevel']))
+                print(f"[+] Max level: {js['spells'][i]['maxLevel']}")
                 if js['spells'][i]['maxLevel'] == js['spells'][i]['level']:
                     maxeds += 1
                     print("[!] Maxed spell !")
