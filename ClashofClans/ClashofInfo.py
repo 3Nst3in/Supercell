@@ -262,7 +262,7 @@ def Clan(tag: str):
             print(f"[+] Required town hall level: {js['requiredTownhallLevel']}")
             print(f"[+] Location: {js['location']['name']}")
             print(f"[+] Is country: {js['isCountry']}")
-            print(f"[+] Icon: {js['badgeUrls']['medium']}"+str(js['badgeUrls']['medium']))
+            print(f"[+] Icon: {js['badgeUrls']['medium']}")
             print("[+] Level: "+str(js['clanLevel']))
             print("[+] Points: "+str(js['clanPoints']))
             print("[+] Required Trophies: "+str(js['requiredTrophies']))
