@@ -252,7 +252,7 @@ def Clan(tag: str):
         if page.status_code == 200:
             js = page.json()
             print("-" * 40)
-            print("[+] Name: "+str(js['name']))
+            print(f"[+] Name: {js['name']}")
             print("[+] Type: "+str(js['type']))
             print("[+] Description: "+str(js['description']))
             print("[+] Chat language: "+str(js['chatLanguage']['name']))
