@@ -264,7 +264,7 @@ def Clan(tag: str):
             print(f"[+] Is country: {js['isCountry']}")
             print(f"[+] Icon: {js['badgeUrls']['medium']}")
             print(f"[+] Level: {js['clanLevel']}")
-            print(f"[+] Points: {js['clanPoints']}"+str(js['clanPoints']))
+            print(f"[+] Points: {js['clanPoints']}")
             print("[+] Required Trophies: "+str(js['requiredTrophies']))
             print("[+] War frequency: "+str(js['warFrequency']))
             print("[+] Current war win streak: "+str(js['warWinStreak']))
