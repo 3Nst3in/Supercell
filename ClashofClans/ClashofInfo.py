@@ -254,7 +254,7 @@ def Clan(tag: str):
             print("-" * 40)
             print(f"[+] Name: {js['name']}")
             print(f"[+] Type: {js['type']}")
-            print("[+] Description: "+str(js['description']))
+            print(f"[+] Description: {js['description']}")
             print("[+] Chat language: "+str(js['chatLanguage']['name']))
             print("[+] Is family friendly: "+str(js['isFamilyFriendly']))
             print("[+] Number of members: "+str(js['members']))
