@@ -225,7 +225,7 @@ def Player(tag: str):
                     print(f"[+] {js['spells'][i]['maxLevel'] - js['spells'][i]['level']} more levels to max the spell")
             print(f"[+] Percentage of spells owned by the player: {pers}%")
             print(f"[+] Percentage of maxed spells: {(maxeds / len(js['spells']))*100}%")
-            print("[+] Number of maxed spells: "+str(maxeds)+"/"+str(len(js['spells'])))
+            print(f"[+] Number of maxed spells: {maxeds}/{len(js['spells'])}")
         print("-" * 45)
     else:
         print(f"[!] Failed to retrieve data ! Error code: {page.status_code}")
