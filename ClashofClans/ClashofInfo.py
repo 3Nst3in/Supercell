@@ -256,7 +256,7 @@ def Clan(tag: str):
             print(f"[+] Type: {js['type']}")
             print(f"[+] Description: {js['description']}")
             print(f"[+] Chat language: {js['chatLanguage']['name']}")
-            print("[+] Is family friendly: "+str(js['isFamilyFriendly']))
+            print(f"[+] Is family friendly: {js['isFamilyFriendly']}")
             print("[+] Number of members: "+str(js['members']))
             print("[+] Required VS trophies: "+str(js['requiredVersusTrophies']))
             print("[+] Required town hall level: "+str(js['requiredTownhallLevel']))
