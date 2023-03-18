@@ -253,7 +253,7 @@ def Clan(tag: str):
             js = page.json()
             print("-" * 40)
             print(f"[+] Name: {js['name']}")
-            print("[+] Type: "+str(js['type']))
+            print(f"[+] Type: {js['type']}")
             print("[+] Description: "+str(js['description']))
             print("[+] Chat language: "+str(js['chatLanguage']['name']))
             print("[+] Is family friendly: "+str(js['isFamilyFriendly']))
