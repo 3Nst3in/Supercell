@@ -248,7 +248,7 @@ def Clan(tag: str):
         option=int(input("[::] Please enter again a number (from the above ones): "))
     if option == 1:
         tag = tag.upper()
-        page = requests.get("https://api.clashofclans.com/v1/clans/%23"+str(tag), headers=headers)
+        page = requests.get(f"https://api.clashofclans.com/v1/clans/%23{tag}", headers=headers)
         if page.status_code == 200:
             js = page.json()
             print("-" * 40)
