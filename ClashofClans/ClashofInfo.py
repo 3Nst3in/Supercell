@@ -270,7 +270,7 @@ def Clan(tag: str):
             print(f"[+] Current war win streak: {js['warWinStreak']}")
             print(f"[+] War wins: {js['warWins']}")
             print(f"[+] War ties: {js['warTies']}")
-            print("[+] War losses: "+str(js['warLosses']))
+            print(f"[+] War losses: {js['warLosses']}")
             print("[+] Is war log public: "+str(js['isWarLogPublic']))
             print("[+] War league: "+str(js['warLeague']['name']))
             print("[+] Clan capital league: "+str(js['capitalLeague']['name']))
