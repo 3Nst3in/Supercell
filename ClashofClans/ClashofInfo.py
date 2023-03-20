@@ -294,7 +294,7 @@ def Clan(tag: str):
             role = ''
             for i in range(len(js['items'])):
                 print(f"[+] Name: {js['items'][i]['name']}")
-                print("[+] Tag: "+str(js['items'][i]['tag']))
+                print(f"[+] Tag: {js['items'][i]['tag']}")
                 if js['items'][i]['role'] == 'admin':
                     role = 'Elder'
                 elif js['items'][i]['role'] == 'coLeader':
