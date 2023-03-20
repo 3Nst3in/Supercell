@@ -281,7 +281,7 @@ def Clan(tag: str):
                 print(f"[+] Level: {js['clanCapital']['districts'][i]['districtHallLevel']}")
             print("-"*10+"labels".upper()+"-"*10)
             for i in range(len(js['labels'])):
-                print("[+] Name: "+str(js['labels'][i]['name']))
+                print(f"[+] Name: {js['labels'][i]['name']}")
                 print("[+] Icon: "+str(js['labels'][i]['iconUrls']['medium']))
             print("-" * 40)
         else:
