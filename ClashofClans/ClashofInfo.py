@@ -293,7 +293,7 @@ def Clan(tag: str):
             js = page.json()
             role = ''
             for i in range(len(js['items'])):
-                print("[+] Name: "+str(js['items'][i]['name']))
+                print(f"[+] Name: {js['items'][i]['name']}")
                 print("[+] Tag: "+str(js['items'][i]['tag']))
                 if js['items'][i]['role'] == 'admin':
                     role = 'Elder'
