@@ -282,7 +282,7 @@ def Clan(tag: str):
             print("-"*10+"labels".upper()+"-"*10)
             for i in range(len(js['labels'])):
                 print(f"[+] Name: {js['labels'][i]['name']}")
-                print("[+] Icon: "+str(js['labels'][i]['iconUrls']['medium']))
+                print(f"[+] Icon: {js['labels'][i]['iconUrls']['medium']}")
             print("-" * 40)
         else:
             print("[!] Failed to retrieve data ! Error code: "+str(page.status_code))
