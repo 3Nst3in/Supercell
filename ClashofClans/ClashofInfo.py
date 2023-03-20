@@ -268,7 +268,7 @@ def Clan(tag: str):
             print(f"[+] Required Trophies: {js['requiredTrophies']}")
             print(f"[+] War frequency: {js['warFrequency']}")
             print(f"[+] Current war win streak: {js['warWinStreak']}")
-            print("[+] War wins: "+str(js['warWins']))
+            print(f"[+] War wins: {js['warWins']}")
             print("[+] War ties: "+str(js['warTies']))
             print("[+] War losses: "+str(js['warLosses']))
             print("[+] Is war log public: "+str(js['isWarLogPublic']))
