@@ -302,7 +302,7 @@ def Clan(tag: str):
                 else:
                     role = 'Leader'
                 print(f"[+] Role: {role}")
-                print("[+] Clan rank: "+str(js['items'][i]['clanRank']))
+                print(f"[+] Clan rank: {js['items'][i]['clanRank']}")
                 print("[+] Previous clan rank: "+str(js['items'][i]['previousClanRank']))
                 print("[+] Experience level: "+str(js['items'][i]['expLevel']))
                 print("[+] League: "+str(js['items'][i]['league']['name']))
