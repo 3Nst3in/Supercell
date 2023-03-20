@@ -285,7 +285,7 @@ def Clan(tag: str):
                 print(f"[+] Icon: {js['labels'][i]['iconUrls']['medium']}")
             print("-" * 40)
         else:
-            print("[!] Failed to retrieve data ! Error code: "+str(page.status_code))
+            print(f"[!] Failed to retrieve data ! Error code: {page.status_code}")
             exit(0)
     elif option == 2:
         page = requests.get(f"https://api.clashofclans.com/v1/clans/%23{tag}/members", headers=headers)
