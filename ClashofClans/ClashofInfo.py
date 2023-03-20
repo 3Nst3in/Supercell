@@ -164,7 +164,7 @@ def Player(tag: str):
                         maxed += 1
                         print("[+] Maxed troop !")
                     else:
-                        print(f"[+] {js['troops'][i]['maxLevel'] - js['troops'][i]['level'])} more levels to max the troop")
+                        print(f"[+] {js['troops'][i]['maxLevel'] - js['troops'][i]['level']} more levels to max the troop")
                     print(f"[+] Village: {js['troops'][i]['village']}")
                 elif js['troops'][i]['village'] == 'builderBase' and 'Spell' not in js['troops'][i]['name']:
                     t += 1
@@ -258,7 +258,7 @@ def Clan(tag: str):
             print(f"[+] Chat language: {js['chatLanguage']['name']}")
             print(f"[+] Is family friendly: {js['isFamilyFriendly']}")
             print(f"[+] Number of members: {js['members']}")
-            print(f"[+] Required VS trophies: {js['requiredVersusTrophies'}")
+            print(f"[+] Required VS trophies: {js['requiredVersusTrophies']}")
             print(f"[+] Required town hall level: {js['requiredTownhallLevel']}")
             print(f"[+] Location: {js['location']['name']}")
             print(f"[+] Is country: {js['isCountry']}")
