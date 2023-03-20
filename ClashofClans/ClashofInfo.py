@@ -305,7 +305,7 @@ def Clan(tag: str):
                 print(f"[+] Clan rank: {js['items'][i]['clanRank']}")
                 print(f"[+] Previous clan rank: {js['items'][i]['previousClanRank']}")
                 print(f"[+] Experience level: {js['items'][i]['expLevel']}")
-                print("[+] League: "+str(js['items'][i]['league']['name']))
+                print(f"[+] League: {js['items'][i]['league']['name']}")
                 print("[+] Trophies: "+str(js['items'][i]['trophies']))
                 print("[+] Versus trophies: "+str(js['items'][i]['versusTrophies']))
                 print("[+] Donations made: "+str(js['items'][i]['donations']))
