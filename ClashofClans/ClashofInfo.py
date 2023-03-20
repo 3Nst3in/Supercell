@@ -273,7 +273,7 @@ def Clan(tag: str):
             print(f"[+] War losses: {js['warLosses']}")
             print(f"[+] Is war log public: {js['isWarLogPublic']}")
             print(f"[+] War league: {js['warLeague']['name']}")
-            print("[+] Clan capital league: "+str(js['capitalLeague']['name']))
+            print(f"[+] Clan capital league: {js['capitalLeague']['name']}")
             print("[+] Clan capital hall level: "+str(js['clanCapital']['capitalHallLevel']))
             print("-"*10+"districts".upper()+"-"*10)
             for i in range(len(js['clanCapital']['districts'])):
