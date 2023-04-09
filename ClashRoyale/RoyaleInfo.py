@@ -9,13 +9,24 @@ Built with Python and Supercell's API.
 
 try:
     import sys
+    from time import sleep
+    if sys.version_info[0] < 3:
+        print("[!] Error ! This script requires Python version 3.X ! ")
+        print("""[+] Instructions to download Python 3.x : 
+        Linux: apt install python3
+        Windows: https://www.python.org/downloads/
+        MacOS: https://docs.python-guide.org/starting/install3/osx/""")
+        print("[+] Please install the Python 3 and then use this script ✅")
+        sleep(2)
+        print("[+] Exiting...")
+        sleep(1)
+        quit(0)
     import platform
     from os import system
-    from time import sleep
     import json
     import os
     import requests
-except ImportError as imp:
+except ImportError:
     print("[!] WARNING: Not all packages used in this program have been installed !")
     sleep(2)
     print("[+] Ignoring warning...")
