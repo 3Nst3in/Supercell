@@ -3,7 +3,7 @@ Script providing information about players, teams, tournaments etc. in some game
 
 ### Already supported games:
 - <a href="https://github.com/new92/Supercell/tree/main/ClashofClans">Clash of Clans</a>
-- <a href="https://github.com/new92/Supercell/tree/main/ClashRoyale">Clash Roayle</a>
+- <a href="https://github.com/new92/Supercell/tree/main/ClashRoyale">Clash Royale</a>
 
 ### Coming up:
 - Brawl stars
