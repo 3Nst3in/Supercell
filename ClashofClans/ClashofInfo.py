@@ -400,7 +400,7 @@ def League():
             for i in range(len(js['items'])):
                 print("[+] ID: "+str(js['items'][i]['id']))
                 print("[+] Name: "+str(js['items'][i]['name']))
-                print("[+] Icon Url: "+str("js['items'][i]['iconUrls']['small']"))
+                print("[+] Icon Url: "+str(js['items'][i]['iconUrls']['small']))
         else:
             print("[!] Failed to retrieve data ! Error code: "+str(page.status_code))
             exit(0)
