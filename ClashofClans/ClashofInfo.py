@@ -7,24 +7,12 @@ Script for displaying info for players, clans, leagues etc. in the famous game: 
 
 try:
     import sys
-    from time import sleep
-    if sys.version_info[0] < 3:
-        print("[!] Error ! This script requires Python version 3.X ! ")
-        print("""[+] Instructions to download Python 3.x : 
-        Linux: apt install python3
-        Windows: https://www.python.org/downloads/
-        MacOS: https://docs.python-guide.org/starting/install3/osx/""")
-        print("[+] Please install the Python 3 and then use this script ✅")
-        sleep(2)
-        print("[+] Exiting...")
-        sleep(1)
-        quit(0)
     import platform
     from os import system
-    import json
+    from time import sleep
     import requests
     import os
-except ImportError as imp:
+except ImportError:
     print("[!] WARNING: Not all packages used in this script have been installed !")
     sleep(2)
     print("[+] Ignoring warning...")
@@ -39,12 +27,42 @@ except ImportError as imp:
             try:
                 system("sudo pip install -r requirements.txt")
             except Exception as ex:
-                print("[!] Error !")
+                print("[!] Error ! Cannot install the required modules !")
                 sleep(1)
-                print(ex)
+                print(f"[*] Error message ==> {ex}")
                 sleep(2)
-                print("[+] Exiting...")
-                quit(0)
+                print("[1] Uninstall script")
+                print("[2] Exit")
+                opt=int(input("[>] Please enter a number (from the above ones): "))
+                while opt < 1 or opt > 2 or opt == None:
+                    if opt == None:
+                        print("[!] This field can't be blank !")
+                    else:
+                        print("[!] Invalid number !")
+                        sleep(1)
+                        print("[+] Acceptable numbers: [1,2]")
+                    sleep(1)
+                    print("[1] Uninstall script")
+                    print("[2] Exit")
+                    opt=int(input("[>] Please enter again a number (from the above ones): "))
+                if opt == 1:
+                    def rmdir(dire):
+                        DIRS = []
+                        for root, dirs, files in os.walk(dire):
+                            for file in files:
+                                os.remove(os.path.join(root,file))
+                            for dir in dirs:
+                                DIRS.append(os.path.join(root,dir))
+                        for i in range(len(DIRS)):
+                            os.rmdir(DIRS[i])
+                        os.rmdir(dire)
+                    rmdir(os.path.abspath('Supercell'))
+                    print("[✓] Files and dependencies uninstalled successfully !")
+                else:
+                    print("[+] Exiting...")
+                    sleep(1)
+                    print("[+] See you next time 👋")
+                    quit(0)
         else:
             system("sudo pip install -r requirements.txt")
     elif sys.platform == 'darwin':
@@ -59,32 +77,31 @@ headers = {
 
 def ProgInfo():
     if platform.system() == 'Windows':
-        system("cls")
+        system('cls')
     else:
-        system("clear")
+        system('clear')
     author = 'new92'
     lice = 'MIT'
-    f = "/Supercell/ClashRoyale/RoyaleInfo.py"
-    if os.path.exists(os.path.abspath(f)):
-        fsize = (os.stat(f)).st_size
-    else:
-        fsize = 0
     lang = 'Python'
     language = 'en-US'
     name = 'ClashofInfo'
     api = 'Clash of Clans API'
     api_url = 'https://developer.clashofclans.com/#/login'
-    lines = 553
+    lines = 602
     stars = 6
     forks = 4
+    if os.path.exists(os.path.abspath(name+'.py')):
+        fsize = (os.stat(name+'.py')).st_size
+    else:
+        fsize = 0
     print(f"[+] Author: {author}")
     print(f"[+] Github: @{author}")
     print(f"[+] License: {lice}")
     print(f"[+] Programming language(s) used: {lang}")
     print(f"[+] Language(s): {language}")
-    print(f"[+] Program's name: {name}")
+    print(f"[+] Script's name: {name}")
     print(f"[+] Lines of code: {lines}")
-    print(f"[+] API used: {api}")
+    print(f"[+] API(s) used: {api}")
     print(f"[+] URL: {api_url}")
     print(f"[+] File size: {fsize} bytes")
     print(f"[+] Github repo stars: {stars}")
@@ -96,9 +113,9 @@ NANS = ["no","NO","No","n","N","nO"]
 
 def Player(tag: str):
     if platform.system() == 'Windows':
-        system("cls")
+        system('cls')
     else:
-        system("clear")
+        system('clear')
     tag = tag.upper()
     war = ''
     page = requests.get(f"https://api.clashofclans.com/v1/players/%23{tag}", headers=headers)
@@ -243,10 +260,9 @@ def Player(tag: str):
         exit(0)
 def Clan(tag: str):
     if platform.system() == 'Windows':
-        system("cls")
+        system('cls')
     else:
-        system("clear")
-    print("\n")
+        system('clear')
     tag = tag.upper()
     print("[1] Display info for a clan")
     print("[2] Display info for the members of a clan")
@@ -318,12 +334,12 @@ def Clan(tag: str):
                 print(f"[+] Experience level: {js['items'][i]['expLevel']}")
                 print(f"[+] League: {js['items'][i]['league']['name']}")
                 print(f"[+] Trophies: {js['items'][i]['trophies']}")
-                print("[+] Versus trophies: "+str(js['items'][i]['versusTrophies']))
-                print("[+] Donations made: "+str(js['items'][i]['donations']))
-                print("[+] Troops received: "+str(js['items'][i]['donationsReceived']))
+                print(f"[+] Versus trophies: {js['items'][i]['versusTrophies']}")
+                print(f"[+] Donations made: {js['items'][i]['donations']}")
+                print(f"[+] Troops received: {js['items'][i]['donationsReceived']}")
             print("\n")
         else:
-            print("[!] Failed to retrieve data ! Error code: "+str(page.status_code))
+            print(f"[!] Failed to retrieve data ! Error code: {page.status_code}")
             exit(0)
     elif option == 3:
         print("\n")
@@ -342,38 +358,38 @@ def Clan(tag: str):
             js = page.json()
             wl_pub = "yes"
             for i in range(len(js['items'])):
-                print("[+] Name: "+str(js['items'][i]['name']))
-                print("[+] Type: "+str(js['items'][i]['type']))
-                print("[+] Location: "+str(js['items'][i]['location']['name']))
-                print("[+] Badge: "+str(js['items'][i]['badgeUrls']['medium']))
-                print("[+] Level: "+str(js['items'][i]['clanLevel']))
-                print("[+] Points: "+str(js['items'][i]['clanPoints']))
-                print("[+] Versus points: "+str(js['items'][i]['clanVerusPoints']))
-                print("[+] Required trophies: "+str(js['items'][i]['requiredTrophies']))
-                print("[+] War frequency: "+str(js['items'][i]['warFrequency']))
-                print("[+] War win streak: "+str(js['items'][i]['warWinStreak']))
-                print("[+] War wins: "+str(js['items'][i]['warWins']))
-                print("[+] War ties: "+str(js['items'][i]['warTies']))
-                print("[+] War losses: "+str(js['items'][i]['warLosses']))
+                print(f"[+] Name: {js['items'][i]['name']}")
+                print(f"[+] Type: {js['items'][i]['type']}")
+                print(f"[+] Location: {js['items'][i]['location']['name']}")
+                print(f"[+] Badge: {js['items'][i]['badgeUrls']['medium']}")
+                print(f"[+] Level: {js['items'][i]['clanLevel']}")
+                print(f"[+] Points: {js['items'][i]['clanPoints']}")
+                print(f"[+] Versus points: {js['items'][i]['clanVerusPoints']}")
+                print(f"[+] Required trophies: {js['items'][i]['requiredTrophies']}")
+                print(f"[+] War frequency: {js['items'][i]['warFrequency']}")
+                print(f"[+] War win streak: {js['items'][i]['warWinStreak']}")
+                print(f"[+] War wins: {js['items'][i]['warWins']}")
+                print(f"[+] War ties: {js['items'][i]['warTies']}")
+                print(f"[+] War losses: {js['items'][i]['warLosses']}")
                 if not js['items'][i]['isWarLogPublic']:
                     wl_pub = "No"
-                print("[+] Is the war log public ? "+str(wl_pub))
-                print("[+] War league: "+str(js['items'][i]['warLeague']['name']))
-                print("[+] Required versus trophies: "+str(js['items'][i]['requiredVersusTrophies']))
-                print("[+] Required TownHall level: "+str(js['items'][i]['requiredTownhallLevel']))
-                print("[+] Chat language: "+str(js['items'][i]['chatLanguage']['name']))
-                print("[+] Number of members: "+str(js['items'][i]['members']))
+                print(f"[+] Is the war log public ? {wl_pub}")
+                print(f"[+] War league: {js['items'][i]['warLeague']['name']}")
+                print(f"[+] Required versus trophies: {js['items'][i]['requiredVersusTrophies']}")
+                print(f"[+] Required TownHall level: {js['items'][i]['requiredTownhallLevel']}")
+                print(f"[+] Chat language: {js['items'][i]['chatLanguage']['name']}")
+                print(f"[+] Number of members: {js['items'][i]['members']}")
         else:
-            print("[!] Failed to retrieve data ! Error code: "+str(page.status_code))
+            print(f"[!] Failed to retrieve data ! Error code: {page.status_code}")
             exit(0)
     else:
         main()
 
 def League():
     if platform.system() == 'Windows':
-        system("cls")
+        system('cls')
     else:
-        system("clear")
+        system('clear')
     print("\n")
     print("[1] Display the leagues")
     print("[2] Display the clan capital leagues")
@@ -385,7 +401,7 @@ def League():
     print("[8] Display season rankings")
     print("[9] Return to menu")
     print("\n")
-    print("[+] ==> NOTE: If you want display info about a league you need to enter first one of the three number (1-3) to get the league ID (if you don't already have it):)")
+    print("[*] ==> NOTE: If you want display info about a league you need to enter first one of the three number (1-3) to get the league ID (if you don't already have it):)")
     print("\n")
     option=int(input("[::] Please enter a number (from the above ones): "))
     while option < 1 or option > 9 or option == None:
@@ -398,11 +414,11 @@ def League():
             js = page.json()
             print("-"*20+"leagues".upper()+"-"*20)
             for i in range(len(js['items'])):
-                print("[+] ID: "+str(js['items'][i]['id']))
-                print("[+] Name: "+str(js['items'][i]['name']))
-                print("[+] Icon Url: "+str(js['items'][i]['iconUrls']['small']))
+                print(f"[+] ID: {js['items'][i]['id']}")
+                print(f"[+] Name: {js['items'][i]['name']}")
+                print(f"[+] Icon Url: {js['items'][i]['iconUrls']['small']}")
         else:
-            print("[!] Failed to retrieve data ! Error code: "+str(page.status_code))
+            print(f"[!] Failed to retrieve data ! Error code: {page.status_code}")
             exit(0)
     elif option == 2:
         page = requests.get("https://api.clashofclans.com/v1/capitalleagues", headers=headers)
@@ -410,10 +426,10 @@ def League():
             js = page.json()
             print("-"*20+"clan capital leagues".upper()+"-"*20)
             for i in range(len(js['items'])):
-                print("[+] ID: "+str(js['items'][i]['id']))
-                print("[+] Name: "+str(js['items'][i]['name']))
+                print(f"[+] ID: {js['items'][i]['id']}")
+                print(f"[+] Name: {js['items'][i]['name']}")
         else:
-            print("[!] Failed to retrieve data ! Error code: "+str(page.status_code))
+            print(f"[!] Failed to retrieve data ! Error code: {page.status_code}")
             exit(0)
     elif option == 3:
         page = requests.get("https://api.clashofclans.com/v1/warleagues", headers=headers)
@@ -421,10 +437,10 @@ def League():
             js = page.json()
             print("-"*20+"war leagues".upper()+"-"*20)
             for i in range(len(js['items'])):
-                print("[+] ID: "+str(js['items'][i]['id']))
-                print("[+] Name: "+str(js['items'][i]['name']))
+                print(f"[+] ID: {js['items'][i]['id']}")
+                print(f"[+] Name: {js['items'][i]['name']}")
         else:
-            print("[!] Failed to retrieve data ! Error code: "+str(page.status_code))
+            print(f"[!] Failed to retrieve data ! Error code: {page.status_code}")
             exit(0)
     elif option == 4:
         id=int(input("[::] Please enter here the league ID: "))
@@ -432,13 +448,13 @@ def League():
             print("[!] Invalid league ID !")
             sleep(1)
             id=int(input("[::] Please enter again the league ID: "))
-        page = requests.get("https://api.clashofclans.com/v1/leagues/"+str(id), headers=headers)
+        page = requests.get(f"https://api.clashofclans.com/v1/leagues/{id}", headers=headers)
         if page.status_code == 200:
             js = page.json()
-            print("[+] Name: "+str(js['name']))
-            print("[+] Icon: "+str(js['iconUrls']['small']))
+            print(f"[+] Name: {js['name']}")
+            print(f"[+] Icon: {js['iconUrls']['small']}")
         else:
-            print("[!] Failed to retrieve data ! Error code: "+str(page.status_code))
+            print(f"[!] Failed to retrieve data ! Error code: {page.status_code}")
             exit(0)
     elif option == 5:
         id=int(input("[::] Please enter here the clan capital league ID: "))
@@ -446,12 +462,12 @@ def League():
             print("[!] Invalid league ID !")
             sleep(1)
             id=int(input("[::] Please enter again the clan capital league ID: "))
-        page = requests.get("https://api.clashofclans.com/v1/capitalleagues/"+str(id), headers=headers)
+        page = requests.get(f"https://api.clashofclans.com/v1/capitalleagues/{id}", headers=headers)
         if page.status_code == 200:
             js = page.json()
-            print("[+] Name: "+str(js['name']))
+            print(f"[+] Name: {js['name']}")
         else:
-            print("[!] Failed to retrieve data ! Error code: "+str(page.status_code))
+            print(f"[!] Failed to retrieve data ! Error code: {page.status_code}")
             exit(0)
     elif option == 6:
         id=int(input("[::] Please enter here the war league ID: "))
@@ -459,12 +475,12 @@ def League():
             print("[!] Invalid league ID !")
             sleep(1)
             id=int(input("[::] Please enter again the war league ID: "))
-        page = requests.get("https://api.clashofclans.com/v1/warleagues/"+str(id), headers=headers)
+        page = requests.get(f"https://api.clashofclans.com/v1/warleagues/{id}", headers=headers)
         if page.status_code == 200:
             js = page.json()
-            print("[+] Name: "+str(js['name']))
+            print(f"[+] Name: {js['name']}")
         else:
-            print("[!] Failed to retrieve data ! Error code: "+str(page.status_code))
+            print(f"[!] Failed to retrieve data ! Error code: {page.status_code}")
             exit(0)
     elif option == 7:
         page = requests.get("https://api.clashofclans.com/v1/leagues/29000022/seasons", headers=headers)
@@ -474,7 +490,7 @@ def League():
             for i in range(len(js['items'])):
                 print(f"[+] ID No{i+1}: {js['items'][i]['id']}")
         else:
-            print("[!] Failed to retrieve data ! Error code: "+str(page.status_code))
+            print(f"[!] Failed to retrieve data ! Error code: {page.status_code}")
             exit(0)
     elif option == 8:
         id=input("[::] Please enter here the season ID: ")
@@ -482,35 +498,48 @@ def League():
             print("[!] Invalid league ID !")
             sleep(1)
             id=input("[::] Please enter again the season ID: ")
-        page = requests.get("https://api.clashofclans.com/v1/leagues/29000022/seasons/"+str(id), headers=headers)
+        page = requests.get(f"https://api.clashofclans.com/v1/leagues/29000022/seasons/{id}", headers=headers)
         if page.status_code == 200:
             js = page.json()
             print("-"*20+"rankings".upper()+"-"*20)
             for i in range(len(js['items'])):
-                print("[+] Name: "+str(js['items'][i]['name']))
-                print("[+] Tag: "+str(js['items'][i]['tag']))
-                print("[+] Rank: "+str(js['items'][i]['rank']))
-                print("[+] Experience level: "+str(js['items'][i]['expLevel']))
-                print("[+] Trophies: "+str(js['items'][i]['trophies']))
-                print("[+] Number of attack wins: "+str(js['items'][i]['attackWins']))
-                print("[+] Number of defence wins: "+str(js['items'][i]['defenseWins']))
-                print("[+] Clan: "+str(js['items'][i]['clan']['name']))
+                print(f"[+] Name: {js['items'][i]['name']}")
+                print(f"[+] Tag: {js['items'][i]['tag']}")
+                print(f"[+] Rank: {js['items'][i]['rank']}")
+                print(f"[+] Experience level: {js['items'][i]['expLevel']}")
+                print(f"[+] Trophies: {js['items'][i]['trophies']}")
+                print(f"[+] Number of attack wins: {js['items'][i]['attackWins']}")
+                print(f"[+] Number of defence wins: {js['items'][i]['defenseWins']}")
+                print(f"[+] Clan: {js['items'][i]['clan']['name']}")
         else:
-            print("[!] Failed to retrieve data ! Error code: "+str(page.status_code))
+            print(f"[!] Failed to retrieve data ! Error code: {page.status_code}")
             exit(0)
     else:
         main()
 
+def Uninstall() -> str:
+    def rmdir(dire):
+        DIRS = []
+        for root, dirs, files in os.walk(dire):
+            for file in files:
+                os.remove(os.path.join(root,file))
+            for dir in dirs:
+                DIRS.append(os.path.join(root,dir))
+        for i in range(len(DIRS)):
+            os.rmdir(DIRS[i])
+        os.rmdir(dire)
+    rmdir(os.path.abspath('Supercell'))
+    return "[✓] Files and dependencies uninstalled successfully !"
 
-def banner():
+def banner() -> str:
     return  """
-░█████╗░██╗░░░░░░█████╗░░██████╗██╗░░██╗   ░█████╗░███████╗   ██╗███╗░░██╗███████╗░█████╗░
-██╔══██╗██║░░░░░██╔══██╗██╔════╝██║░░██║   ██╔══██╗██╔════╝   ██║████╗░██║██╔════╝██╔══██╗
-██║░░╚═╝██║░░░░░███████║╚█████╗░███████║   ██║░░██║█████╗░░   ██║██╔██╗██║█████╗░░██║░░██║
-██║░░██╗██║░░░░░██╔══██║░╚═══██╗██╔══██║   ██║░░██║██╔══╝░░   ██║██║╚████║██╔══╝░░██║░░██║
-╚█████╔╝███████╗██║░░██║██████╔╝██║░░██║   ╚█████╔╝██║░░░░░   ██║██║░╚███║██║░░░░░╚█████╔╝
-░╚════╝░╚══════╝╚═╝░░╚═╝╚═════╝░╚═╝░░╚═╝   ░╚════╝░╚═╝░░░░░   ╚═╝╚═╝░░╚══╝╚═╝░░░░░░╚════╝░
-"""
+    ░█████╗░██╗░░░░░░█████╗░░██████╗██╗░░██╗   ░█████╗░███████╗   ██╗███╗░░██╗███████╗░█████╗░
+    ██╔══██╗██║░░░░░██╔══██╗██╔════╝██║░░██║   ██╔══██╗██╔════╝   ██║████╗░██║██╔════╝██╔══██╗
+    ██║░░╚═╝██║░░░░░███████║╚█████╗░███████║   ██║░░██║█████╗░░   ██║██╔██╗██║█████╗░░██║░░██║
+    ██║░░██╗██║░░░░░██╔══██║░╚═══██╗██╔══██║   ██║░░██║██╔══╝░░   ██║██║╚████║██╔══╝░░██║░░██║
+    ╚█████╔╝███████╗██║░░██║██████╔╝██║░░██║   ╚█████╔╝██║░░░░░   ██║██║░╚███║██║░░░░░╚█████╔╝
+    ░╚════╝░╚══════╝╚═╝░░╚═╝╚═════╝░╚═╝░░╚═╝   ░╚════╝░╚═╝░░░░░   ╚═╝╚═╝░░╚══╝╚═╝░░░░░░╚════╝░
+    """
 
 def main():
     print(banner())
@@ -518,15 +547,16 @@ def main():
     print("[+] Author: new92")
     print("[+] Github: @new92")
     print("\n")
-    print("[+] Description: Script for getting information about clans, users, leagues and much more... in the famous game: Clash of Clans :)")
+    print("[+] Script for retrieving information about clans, users, leagues and much more... in the famous game: Clash of Clans :)")
     print("\n")
     print("[1] Display info for a player")
     print("[2] Display info for a clan")
     print("[3] Display info for a league")
     print("[4] Display program's info and exit")
-    print("[5] Exit")
+    print("[5] Uninstall script")
+    print("[6] Exit")
     option=int(input("[::] Please enter a number (from the above ones): "))
-    while option < 1 or option > 5 or option == None:
+    while option not in range(1,7) or option == None:
         print("[!] Sorry, invalid number !")
         sleep(1)
         option=int(input("[::] Please enter again a number (from the above ones): "))
@@ -554,6 +584,14 @@ def main():
         League()
     elif option == 4:
         ProgInfo()
+    elif option == 5:
+        print(Uninstall())
+        sleep(2)
+        print("[+] Thank you for using my script 😁")
+        sleep(2)
+        print("[+] Until we meet again 🫡")
+        sleep(1)
+        quit(0)
     else:
         print("[+] Thank you for using my script 😁")
         sleep(2)
