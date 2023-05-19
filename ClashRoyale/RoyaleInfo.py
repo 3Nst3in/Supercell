@@ -2,6 +2,7 @@
 Author: new92
 Github: @new92
 
+
 Script for displaying info about players, clans, tournaments, cards etc. in the famous game: Clash Royale.
 """
 
@@ -24,7 +25,7 @@ try:
     from os import system
     import os
     import requests
-except ImportError as imp:
+except ImportError:
     print("[!] WARNING: Not all packages used in RoyaleInfo have been installed !")
     sleep(2)
     print("[+] Ignoring warning...")
