@@ -3,31 +3,30 @@ Author: new92
 Github: @new92
 
 
-Script for displaying info for players, clans, tournaments, cards etc. in Clash Royale.
-Built with Python and Supercell's API.
+Script for displaying info for players, clans, tournaments, cards etc. in the famous game: Clash Royale.
 """
 
 try:
     import sys
     from time import sleep
     if sys.version_info[0] < 3:
-        print("[!] Error ! This script requires Python version 3.X ! ")
+        print("[!] Error ! RoyaleInfo requires Python version 3.X ! ")
         print("""[+] Instructions to download Python 3.x : 
         Linux: apt install python3
         Windows: https://www.python.org/downloads/
         MacOS: https://docs.python-guide.org/starting/install3/osx/""")
-        print("[+] Please install the Python 3 and then use this script ✅")
+        sleep(2)
+        print("[+] Please install Python 3 and then use RoyaleInfo ✅")
         sleep(2)
         print("[+] Exiting...")
         sleep(1)
         quit(0)
     import platform
     from os import system
-    import json
     import os
     import requests
-except ImportError:
-    print("[!] WARNING: Not all packages used in this program have been installed !")
+except ImportError as imp:
+    print("[!] WARNING: Not all packages used in RoyaleInfo have been installed !")
     sleep(2)
     print("[+] Ignoring warning...")
     sleep(1)
@@ -41,12 +40,42 @@ except ImportError:
             try:
                 system("sudo pip install -r requirements.txt")
             except Exception as ex:
-                print("[!] Error !")
+                print("[!] Error ! Cannot install the required modules !")
                 sleep(1)
-                print(ex)
+                print(f"[=] Error message ==> {ex}")
                 sleep(2)
-                print("[+] Exiting...")
-                quit(0)
+                print("[1] Uninstall script")
+                print("[2] Exit")
+                opt=int(input("[>] Please enter a number (from the above ones): "))
+                while opt < 1 or opt > 2 or opt == None:
+                    if opt == None:
+                        print("[!] This field can't be blank !")
+                    else:
+                        print("[!] Invalid number !")
+                        sleep(1)
+                        print("[+] Acceptable numbers: [1,2]")
+                    sleep(1)
+                    print("[1] Uninstall script")
+                    print("[2] Exit")
+                    opt=int(input("[>] Please enter again a number (from the above ones): "))
+                if opt == 1:
+                    def rmdir(dire):
+                        DIRS = []
+                        for root, dirs, files in os.walk(dire):
+                            for file in files:
+                                os.remove(os.path.join(root,file))
+                            for dir in dirs:
+                                DIRS.append(os.path.join(root,dir))
+                        for i in range(len(DIRS)):
+                            os.rmdir(DIRS[i])
+                        os.rmdir(dire)
+                    rmdir(os.path.abspath('Supercell'))
+                    print("[✓] Files and dependencies uninstalled successfully !")
+                else:
+                    print("[+] Exiting...")
+                    sleep(1)
+                    print("[+] See you next time 👋")
+                    quit(0)
         else:
             system("sudo pip install -r requirements.txt")
     elif sys.platform == 'darwin':
@@ -56,7 +85,7 @@ except ImportError:
 
 headers = {
     'Accept': 'application/json',
-    'authorization': 'Bearer <ENTER YOUR API TOKEN HERE>'
+    'authorization': 'Bearer <ENTER YOUR API KEY HERE>'
 }
 
 ANS = ['yes','YES','Yes','y','Y','YeS','yEs','yES','YEs','yeS']
@@ -68,30 +97,42 @@ def ProgInfo():
     name = 'RoyaleInfo'
     language = 'Python'
     lice = 'MIT'
-    lines = 571
-    f = "/Supercell/ClashRoyale/RoyaleInfo.py"
+    lines = 627
+    api = 'Clash Royale API'
+    api_url = 'https://developer.clashroyale.com/#/login'
+    f = name+'.py'
     if os.path.exists(os.path.abspath(f)):
         fsize = (os.stat(f)).st_size
     else:
         fsize = 0
-    api = None
-    api_url = 'https://developer.clashroyale.com/#/login'
     stars = 6
     forks = 4
+    issues = 0
+    clissues = 0
+    prs = 0
+    clprs = 1
+    discs = 1
     print(f"[+] Author: {author}")
     print(f"[+] Github: @{author}")
-    print(f"[+] Natural Language: {lang}")
-    print(f"[+] Program's name: {name}")
-    print(f"[+] Programming language(s) used: {language}")
     print(f"[+] License: {lice}")
-    print(f"[+] API used: {api}")
+    print(f"[+] Programming language(s) used: {lang}")
+    print(f"[+] Language(s): {language}")
+    print(f"[+] Script's name: {name}")
+    print(f"[+] Lines of code: {lines}")
+    print(f"[+] API(s) used: {api}")
     print(f"[+] URL: {api_url}")
-    print(f"[+] Number of lines: {lines}")
     print(f"[+] File size: {fsize} bytes")
-    print(f"[+] Github repository stars: {stars}")
-    print(f"[+] Github repository forks: {forks}")
+    print(f"[+] File path: {os.path.abspath(f)}")
+    print('='*10+'|'+'github repo info'.upper()+'|'+'='*10+'|')
+    print(f"[+] Stars: {stars}")
+    print(f"[+] Forks: {forks}")
+    print(f"[+] Open issues: {issues}")
+    print(f"[+] Closed issues: {clissues}")
+    print(f"[+] Open pull requests: {prs}")
+    print(f"[+] Closed pull requests: {clprs}")
+    print(f"[+] Discussions: {discs}")
 
-def banner():
+def banner() -> str:
     return """
     ██████╗░░█████╗░██╗░░░██╗░█████╗░██╗░░░░░███████╗    ██╗███╗░░██╗███████╗░█████╗░
     ██╔══██╗██╔══██╗╚██╗░██╔╝██╔══██╗██║░░░░░██╔════╝    ██║████╗░██║██╔════╝██╔══██╗
@@ -101,11 +142,21 @@ def banner():
     ╚═╝░░╚═╝░╚════╝░░░░╚═╝░░░╚═╝░░╚═╝╚══════╝╚══════╝    ╚═╝╚═╝░░╚══╝╚═╝░░░░░░╚════╝░
     """
 
-def Player() -> str:
-    if platform.system() == 'Windows':
-        system('cls')
-    else:
-        system('clear')
+def Uninstall() -> str:
+    def rmdir(dire):
+        DIRS = []
+        for root, dirs, files in os.walk(dire):
+            for file in files:
+                os.remove(os.path.join(root,file))
+            for dir in dirs:
+                DIRS.append(os.path.join(root,dir))
+        for i in range(len(DIRS)):
+            os.rmdir(DIRS[i])
+        os.rmdir(dire)
+    rmdir(os.path.abspath('Supercell'))
+    return "[✓] Files and dependencies uninstalled successfully !"
+
+def Player():
     print("\n")
     print("[1] Display info for a player")
     print("[2] Display info about the upcoming chests of a player")
@@ -124,30 +175,30 @@ def Player() -> str:
             print("[!] Please do not include the tag (#) symbol in your next input !")
         tag=str(input("[::] Please enter again the tag of the player (please do not include the tag symbol(#)): "))
     if option == 1:
-        page = requests.get("https://api.clashroyale.com/v1/players/%23"+str(tag), headers=headers)
+        page = requests.get(f"https://api.clashroyale.com/v1/players/%23{tag}", headers=headers)
         js = page.json()
-        print("[+] Name: "+str(js['name']))
-        print("[+] Experience level: "+str(js['expLevel']))
-        print("[+] Trophies: "+str(js['trophies']))
-        print("[+] Highest trophies: "+str(js['bestTrophies']))
-        print("[+] Number of wins: "+str(js['wins']))
-        print("[+] Number of losses: "+str(js['losses']))
-        print("[+] Number of battles: "+str(js['battleCount']))
-        print("[+] Number of three crown wins: "+str(js['threeCrownWins']))
-        print("[+] Challenge cards won: "+str(js['challengeCardsWon']))
-        print("[+] Challenge max wins: "+str(js['challengeMaxWins']))
-        print("[+] Tournament cards won: "+str(js['tournamentCardsWon']))
-        print("[+] Tournament battles: "+str(js['tournamentBattleCount']))
-        print("[+] Number of donations: "+str(js['donations']))
-        print("[+] Donations received: "+str(js['donationsReceived']))
-        print("[+] Total donations: "+str(js['totalDonations']))
-        print("[+] Number of War-Day wins: "+str(js['warDayWins']))
-        print("[+] Clan cards collected: "+str(js['clanCardsCollected']))
-        print("[+] Arena: "+str(js['arena']['name']))
-        print("[+] Trophies current season: "+str(js['leagueStatistics']['currentSeason']['trophies']))
-        print("[+] Highest trophies current season: "+str(js['leagueStatistics']['currentSeason']['bestTrophies']))
-        print("[+] Trophies previous season: "+str(js['leagueStatistics']['previousSeason']['trophies']))
-        print("[+] Trophies best season: "+str(js['leagueStatistics']['bestSeason']['trophies']))
+        print(f"[+] Name: {js['name']}")
+        print(f"[+] Experience level: {js['expLevel']}")
+        print(f"[+] Trophies: {js['trophies']}")
+        print(f"[+] Highest trophies: {js['bestTrophies']}")
+        print(f"[+] Number of wins: {js['wins']}")
+        print(f"[+] Number of losses: {js['losses']}")
+        print(f"[+] Number of battles: {js['battleCount']}")
+        print(f"[+] Number of three crown wins: {js['threeCrownWins']}")
+        print(f"[+] Challenge cards won: {js['challengeCardsWon']}")
+        print(f"[+] Challenge max wins: {js['challengeMaxWins']}")
+        print(f"[+] Tournament cards won: {js['tournamentCardsWon']}")
+        print(f"[+] Tournament battles: {js['tournamentBattleCount']}")
+        print(f"[+] Number of donations: {js['donations']}")
+        print(f"[+] Donations received: {js['donationsReceived']}")
+        print(f"[+] Total donations: {js['totalDonations']}")
+        print(f"[+] Number of War-Day wins: {js['warDayWins']}")
+        print(f"[+] Clan cards collected: {js['clanCardsCollected']}")
+        print(f"[+] Arena: {js['arena']['name']}")
+        print(f"[+] Trophies current season: {js['leagueStatistics']['currentSeason']['trophies']}")
+        print(f"[+] Highest trophies current season: {js['leagueStatistics']['currentSeason']['bestTrophies']}")
+        print(f"[+] Trophies previous season: {js['leagueStatistics']['previousSeason']['trophies']}")
+        print(f"[+] Trophies best season: {js['leagueStatistics']['bestSeason']['trophies']}")
         disp_bd = str(input("[?] Do you want to display player's badges ? [yes/no] "))
         while disp_bd == None or disp_bd not in ANS and disp_bd not in NANS:
             print("[!] Invalid input !")
@@ -155,14 +206,14 @@ def Player() -> str:
             disp_bd = str(input("[?] Do you want to display player's badges ? [yes/no] "))
         if disp_bd in ANS:
             for i in range(len(js['badges'])):
-                print("[+] Number of badges: "+str(len(js['badges'])))
-                print("[+] Badge name: "+str(js['badges'][i]['name']))
-                print("[+] Level: "+str(js['badges'][i]['level']))
-                print("[+] Max level: "+str(js['badges'][i]['maxLevel']))
-                print("[+] Player's progress: "+str(js['badges'][i]['progress']))
-                print("[+] Url: "+str(js['badges'][i]['iconUrls']['large']))
-                print("[+] Player's star points: "+str(js['starPoints'][i]))
-                print("[+] Player's experience points: "+str(js['expPoints'][i]))
+                print(f"[+] Number of badges: {len(js['badges'])}")
+                print(f"[+] Badge name: {js['badges'][i]['name']}")
+                print(f"[+] Level: {js['badges'][i]['level']}")
+                print(f"[+] Max level: {js['badges'][i]['maxLevel']}")
+                print(f"[+] Player's progress: {js['badges'][i]['progress']}")
+                print(f"[+] URL: {js['badges'][i]['iconUrls']['large']}")
+                print(f"[+] Player's star points: {js['starPoints'][i]}")
+                print(f"[+] Player's experience points: {js['expPoints'][i]}")
                 print("-" * 25)
         else:
             print("[OK]")
@@ -173,17 +224,13 @@ def Player() -> str:
             disp_ach = str(input("[?] Do you want to display player's achievements ? [yes/no] "))
         if disp_ach in ANS:
             for i in range(len(js['achievements'])):
-                print("[+] Number of player's achievemenents: "+str(len(js['achievements'])))
-                print("[+] Name: "+str(js['achievements'][i]['name']))
+                print(f"[+] Number of player's achievemenents: {len(js['achievements'])}")
+                print(f"[+] Name: {js['achievements'][i]['name']}")
                 if js['achievements'][i]['name'] == "Team Player":
-                    print("[+] Player has joined: "+str(js['achievements'][0]['value']+" clans so far..."))
-                else:
-                    continue
-                print("[+] How many times does a player has to make the action in order to receive the achievement ? "+str(js['achievements'][i]['target']))
-                print("[+] Achievement description: "+str(js['achievements'][i]['info']))
+                    print(f"[+] Player has joined: {js['achievements'][0]['value']} clans so far...")
+                print(f"[+] How many times does a player has to make the action in order to receive the achievement ? {js['achievements'][i]['target']}")
+                print(f"[+] Achievement description: {js['achievements'][i]['info']}")
                 print("-" * 25)
-        else:
-            print("[OK]")
         disp_cards = str(input("[?] Do you want to display the cards the player owns ? [yes/no] "))
         while disp_cards == None or disp_cards not in ANS and disp_cards not in NANS:
             print("[!] Invalid input !")
@@ -191,69 +238,65 @@ def Player() -> str:
             disp_cards = str(input("[?] Do you want to display the cards the player owns ? [yes/no] "))
         if disp_cards in ANS:
             for i in range(len(js['cards'])):
-                print("[+] Total cards player owns: "+str(len(js['cards'])))
-                print("[+] Card name: "+str(js['cards'][i]['name']))
-                print("[+] Card level: "+str(js['cards'][i]['level']))
-                print("[+] Card's max level: "+str(js['cards'][i]['maxLevel']))
-                print("[+] Current number of points for upgrade: "+str(js['cards'][i]['count']))
-                print("[+] Icon url: "+str(js['cards'][i]['iconUrls']['medium']))
+                print(f"[+] Total cards player owns: {len(js['cards'])}")
+                print(f"[+] Card name: {js['cards'][i]['name']}")
+                print(f"[+] Card level: {js['cards'][i]['level']}")
+                print(f"[+] Card's max level: {js['cards'][i]['maxLevel']}")
+                print(f"[+] Current number of points for upgrade: {js['cards'][i]['count']}")
+                print(f"[+] Icon URL: {js['cards'][i]['iconUrls']['medium']}")
                 print("-" * 25)
 
     elif option == 2:
-        page = requests.get("https://api.clashroyale.com/v1/players/%23"+str(tag)+"/upcomingchests", headers=headers)
+        page = requests.get(f"https://api.clashroyale.com/v1/players/%23{tag}/upcomingchests", headers=headers)
         js = page.json()
         for item in range(len(js['items'])):
-            print("[+] Number of wins: "+str(js['items'][item]['index']))
-            print("[+] Chest: "+str(js['items'][item]['name']))
+            print(f"[+] Number of wins: {js['items'][item]['index']}")
+            print(f"[+] Chest: {js['items'][item]['name']}")
             print("-" * 15)
 
     elif option == 3:
-        page = requests.get("https://api.clashroyale.com/v1/players/%23"+str(tag)+"/battlelog", headers=headers)
+        page = requests.get(f"https://api.clashroyale.com/v1/players/%23{tag}/battlelog", headers=headers)
         js = page.json()
         for i in range(len(js[:])):
-            print("[+] Type of battle: "+str(js['type'][i]))
+            print(f"[+] Type of battle: {js['type'][i]}")
             if js['type'][i] == "challenge":
                 if js['isLadderTournament'][i]:
                     is_lad_t = "yes"
                 else:
                     is_lad_t = "no"
-                print("[+] Is the challenge ladder tournament ? ["+str(is_lad_t)+"]")
-            print("[+] Arena: "+str(js[i]['arena']['name']))
-            print("[+] Gamemode: "+str(js[i]['gameMode']['name']))
+                print(f"[+] Is the challenge ladder tournament ? [{is_lad_t}]")
+            print(f"[+] Arena: {js[i]['arena']['name']}")
+            print(f"[+] Gamemode: {js[i]['gameMode']['name']}")
             if js[i]['deckSelection'] == "eventDeck":
                 dk_sel = "via event"
             else:
                 dk_sel = "other"
-            print("[+] How is the deck being selected ? "+str(dk_sel))
-            print("[+] Player's name: "+str(js[i]['team']['name']))
-            print("[+] Crown's won: "+str(js[i]['team']['crowns']))
-            print("[+] Player's clan name: "+str(js[i]['team']['clan']['name']))
+            print(f"[+] How is the deck being selected ? {dk_sel}")
+            print(f"[+] Player's name: {js[i]['team']['name']}")
+            print(f"[+] Crown's won: {js[i]['team']['crowns']}")
+            print(f"[+] Player's clan name: {js[i]['team']['clan']['name']}")
             print("-"*15)
             print("[+] Player's deck: ")
             print("-"*15)
             for card in range(len(js[i]['team']['cards'])):
-                print("[+] Card's name: "+str(js[i]['team']['cards'][card]['name']))
-                print("[+] Card's level: "+str(js[i]['teams']['cards'][card]['level']))
+                print(f"[+] Card's name: {js[i]['team']['cards'][card]['name']}")
+                print(f"[+] Card's level: {js[i]['teams']['cards'][card]['level']}")
             print("-"*15)
-            print("[+] Opponent's name: "+str(js[i]['opponent']['name']))
-            print("[+] Opponent's tag: "+str(js[i]['opponent']['tag']))
-            print("[+] Crown's won: "+str(js[i]['opponent']['crowns']))
-            print("[+] Opponent's clan name: "+str(js[i]['opponent']['clan']['name']))
+            print(f"[+] Opponent's name: {js[i]['opponent']['name']}")
+            print(f"[+] Opponent's tag: {js[i]['opponent']['tag']}")
+            print(f"[+] Crown's won: {js[i]['opponent']['crowns']}")
+            print(f"[+] Opponent's clan name: {js[i]['opponent']['clan']['name']}")
             print("-"*15)
             print("[+] Opponent's deck: ")
             print("-"*15)
             for card in range(len(js[i]['opponent']['cards'])):
-                print("[+] Card's name: "+str(js[i]['opponent']['cards'][card]['name']))
-                print("[+] Card's level: "+str(js[i]['opponent']['cards'][card]['level']))
+                print(f"[+] Card's name: {js[i]['opponent']['cards'][card]['name']}")
+                print(f"[+] Card's level: {js[i]['opponent']['cards'][card]['level']}")
             print("-"*15)
     else:
         main()
 
-def Clan() -> str:
-    if platform.system() == 'Windows':
-        system('cls')
-    else:
-        system('clear')
+def Clan():
     print("[1] Display info for a clan")
     print("[2] Display clan members and info for each member")
     print("[3] Display info about clan's current river race")
@@ -273,58 +316,52 @@ def Clan() -> str:
             sleep(1)
         tag=str(input("[::] Please enter again the tag of the player (please do not include the tag symbol (#)): "))
     if num == 1:
-        page = requests.get("https://api.clashroyale.com/v1/clans/%23"+str(tag), headers=headers)
+        page = requests.get(f"https://api.clashroyale.com/v1/clans/%23{tag}", headers=headers)
         js = page.json()
-        descr = js['description']
-        score = js['clanScore']
-        war_trophies = js['clanWarTrophies']
-        loc = js['location']['name']
-        req_trophies = js['requiredTrophies']
-        don_per_week = js['donationsPerWeek']
-        num_mem = js['members']
-        print("[+] Clan name: "+str(js['name']))
-        print("[+] Type: "+str(js['type']))
-        print("[+] Description: "+str(descr))
-        print("[+] War score: "+str(score))
-        print("[+] Location: "+str(loc))
-        print("[+] Required trophies: "+str(req_trophies))
-        print("[+] Donations per week: "+str(don_per_week))
-        print("[+] Number of members: "+str(num_mem))
+        print(f"[+] Clan name: {js['name']}")
+        print(f"[+] Type: {js['type']}")
+        print(f"[+] Description: {js['description']}")
+        print(f"[+] War score: {js['clanScore']}")
+        print(f"[+] War trophies: {js['clanWarTrophies']}")
+        print(f"[+] Location: {js['location']['name']}")
+        print(f"[+] Required trophies: {js['requiredTrophies']}")
+        print(f"[+] Donations per week: {js['donationsPerWeek']}")
+        print(f"[+] Number of members: {js['members']}")
     elif num == 2:
         page = requests.get(f"https://api.clashroyale.com/v1/clans/%23{tag}/members", headers=headers)
         js = page.json()
         for item in range(len(js['items'])):
-            print("[+] Name: "+str(js['items'][item]['name']))
-            print("[+] Role: "+str(js['items'][item]['role']))
-            print("[+] Experience level: "+str(js['items'][item]['expLevel']))
-            print("[+] Trophies: "+str(js['items'][item]['trophies']))
-            print("[+] Arena: "+str(js['items'][item]['arena']['name']))
-            print("[+] Clan rank: "+str(js['items'][item]['clanRank']))
-            print("[+] Donations: "+str(js['items'][item]['donations']))
-            print("[+] Donations received: "+str(js['items'][item]['donationsReceived']))
+            print(f"[+] Name: {js['items'][item]['name']}")
+            print(f"[+] Role: {js['items'][item]['role']}")
+            print(f"[+] Experience level: {js['items'][item]['expLevel']}")
+            print(f"[+] Trophies: {js['items'][item]['trophies']}")
+            print(f"[+] Arena: {js['items'][item]['arena']['name']}")
+            print(f"[+] Clan rank: {js['items'][item]['clanRank']}")
+            print(f"[+] Donations: {js['items'][item]['donations']}")
+            print(f"[+] Donations received: {js['items'][item]['donationsReceived']}")
     elif num == 3:
         page = requests.get(f"https://api.clashroyale.com/v1/clans/%23{tag}/currentriverrace", headers=headers)
         js = page.json()
-        print("[+] State: "+str(js['state']))
-        print("[+] Clan score: "+str(js['clanScore']))
-        print("[+] Period points: "+str(js['periodPoints']))
-        print("[+] Period type: "+str(js['periodType']))
+        print(f"[+] State: {js['state']}")
+        print(f"[+] Clan score: {js['clanScore']}")
+        print(f"[+] Period points: {js['periodPoints']}")
+        print(f"[+] Period type: {js['periodType']}")
         print("-"*30)
         print(">>>participants  info<<<".upper())
         for i in range(len(js['participants'])):
-            print("[+] Name: "+str(js['participants'][i]['name']))
-            print("[+] Tag: "+str(js['participants'][i]['tag']))
-            print("[+] Fame points: "+str(js['participants'][i]['fame']))
-            print("[+] Repair points: "+str(js['participants'][i]['repairPoints']))
-            print("[+] Boat attacks: "+str(js['participants'][i]['boatAttacks']))
-            print("[+] Decks used: "+str(js['participants'][i]['decksUsed']))
-            print("[+] Decks used today: "+str(js['participants'][i]['decksUsedToday']))
+            print(f"[+] Name: {js['participants'][i]['name']}")
+            print(f"[+] Tag: {js['participants'][i]['tag']}")
+            print(f"[+] Fame points: {js['participants'][i]['fame']}")
+            print(f"[+] Repair points: {js['participants'][i]['repairPoints']}")
+            print(f"[+] Boat attacks: {js['participants'][i]['boatAttacks']}")
+            print(f"[+] Decks used: {js['participants'][i]['decksUsed']}")
+            print(f"[+] Decks used today: {js['participants'][i]['decksUsedToday']}")
         for i in range(len(js['clans'])):
-            print("[+] Clan name: "+str(js['clans'][i]['name']))
-            print("[+] Clan's fame points: "+str(js['clans'][i]['fame']))
-            print("[+] Clan's repair points: "+str(js['clans'][i]['repairPoints']))
-            print("[+] Clan's score: "+str(js['clans'][i]['clanScore']))
-            print("[-] Participants names for "+str(js['clans'][i]['name']))
+            print(f"[+] Clan name: {js['clans'][i]['name']}")
+            print(f"[+] Clan's fame points: {js['clans'][i]['fame']}")
+            print(f"[+] Clan's repair points: {js['clans'][i]['repairPoints']}")
+            print(f"[+] Clan's score: {js['clans'][i]['clanScore']}")
+            print(f"[-] Participants names for {js['clans'][i]['name']}")
             for j in range(len(js['clans'][i]['participants'])):
                 print(f"[+] Name No{j+1}: {js['clans'][i]['participants'][j]['name']}")
     elif num == 4:
@@ -339,7 +376,6 @@ def Clan() -> str:
             sleep(1)
             inc_min_mem=str(input("[?] Do you want to add a minimum value of members [yes/no] ? "))
         if inc_min_mem in ANS:
-            full = False
             count_min=int(input("[::] Please enter the value: "))
             while count_min < 1 or count_min == None:
                 print("[!] Invalid value !")
@@ -348,7 +384,6 @@ def Clan() -> str:
             inc_min = True
         else:
             inc_min = False
-            print("[OK]")
         inc_max_mem=str(input("[?] Do you want to add a maximum value of members [yes/no] ? "))
         while inc_max_mem == None or inc_max_mem not in ANS and inc_max_mem not in NANS:
             print("[!] Invalid input !")
@@ -395,119 +430,111 @@ def Clan() -> str:
             incl = False
             print("[OK]")
         if inc_min and inc_max and inc_mscore and incl:
-            page = requests.get("https://api.clashroyale.com/v1/clans?name={name}&minMembers={count_min}&maxMembers={count}&minScore={score}&limit={lim}", headers=headers)
+            page = requests.get(f"https://api.clashroyale.com/v1/clans?name={name}&minMembers={count_min}&maxMembers={count}&minScore={score}&limit={lim}", headers=headers)
             js = page.json()
             for i in range(len(js['items'])):
-                print("[+] Clan's tag: "+str(js['items'][i]['tag']))
-                print("[+] Name: "+str(js['items'][i]['name']))
-                print("[+] Type: "+str(js['items'][i]['type']))
-                print("[+] Clan score: "+str(js['items'][i]['clanScore']))
-                print("[+] Location: "+str(js['items'][i]['location']['name']))
-                print("[+] Required trophies: "+str(js['items'][i]['requiredTrophies']))
-                print("[+] Donations per week: "+str(js['items'][i]['donationsPerWeek']))
-                print("[+] Clan chest level: "+str(js['items'][i]['clanChestLevel']))
-                print("[+] Number of members: "+str(js['items'][i]['members']))
+                print(f"[+] Clan's tag: {js['items'][i]['tag']}")
+                print(f"[+] Name: {js['items'][i]['name']}")
+                print(f"[+] Type: {js['items'][i]['type']}")
+                print(f"[+] Clan score: {js['items'][i]['clanScore']}")
+                print(f"[+] Location: {js['items'][i]['location']['name']}")
+                print(f"[+] Required trophies: {js['items'][i]['requiredTrophies']}")
+                print(f"[+] Donations per week: {js['items'][i]['donationsPerWeek']}")
+                print(f"[+] Clan chest level: {js['items'][i]['clanChestLevel']}")
+                print(f"[+] Number of members: {js['items'][i]['members']}")
     else:
         main()
-def Cards() -> str:
+
+def clear():
     if platform.system() == 'Windows':
         system('cls')
     else:
         system('clear')
+
+def Cards():
     page = requests.get("https://api.clashroyale.com/v1/cards", headers=headers)
     js = page.json()
     print("-"*10+"cards".upper()+"-"*10)
     for i in range(len(js['items'])):
-        print("[+] Name: "+str(js['items'][i]['name']))
-        print("[+] Max level: "+str(js['items'][i]['maxLevel']))
-        print("[+] Icon url: "+str(js['items'][i]['iconUrls']['medium']))
+        print(f"[+] Name: {js['items'][i]['name']}")
+        print(f"[+] Max level: {js['items'][i]['maxLevel']}")
+        print(f"[+] Icon URL: {js['items'][i]['iconUrls']['medium']}")
         sleep(1)
+
 def Search(name):
-    if platform.system() == 'Windows':
-        system('cls')
-    else:
-        system('clear')
     def convert(x: int, num: int) -> int:
-        if x == 1: #1 to convert seconds to minutes and minutes to hours
+        if x == 1: 
             return num // 60
-        else: #2 to convert hours to days
+        else: 
             return num // 24
-    page = requests.get('https://api.clashroyale.com/v1/tournaments?name='+str(name), headers=headers)
+    page = requests.get(f'https://api.clashroyale.com/v1/tournaments?name={name}', headers=headers)
     js = page.json()
     for i in range(len(js['items'])):
-        print("[+] Name: "+str(js['items'][i]['name']))
-        print("[+] Description: "+str(js['items'][i]['description']))
-        print("[+] Number of participants: "+str(js['items'][i]['capacity']))
-        print("[+] Max capacity: "+str(js['items'][i]['maxCapacity'])+" players")
+        print(f"[+] Name: {js['items'][i]['name']}")
+        print(f"[+] Description: {js['items'][i]['description']}")
+        print(f"[+] Number of participants: {js['items'][i]['capacity']}")
+        print(f"[+] Max capacity: {js['items'][i]['maxCapacity']} players")
         av = js['items'][i]['maxCapacity'] - js['items'][i]['capacity']
         if av == 0:
             print("[+] No available participations !")
         else:
-            print("[+] Available participations: "+str(av))
-        print("[+] Preparation duration: "+str(convert(1,convert(1,js['items'][i]['preparationDuration'])))+" hour(s)")
-        print("[+] Tournament duration: "+str(convert(2,convert(1,convert(1,js['items'][i]['duration']))))+" day(s)")
-        print("[+] Tag: "+str(js['items'][i]['tag']))
-        print("[+] Type: "+str(js['items'][i]['type']))
-        print("[+] Status: "+str(js['items'][i]['status']))
-        print("[+] Creator's tag: "+str(js['items'][i]['creatorTag']))
-        pg = requests.get("https://api.clashroyale.com/v1/players/%23"+str(js['items'][i]['creatorTag']), headers=headers)
+            print(f"[+] Available participations: {av}")
+        print(f"[+] Preparation duration: {convert(1,convert(1,js['items'][i]['preparationDuration']))} hour(s)")
+        print(f"[+] Tournament duration: {convert(2,convert(1,convert(1,js['items'][i]['duration'])))} day(s)")
+        print(f"[+] Tag: {js['items'][i]['tag']}")
+        print(f"[+] Type: {js['items'][i]['type']}")
+        print(f"[+] Status: {js['items'][i]['status']}")
+        print(f"[+] Creator's tag: {js['items'][i]['creatorTag']}")
+        pg = requests.get(f"https://api.clashroyale.com/v1/players/%23{js['items'][i]['creatorTag']}", headers=headers)
         jsn = pg.json()
-        print("[+] Creator's name: "+str(jsn['name']))
-        print("[+] Creator's clan: "+str(jsn['clan']['name']))
+        print(f"[+] Creator's name: {jsn['name']}")
+        print(f"[+] Creator's clan: {jsn['clan']['name']}")
     
 def Tour(tag):
-    if platform.system() == 'Windows':
-        system('cls')
-    else:
-        system('clear')
     def convert(x: int, num: int) -> int:
-        if x == 1: #1 to convert seconds to minutes and minutes to hours
+        if x == 1: 
             return num // 60
-        else: #2 to convert hours to days
+        else: 
             return num // 24
-    page = requests.get("https://api.clashroyale.com/v1/tournaments/%23"+str(tag), headers=headers)
+    page = requests.get(f"https://api.clashroyale.com/v1/tournaments/%23{tag}", headers=headers)
     js = page.json()
-    print("[+] Name: "+str(js['name']))
-    print("[+] Description: "+str(js['description']))
-    print("[+] Type: "+str(js['type']))
-    print("[+] Status: "+str(js['status']))
-    print("[+] Number of participants: "+str(js['capacity']))
-    print("[+] Max capacity: "+str(js['maxCapacity'])+" players")
+    print(f"[+] Name: {js['name']}")
+    print(f"[+] Description: {js['description']}")
+    print(f"[+] Type: {js['type']}")
+    print(f"[+] Status: {js['status']}")
+    print(f"[+] Number of participants: {js['capacity']}")
+    print(f"[+] Max capacity: {js['maxCapacity']} players")
     av = js['maxCapacity'] - js['capacity']
     if av == 0:
         print("[+] No available participations !")
     else:
-        print("[+] Available participations: "+str(av))
-    print("[+] Preparation duration: "+str(convert(1,convert(1,js['preparationDuration'])))+" hour(s)")
-    print("[+] Tournament duration: "+str(convert(2,convert(1,convert(1,js['duration']))))+" day(s)")
-    print("[+] Creator's tag: "+str(js['creatorTag']))
-    pg = requests.get("https://api.clashroyale.com/v1/players/%23"+str(js['creatorTag']), headers=headers)
+        print(f"[+] Available participations: {av}")
+    print(f"[+] Preparation duration: {convert(1,convert(1,js['preparationDuration']))} hour(s)")
+    print(f"[+] Tournament duration: {convert(2,convert(1,convert(1,js['duration'])))} day(s)")
+    print(f"[+] Creator's tag: {js['creatorTag']}")
+    pg = requests.get(f"https://api.clashroyale.com/v1/players/%23{js['creatorTag']}", headers=headers)
     jsn = pg.json()
-    print("[+] Creator's name: "+str(jsn['name']))
-    print("[+] Creator's clan: "+str(jsn['clan']['name']))
+    print(f"[+] Creator's name: {jsn['name']}")
+    print(f"[+] Creator's clan: {jsn['clan']['name']}")
     print("-"*20+"participants".upper()+"-"*20)
     for i in range(len(js['membersList'])):
-        print("[+] Name: "+str(js['membersList'][i]['name']))
-        print("[+] Tag: "+str(js['membersList'][i]['tag']))
-        print("[+] Score: "+str(js['membersList'][i]['score']))
-        print("[+] Rank: "+str(js['membersList'][i]['rank']))
-        print("[+] Participant's clan: "+str(js['membersList'][i]['clan']['name']))
+        print(f"[+] Name: {js['membersList'][i]['name']}")
+        print(f"[+] Tag: {js['membersList'][i]['tag']}")
+        print(f"[+] Score: {js['membersList'][i]['score']}")
+        print(f"[+] Rank: {js['membersList'][i]['rank']}")
+        print(f"[+] Participant's clan: {js['membersList'][i]['clan']['name']}")
 
 def UpcEvents():
-    if platform.system() == 'Windows':
-        system('cls')
-    else:
-        system('clear')
     page = requests.get("https://api.clashroyale.com/v1/challenges", headers=headers)
     js = page.json()
     retypes = ['resource','consumable','tradeToken','chest']
     for i in range(len(js[:])):
-        print("[+] Name: "+str(js[i]['challenges']['name']))
-        print("[+] Description: "+str(js[i]['challenges']['description']))
-        print("[+] Type: "+str(js[i]['type']))
-        print("[+] Max losses: "+str(js[i]['challenges']['maxLosses']))
-        print("[+] Gamemode: "+str(js[i]['challenges']['gameMode']['name']))
-        print("[+] Icon URL: "+str(js[i]['challenges']['iconUrl']))
+        print(f"[+] Name: {js[i]['challenges']['name']}")
+        print(f"[+] Description: {js[i]['challenges']['description']}")
+        print(f"[+] Type: {js[i]['type']}")
+        print(f"[+] Max losses: {js[i]['challenges']['maxLosses']}")
+        print(f"[+] Gamemode: {js[i]['challenges']['gameMode']['name']}")
+        print(f"[+] Icon URL: {js[i]['challenges']['iconUrl']}")
         print("-"*20+"prizes".upper()+"-"*20)
         for j in range(len(js[i]['challenges']['prizes'])):
             if js[i]['challenges']['prizes'][j]['type'] == retypes[0]:
@@ -524,7 +551,7 @@ def UpcEvents():
                 print(f"[+] Prize No{j+1}: {retypes[3]}")
                 print(f"[+] Chest type: {js[i]['challenges']['prizes'][j]['chest']}")
 def main():
-    banner()
+    print(banner())
     print("\n")
     print("[+] Author: new92")
     print("[+] Github: @new92")
@@ -537,20 +564,25 @@ def main():
     print("[4] Search tournaments")
     print("[5] Display info about a tournament")
     print("[6] Display info about upcoming challenges (most popular)")
-    print("[7] Show program's info and exit")
-    print("[8] Exit")
+    print("[7] Show RoyaleInfo's info and exit")
+    print("[8] Uninstall RoyaleInfo")
+    print("[9] Exit")
     option=int(input("[::] Please enter a number (from the above ones): "))
-    while option < 1 or option > 8 or option == None:
+    while option < 1 or option > 9 or option == None:
         print("[!] Sorry, invalid number !")
         sleep(1)
         option=int(input("[::] Please enter again a number (from the above ones): "))
     if option == 1:
+        clear()
         Player()
     elif option == 2:
+        clear()
         Clan()
     elif option == 3:
+        clear()
         Cards()
     elif option == 4:
+        clear()
         tour=str(input("[::] Please enter the name of the tournament: "))
         while tour == None:
             print("[!] Invalid name !")
@@ -558,6 +590,7 @@ def main():
             tour=str(input("[::] Please enter again the name of the tournament: "))
         Search(name=tour)
     elif option == 5:
+        clear()
         tag=str(input("[::] Please enter the tag of the tournament (please don't include the tag (#) symbol): "))
         while tag == None or tag[0] == '#':
             print("[!] Invalid tag !")
@@ -568,15 +601,27 @@ def main():
             tag=str(input("[::] Please enter the tag of the tournament: "))
         Tour(tag)
     elif option == 6:
+        clear()
         UpcEvents()
     elif option == 7:
+        clear()
         ProgInfo()
+    elif option == 8:
+        clear()
+        print(Uninstall())
+        sleep(2)
+        print("[+] Thank you for using my script 😁")
+        sleep(2)
+        print("[+] Until we meet again 🫡")
+        sleep(1)
+        quit(0)
     else:
+        clear()
         print("[+] Thank you for using my script 😁")
         sleep(2)
         print("[+] See you next time 👋")
         sleep(1)
-        exit(0)
+        quit(0)
 
 if __name__ == '__main__':
     main()
