@@ -567,21 +567,21 @@ def main():
     print("[7] Show RoyaleInfo's info and exit")
     print("[8] Uninstall RoyaleInfo")
     print("[9] Exit")
-    option=int(input("[::] Please enter a number (from the above ones): "))
-    while option < 1 or option > 9 or option == None:
+    num=int(input("[::] Please enter a number (from the above ones): "))
+    while num < 1 or num > 9 or num == None:
         print("[!] Sorry, invalid number !")
         sleep(1)
-        option=int(input("[::] Please enter again a number (from the above ones): "))
-    if option == 1:
+        num=int(input("[::] Please enter again a number (from the above ones): "))
+    if num == 1:
         clear()
         Player()
-    elif option == 2:
+    elif num == 2:
         clear()
         Clan()
-    elif option == 3:
+    elif num == 3:
         clear()
         Cards()
-    elif option == 4:
+    elif num == 4:
         clear()
         tour=str(input("[::] Please enter the name of the tournament: "))
         while tour == None:
@@ -589,7 +589,7 @@ def main():
             sleep(1)
             tour=str(input("[::] Please enter again the name of the tournament: "))
         Search(name=tour)
-    elif option == 5:
+    elif num == 5:
         clear()
         tag=str(input("[::] Please enter the tag of the tournament (please don't include the tag (#) symbol): "))
         while tag == None or tag[0] == '#':
@@ -600,13 +600,13 @@ def main():
                 sleep(1)
             tag=str(input("[::] Please enter the tag of the tournament: "))
         Tour(tag)
-    elif option == 6:
+    elif num == 6:
         clear()
         UpcEvents()
-    elif option == 7:
+    elif num == 7:
         clear()
         ProgInfo()
-    elif option == 8:
+    elif num == 8:
         clear()
         print(Uninstall())
         sleep(2)
