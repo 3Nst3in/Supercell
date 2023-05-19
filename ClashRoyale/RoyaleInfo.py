@@ -3,7 +3,7 @@ Author: new92
 Github: @new92
 
 
-Script for displaying info for players, clans, tournaments, cards etc. in the famous game: Clash Royale.
+Script for displaying info about players, clans, tournaments, cards etc. in the famous game: Clash Royale.
 """
 
 try:
