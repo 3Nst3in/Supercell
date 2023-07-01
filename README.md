@@ -155,7 +155,7 @@ And generate a key
    git pull
 ```
     
-## License
+## License 📜
 
 [![License](https://img.shields.io/badge/License-MIT-green.svg?style=for-the-badge&logo=github)](https://img.shields.io/badge/License-MIT-green.svg?style=for-the-badge&logo=github)
 
