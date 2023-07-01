@@ -106,10 +106,14 @@ Answer ➡️ To get an API key is very simple. All you have to do is to go to t
     <br>
     - **<a href="https://developer.clashofclans.com/#/login">Clash of Clans</a>**
     <br>
-    - **<a href="https://developer.clashroyale.com/#/login">Clash Royale</a>
-Create an account or Login (if you alreadty have one) and redirect to this URL:
-    - **<a href="https://developer.clashofclans.com/#/new-key">Clash of Clans</a>
-    - **<a href="https://developer.clashroyale.com/#/new-key">Clash Royale</a>
+    - **<a href="https://developer.clashroyale.com/#/login">Clash Royale</a>**
+    <br>
+Create an account or Login (if you already have one) and redirect to this URL:
+    <br>
+    - **<a href="https://developer.clashofclans.com/#/new-key">Clash of Clans</a>**
+    <br>
+    - **<a href="https://developer.clashroyale.com/#/new-key">Clash Royale</a>**
+    <br>
 And generate a key
 ## Installation 📥
 
