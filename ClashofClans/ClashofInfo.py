@@ -23,6 +23,13 @@ try:
         sleep(1)
         quit(0)
     import platform
+    from tqdm import tqdm
+    total_mods = 6
+    bar = tqdm(total=total_mods, desc='Loading modules', unit='module')
+    for _ in range(total_mods):
+        sleep(0.75)
+        bar.update(1)
+    bar.close()
     from os import system
     import requests
     import os
@@ -94,6 +101,15 @@ headers = {
     'authorization': 'Bearer <ENTER YOUR API KEY HERE>'
 }
 
+print("[OK] Successfully loaded modules ✓")
+sleep(1)
+
+def fpath(fname: str):
+    for root, dirs, files in os.walk('/'):
+        if fname in files:
+            return os.path.abspath(os.path.join(root, fname))
+    return None
+
 def clear():
     if platform.system() == 'Windows':
         system('cls')
@@ -109,12 +125,12 @@ def ScriptInfo():
     name = 'ClashofInfo'
     api = 'Clash of Clans API'
     api_url = 'https://developer.clashofclans.com/#/login'
-    lines = 727
+    lines = 743
     stars = 6
     forks = 4
     f = name+'.py'
     if os.path.exists(fpath(f)):
-        fsize = (os.stat(fpath(f))).st_size
+        fsize = os.stat(fpath(f)).st_size
     else:
         fsize = 0
     issues = 0
@@ -132,8 +148,8 @@ def ScriptInfo():
     print(f"[+] API(s) used: {api}")
     print(f"[+] URL: {api_url}")
     print(f"[+] File size: {fsize} bytes")
-    print(f"[+] File path: {os.path.abspath(f)}")
-    print('='*10+'|'+'github repo info'.upper()+'|'+'='*10+'|')
+    print(f"[+] File path: {fpath(f)}")
+    print("|======|GITHUB REPO INFO|======|")
     print(f"[+] Stars: {stars}")
     print(f"[+] Forks: {forks}")
     print(f"[+] Open issues: {issues}")
