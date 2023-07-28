@@ -3,18 +3,31 @@
 Author: new92
 Github: @new92
 
-Script for displaying info for players, clans, leagues etc. in the famous game: Clash of Clans.
+ClashofInfo: Script for displaying info for players, clans, leagues etc. in the famous game: Clash of Clans.
 """
 
 try:
     import sys
+    from time import sleep
+    if sys.version_info[0] < 3:
+        print("[!] Error ! ClashofInfo requires Python version 3.X ! ")
+        sleep(2)
+        print("""[+] Instructions to download Python 3.x : 
+        Linux: apt install python3
+        Windows: https://www.python.org/downloads/
+        MacOS: https://docs.python-guide.org/starting/install3/osx/""")
+        sleep(3)
+        print("[+] Please install Python 3 and then use ClashofInfo ✅")
+        sleep(2)
+        print("[+] Exiting...")
+        sleep(1)
+        quit(0)
     import platform
     from os import system
-    from time import sleep
     import requests
     import os
-except ImportError:
-    print("[!] WARNING: Not all packages used in this script have been installed !")
+except ImportError or ModuleNotFoundError:
+    print("[!] WARNING: Not all packages used in ClashofInfo have been installed !")
     sleep(2)
     print("[+] Ignoring warning...")
     sleep(1)
@@ -32,7 +45,7 @@ except ImportError:
                 sleep(1)
                 print(f"[*] Error message ==> {ex}")
                 sleep(2)
-                print("[1] Uninstall script")
+                print("[1] Uninstall ClashofInfo")
                 print("[2] Exit")
                 opt=int(input("[>] Please enter a number (from the above ones): "))
                 while opt < 1 or opt > 2 or opt == None:
@@ -43,10 +56,15 @@ except ImportError:
                         sleep(1)
                         print("[+] Acceptable numbers: [1,2]")
                     sleep(1)
-                    print("[1] Uninstall script")
+                    print("[1] Uninstall ClashofInfo")
                     print("[2] Exit")
                     opt=int(input("[>] Please enter again a number (from the above ones): "))
                 if opt == 1:
+                    def fpath(fname: str):
+                        for root, dirs, files in os.walk('/'):
+                            if fname in files:
+                                return os.path.abspath(os.path.join(root, fname))
+                        return None
                     def rmdir(dire):
                         DIRS = []
                         for root, dirs, files in os.walk(dire):
@@ -57,7 +75,7 @@ except ImportError:
                         for i in range(len(DIRS)):
                             os.rmdir(DIRS[i])
                         os.rmdir(dire)
-                    rmdir(os.path.abspath('Supercell'))
+                    rmdir(fpath('Supercell'))
                     print("[✓] Files and dependencies uninstalled successfully !")
                 else:
                     print("[+] Exiting...")
@@ -76,11 +94,14 @@ headers = {
     'authorization': 'Bearer <ENTER YOUR API KEY HERE>'
 }
 
-def ProgInfo():
+def clear():
     if platform.system() == 'Windows':
         system('cls')
     else:
         system('clear')
+
+def ScriptInfo():
+    clear()
     author = 'new92'
     lice = 'MIT'
     lang = 'Python'
@@ -88,13 +109,19 @@ def ProgInfo():
     name = 'ClashofInfo'
     api = 'Clash of Clans API'
     api_url = 'https://developer.clashofclans.com/#/login'
-    lines = 602
+    lines = 727
     stars = 6
     forks = 4
-    if os.path.exists(os.path.abspath(name+'.py')):
-        fsize = (os.stat(name+'.py')).st_size
+    f = name+'.py'
+    if os.path.exists(fpath(f)):
+        fsize = (os.stat(fpath(f))).st_size
     else:
         fsize = 0
+    issues = 0
+    clissues = 0
+    prs = 0
+    clprs = 1
+    discs = 1
     print(f"[+] Author: {author}")
     print(f"[+] Github: @{author}")
     print(f"[+] License: {lice}")
@@ -105,20 +132,21 @@ def ProgInfo():
     print(f"[+] API(s) used: {api}")
     print(f"[+] URL: {api_url}")
     print(f"[+] File size: {fsize} bytes")
-    print(f"[+] Github repo stars: {stars}")
-    print(f"[+] Github repo forks: {forks}")
+    print(f"[+] File path: {os.path.abspath(f)}")
+    print('='*10+'|'+'github repo info'.upper()+'|'+'='*10+'|')
+    print(f"[+] Stars: {stars}")
+    print(f"[+] Forks: {forks}")
+    print(f"[+] Open issues: {issues}")
+    print(f"[+] Closed issues: {clissues}")
+    print(f"[+] Open pull requests: {prs}")
+    print(f"[+] Closed pull requests: {clprs}")
+    print(f"[+] Discussions: {discs}")
 
-ANS = ["yes","YES","Yes","y","Y","YeS","yEs","YEs","yES"]
-NANS = ["no","NO","No","n","N","nO"]
+ANS = ['yes','no']
 
 
 def Player(tag: str):
-    if platform.system() == 'Windows':
-        system('cls')
-    else:
-        system('clear')
     tag = tag.upper()
-    war = ''
     page = requests.get(f"https://api.clashofclans.com/v1/players/%23{tag}", headers=headers)
     if page.status_code == 200:
         js = page.json()
@@ -150,23 +178,30 @@ def Player(tag: str):
         print(f"[+] Clan's level: {js['clan']['clanLevel']}")
         print(f"[+] Clan's icon: {js['clan']['badgeUrls']['medium']}")
         print(f"[+] Total number of versus battles wins: {js['versusBattleWinCount']}")
-        print("-"*10+"labels".upper()+"-"*10)
+        print('|'+"-"*10+"labels".upper()+"-"*10+'|')
         if len(js['labels']) != 0:
             for i in range(len(js['labels'])):
                 print(f"[+] Name: {js['labels'][i]['name']}")
                 print(f"[+] Icon: {js['labels'][i]['iconUrls']['medium']}")
         else:
             print("[!] User has no registered labels !")
-        dispach=str(input("[?] Do you want to display player's achievements ? [yes/no] "))
-        while dispach not in ANS and dispach not in NANS:
-            print("[!] Invalid input !")
+        sleep(1)
+        print("\n")
+        print("[+] Acceptable answers: [yes/no]")
+        sleep(1.5)
+        dispach=str(input("[?] Do you want to display player's achievements ? "))
+        while dispach.lower() not in ANS or dispach == '' or dispach == None:
+            if dispach == '' or dispach == None:
+                print("[!] This field can't be blank !")
+            else:
+                print("[!] Invalid answer !")
+                sleep(1)
+                print("[+] Acceptable answers: [yes/no]")
             sleep(1)
-            dispach=str(input("[?] Do you want to display player's achievements ? [yes/no] "))
-        if dispach in ANS:
-            def isCompleted(num):
-                if num == 3:
-                    return True
-                return False
+            dispach=str(input("[?] Do you want to display player's achievements ? "))
+        if dispach.lower() in ANS: 
+            def isCompleted(num: int) -> bool:
+                return True if num == 3 else False
             for i in range(len(js['achievements'])):
                 print(f"[+] Name: {js['achievements'][i]['name']}")
                 print(f"[+] Achievement completed: {isCompleted(js['achievements'][i]['stars'])}")
@@ -174,12 +209,21 @@ def Player(tag: str):
                 print(f"[+] Highest value: {js['achievements'][i]['value']}")
                 print(f"[+] Only need {js['achievements'][i]['target']} to receive the achievement")
                 print(f"[+] Village: {js['achievements'][i]['village']}")
-        distr=str(input("[?] Do you want to display player's troops ? [yes/no] "))
-        while distr not in ANS and distr not in NANS:
-            print("[!] Invalid input !")
+        sleep(1)
+        print("\n")
+        print("[+] Acceptable answers: [yes/no]")
+        sleep(1.5)
+        distr=str(input("[?] Do you want to display player's troops ? "))
+        while distr.lower() not in ANS or distr == None or distr == '':
+            if distr == None or distr == '':
+                print("[!] This field can't be blank !")
+            else:
+                print("[!] Invalid answer !")
+                sleep(1)
+                print("[+] Acceptable answers: [yes/no]")
             sleep(1)
-            distr=str(input("[?] Do you want to display player's troops ? [yes/no] "))
-        if distr in ANS:
+            distr=str(input("[?] Do you want to display player's troops ? "))
+        if distr.lower() in ANS:
             x = 0
             t = 0
             maxed = 0
@@ -215,11 +259,20 @@ def Player(tag: str):
             print(f"[+] Percentage of troops (in the Builder Base) owned by the player: {pert}%")
             print(f"[+] Percentage of max troops owned by the player: {permx}%")
             print(f"[+] Number of maxed troops: {maxed}/{len(js['troops'])}")
-        disph=str(input("[?] Do you want to display player's heroes ? [yes/no] "))
-        while disph not in ANS and disph not in NANS:
-            print("[!] Invalid input !")
+        sleep(1)
+        print("\n")
+        print("[+] Acceptable answers: [yes/no]")
+        sleep(1.5)
+        disph=str(input("[?] Do you want to display player's heroes ? "))
+        while disph not in ANS or disph == None or disph == '':
+            if disph == None or disph == '':
+                print("[!] This field can't be blank !")
+            else:
+                print("[!] Invalid answer !")
+                sleep(1)
+                print("[+] Acceptable answers: [yes/no]")
             sleep(1)
-            disph=str(input("[?] Do you want to display player's heroes ? [yes/no] "))
+            disph=str(input("[?] Do you want to display player's heroes ? "))
         if disph in ANS:
             maxedh = 0
             for i in range(len(js['heroes'])):
@@ -232,15 +285,23 @@ def Player(tag: str):
                 else:
                     print(f"[+] {js['heroes'][i]['maxLevel'] - js['heroes'][i]['level']} more levels to max the hero")
             per = (len(js['heroes'] / 5.0))*100
-            print(f"[+] Player own's {per}% of the heroes")
+            print(f"[+] Player owns {per}% of the heroes")
             print(f"[+] Percentage of maxed heroes: {(maxedh / len(js['heroes']))*100}")
             print(f"[+] Number of maxed heroes: {maxedh}/{len(js['heroes'])}")
-        disps=str(input("[?] Do you want to display player's spells ? [yes/no] "))
-        while disph not in ANS and disph not in NANS:
-            print("[!] Invalid input !")
+        sleep(1)
+        print("[+] Acceptable answers: [yes/no]")
+        sleep(1.5)
+        disps=str(input("[?] Do you want to display player's spells ? "))
+        while disps.lower() not in ANS or disps == None or disps == '':
+            if disps == None or disps == '':
+                print("[!] This field can't be blank !")
+            else:
+                print("[!] Invalid input !")
+                sleep(1)
+                print("[+] Acceptable answers: [yes/no]")
             sleep(1)
-            disph=str(input("[?] Do you want to display player's spells ? [yes/no] "))
-        if disph in ANS:
+            disps=str(input("[?] Do you want to display player's spells ? "))
+        if disps.lower() in ANS:
             maxeds = 0
             pers = (len(js['spells']) / 13.0)*100
             for i in range(len(js['spells'])):
@@ -259,18 +320,15 @@ def Player(tag: str):
     else:
         print(f"[!] Failed to retrieve data ! Error code: {page.status_code}")
         exit(0)
+
 def Clan(tag: str):
-    if platform.system() == 'Windows':
-        system('cls')
-    else:
-        system('clear')
     tag = tag.upper()
     print("[1] Display info for a clan")
     print("[2] Display info for the members of a clan")
     print("[3] Search clans")
     print("[4] Return to menu")
     option=int(input("[::] Please enter a number (from the above ones): "))
-    while option < 1 or option > 4 or option == None:
+    while option < 1 or option > 4:
         print("[!] Invalid number !")
         sleep(1)
         option=int(input("[::] Please enter again a number (from the above ones): "))
@@ -345,12 +403,13 @@ def Clan(tag: str):
     elif option == 3:
         print("\n")
         name=str(input("[::] Please enter the name of the clan: "))
-        while name == None:
-            print("[!] Invalid name !")
+        while name == None or name == '':
+            print("[!] This field can't be blank !")
             sleep(1)
             name=str(input("[::] Please enter again the name of the clan: "))
+        sleep(1)
         count=int(input("[?] How many results to display (enter an integer number) ? "))
-        while count == None or count == 0:
+        while count == 0:
             print("[!] Invalid number !")
             sleep(1)
             count=int(input("[?] How many results to display (enter an integer number) ? "))
@@ -384,13 +443,10 @@ def Clan(tag: str):
             print(f"[!] Failed to retrieve data ! Error code: {page.status_code}")
             exit(0)
     else:
+        clear()
         main()
 
 def League():
-    if platform.system() == 'Windows':
-        system('cls')
-    else:
-        system('clear')
     print("\n")
     print("[1] Display the leagues")
     print("[2] Display the clan capital leagues")
@@ -405,11 +461,12 @@ def League():
     print("[*] ==> NOTE: If you want display info about a league you need to enter first one of the three number (1-3) to get the league ID (if you don't already have it):)")
     print("\n")
     option=int(input("[::] Please enter a number (from the above ones): "))
-    while option < 1 or option > 9 or option == None:
+    while option < 1 or option > 9:
         print("[!] Invalid number !")
         sleep(1)
         option=int(input("[::] Please enter again a number (from the above ones): "))
     if option == 1:
+        clear()
         page = requests.get("https://api.clashofclans.com/v1/leagues", headers=headers)
         if page.status_code == 200:
             js = page.json()
@@ -422,6 +479,7 @@ def League():
             print(f"[!] Failed to retrieve data ! Error code: {page.status_code}")
             exit(0)
     elif option == 2:
+        clear()
         page = requests.get("https://api.clashofclans.com/v1/capitalleagues", headers=headers)
         if page.status_code == 200:
             js = page.json()
@@ -433,6 +491,7 @@ def League():
             print(f"[!] Failed to retrieve data ! Error code: {page.status_code}")
             exit(0)
     elif option == 3:
+        clear()
         page = requests.get("https://api.clashofclans.com/v1/warleagues", headers=headers)
         if page.status_code == 200:
             js = page.json()
@@ -444,9 +503,12 @@ def League():
             print(f"[!] Failed to retrieve data ! Error code: {page.status_code}")
             exit(0)
     elif option == 4:
-        id=int(input("[::] Please enter here the league ID: "))
-        while id == None or len(id) < 8 or len(id) > 8:
+        clear()
+        id=int(input("[::] Please enter the league ID: "))
+        while len(id) != 8:
             print("[!] Invalid league ID !")
+            sleep(1)
+            print("[+] Acceptable length of league ID >> 8 characters")
             sleep(1)
             id=int(input("[::] Please enter again the league ID: "))
         page = requests.get(f"https://api.clashofclans.com/v1/leagues/{id}", headers=headers)
@@ -458,9 +520,12 @@ def League():
             print(f"[!] Failed to retrieve data ! Error code: {page.status_code}")
             exit(0)
     elif option == 5:
-        id=int(input("[::] Please enter here the clan capital league ID: "))
-        while id == None or len(id) < 8 or len(id) > 8:
+        clear()
+        id=int(input("[::] Please enter the clan capital league ID: "))
+        while len(id) != 8:
             print("[!] Invalid league ID !")
+            sleep(1)
+            print("[+] Acceptable length of league ID >> 8 characters")
             sleep(1)
             id=int(input("[::] Please enter again the clan capital league ID: "))
         page = requests.get(f"https://api.clashofclans.com/v1/capitalleagues/{id}", headers=headers)
@@ -471,9 +536,12 @@ def League():
             print(f"[!] Failed to retrieve data ! Error code: {page.status_code}")
             exit(0)
     elif option == 6:
-        id=int(input("[::] Please enter here the war league ID: "))
-        while id == None or len(id) < 8 or len(id) > 8:
+        clear()
+        id=int(input("[::] Please enter the war league ID: "))
+        while len(id) != 8:
             print("[!] Invalid league ID !")
+            sleep(1)
+            print("[+] Acceptable length of league ID >> 8 characters")
             sleep(1)
             id=int(input("[::] Please enter again the war league ID: "))
         page = requests.get(f"https://api.clashofclans.com/v1/warleagues/{id}", headers=headers)
@@ -484,6 +552,7 @@ def League():
             print(f"[!] Failed to retrieve data ! Error code: {page.status_code}")
             exit(0)
     elif option == 7:
+        clear()
         page = requests.get("https://api.clashofclans.com/v1/leagues/29000022/seasons", headers=headers)
         if page.status_code == 200:
             js = page.json()
@@ -494,11 +563,18 @@ def League():
             print(f"[!] Failed to retrieve data ! Error code: {page.status_code}")
             exit(0)
     elif option == 8:
-        id=input("[::] Please enter here the season ID: ")
-        while id == None or '-' not in id:
-            print("[!] Invalid league ID !")
+        clear()
+        id=str(input("[::] Please enter here the season ID: "))
+        while id == None or '-' not in id or id == '':
+            if id == None or id == '':
+                print("[!] This field can't be blank !")
+            else:
+                print("[!] Invalid league ID !")
+                sleep(1)
+                print("[+] Acceptable league ID format >>> xxxx-xx")
             sleep(1)
-            id=input("[::] Please enter again the season ID: ")
+            id=str(input("[::] Please enter again the season ID: "))
+        id = id.strip()
         page = requests.get(f"https://api.clashofclans.com/v1/leagues/29000022/seasons/{id}", headers=headers)
         if page.status_code == 200:
             js = page.json()
@@ -516,7 +592,14 @@ def League():
             print(f"[!] Failed to retrieve data ! Error code: {page.status_code}")
             exit(0)
     else:
+        clear()
         main()
+
+def clear():
+    if platform.system() == 'Windows':
+        system('cls')
+    else:
+        system('clear')
 
 def Uninstall() -> str:
     def rmdir(dire):
@@ -529,7 +612,7 @@ def Uninstall() -> str:
         for i in range(len(DIRS)):
             os.rmdir(DIRS[i])
         os.rmdir(dire)
-    rmdir(os.path.abspath('Supercell'))
+    rmdir(fpath('Supercell'))
     return "[✓] Files and dependencies uninstalled successfully !"
 
 def banner() -> str:
@@ -548,44 +631,57 @@ def main():
     print("[+] Author: new92")
     print("[+] Github: @new92")
     print("\n")
-    print("[+] Script for retrieving information about clans, users, leagues and much more... in the famous game: Clash of Clans :)")
+    print("[+] ClashofInfo: Script which provides info about clans, users, leagues and much more... in the famous game: Clash of Clans :)")
     print("\n")
     print("[1] Display info for a player")
     print("[2] Display info for a clan")
     print("[3] Display info for a league")
-    print("[4] Display program's info and exit")
-    print("[5] Uninstall script")
+    print("[4] Display ClashofInfo's info and exit")
+    print("[5] Uninstall ClashofInfo")
     print("[6] Exit")
     option=int(input("[::] Please enter a number (from the above ones): "))
-    while option not in range(1,7) or option == None:
-        print("[!] Sorry, invalid number !")
+    while option < 1 or option > 6:
+        print("[!] Invalid number !")
+        sleep(1)
+        print("[+] Acceptable numbers: [1/2/3/4/5/6]")
         sleep(1)
         option=int(input("[::] Please enter again a number (from the above ones): "))
     if option == 1:
+        clear()
         tag=str(input("[::] Please enter the tag of the player (please do not include the tag(#) symbol): "))
-        while tag == None or tag[0] == "#":
+        while tag == None or '#' in tag or tag == '':
             print("[!] Invalid tag !")
             sleep(1)
             if tag[0] == "#":
                 print("[!] Please DO NOT include the tag (#) symbol in your next input !")
                 sleep(2)
-            tag=str(input("[::] Please enter again the tag of the player (please do not include the tag(#) symbol): "))
+            tag=str(input("[::] Please enter again the tag of the player: "))
+        tag = tag.upper().strip()
         Player(tag)
+
     elif option == 2:
+        clear()
         tag=str(input("[::] Please enter the tag of the clan (please do not include the tag(#) symbol): "))
-        while tag == None or tag[0] == "#":
+        while tag == None or '#' in tag or tag == '':
             print("[!] Invalid tag !")
             sleep(1)
             if tag[0] == "#":
                 print("[!] Please DO NOT include the tag (#) symbol in your next input !")
                 sleep(2)
-            tag=str(input("[::] Please enter again the tag of the clan (please do not include the tag(#) symbol): "))
+            tag=str(input("[::] Please enter again the tag of the clan: "))
+        tag = tag.upper().strip()
         Clan(tag)
+
     elif option == 3:
+        clear()
         League()
+
     elif option == 4:
-        ProgInfo()
+        clear()
+        ScriptInfo()
+
     elif option == 5:
+        clear()
         print(Uninstall())
         sleep(2)
         print("[+] Thank you for using my script 😁")
@@ -593,11 +689,39 @@ def main():
         print("[+] Until we meet again 🫡")
         sleep(1)
         quit(0)
+
     else:
+        clear()
         print("[+] Thank you for using my script 😁")
         sleep(2)
         print("See you next time 👋")
         sleep(1)
         exit(0)
+
+    print("[1] Return to menu")
+    print("[2] Exit")
+    n=int(input("[::] Please enter a number (from the above ones): "))
+    while n < 1 or n > 2:
+        if type(n) == int:
+            print("[!] Invalid number !")
+        else:
+            print("[!] This input can't be blank")
+            sleep(1)
+            print("[1] Return to menu")
+            print("[2] Exit")
+            n=int(input("[::] Please enter again a number (from the above ones): "))
+    if n == 1:
+        clear()
+        main()
+    else:
+        clear()
+        print("[+] Exiting...")
+        sleep(1)
+        print("[+] Thank you for using Mutuals 😁")
+        sleep(2)
+        print("[+] Until next time 👋")
+        sleep(1)
+        quit(0)
+
 if __name__ == '__main__':
     main()
