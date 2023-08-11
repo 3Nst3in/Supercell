@@ -1,0 +1,17 @@
+{
+    "author": "new92",
+    "lang": "en-US",
+    "name": "ClashofInfo",
+    "language": "Python",
+    "lice": "MIT",
+    "lines": 0,
+    "api": "Clash of Clans API",
+    "api_url": "https://developer.clashofclans.com/#/login",
+    "stars": 6,
+    "forks": 4,
+    "issues": 0,
+    "clissues": 0,
+    "prs": 0,
+    "clprs": 1,
+    "discs": 1
+}
