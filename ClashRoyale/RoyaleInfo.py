@@ -3,7 +3,7 @@
 Author: new92
 Github: @new92
 
-RoyaleInfo is a python script which helps the user retrieve info about players, clans, tournaments etc.
+RoyaleInfo is a python script which helps the user retrieve info about players, clans, tournaments etc. in the famous game: Clash Royale
 """
 
 try:
