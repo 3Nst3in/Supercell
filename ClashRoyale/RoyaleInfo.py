@@ -3,7 +3,7 @@
 Author: new92
 Github: @new92
 
-RoyaleInfo is a python script which helps the user retrieve info about players, clans, tournaments etc. in the famous game: Clash Royale
+RoyaleInfo is a python script which helps the user retrieve info about players, clans, tournaments etc.
 """
 
 try:
@@ -99,7 +99,7 @@ with open('apiKey.json') as api:
 
 headers = {
     'Accept': 'application/json',
-    'authorization': 'Bearer '+key['key']
+    'authorization': f'Bearer {key["key"]}'
 }
 
 def clear():
