@@ -4,7 +4,7 @@
     "name": "RoyaleInfo",
     "language": "Python",
     "lice": "MIT",
-    "lines": 0,
+    "lines": 700,
     "api": "Clash Royale API",
     "api_url": "https://developer.clashroyale.com/#/login",
     "stars": 6,
