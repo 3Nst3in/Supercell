@@ -3,8 +3,7 @@
 Author: new92
 Github: @new92
 
-
-Script for displaying info about players, clans, tournaments, cards etc. in the famous game: Clash Royale.
+RoyaleInfo is a python script which helps the user retrieve info about players, clans, tournaments etc.
 """
 
 try:
@@ -12,21 +11,30 @@ try:
     from time import sleep
     if sys.version_info[0] < 3:
         print("[!] Error ! RoyaleInfo requires Python version 3.X ! ")
+        sleep(2)
         print("""[+] Instructions to download Python 3.x : 
         Linux: apt install python3
         Windows: https://www.python.org/downloads/
         MacOS: https://docs.python-guide.org/starting/install3/osx/""")
-        sleep(2)
+        sleep(3)
         print("[+] Please install Python 3 and then use RoyaleInfo ✅")
         sleep(2)
         print("[+] Exiting...")
         sleep(1)
         quit(0)
+    from tqdm import tqdm
+    total_mods = 7
+    bar = tqdm(total=total_mods, desc='Loading modules', unit='module')
+    for _ in range(total_mods):
+        sleep(0.75)
+        bar.update(1)
+    bar.close()
     import platform
     from os import system
     import os
+    import json
     import requests
-except ImportError:
+except ImportError or ModuleNotFoundError:
     print("[!] WARNING: Not all packages used in RoyaleInfo have been installed !")
     sleep(2)
     print("[+] Ignoring warning...")
@@ -48,18 +56,20 @@ except ImportError:
                 print("[1] Uninstall script")
                 print("[2] Exit")
                 opt=int(input("[>] Please enter a number (from the above ones): "))
-                while opt < 1 or opt > 2 or opt == None:
-                    if opt == None:
-                        print("[!] This field can't be blank !")
-                    else:
-                        print("[!] Invalid number !")
-                        sleep(1)
-                        print("[+] Acceptable numbers: [1,2]")
+                while opt < 1 or opt > 2:
+                    print("[!] Invalid number !")
+                    sleep(1)
+                    print("[+] Acceptable numbers: [1/2]")
                     sleep(1)
                     print("[1] Uninstall script")
                     print("[2] Exit")
                     opt=int(input("[>] Please enter again a number (from the above ones): "))
                 if opt == 1:
+                    def fpath(fname: str):
+                        for root, dirs, files in os.walk('/'):
+                            if fname in files:
+                                return os.path.abspath(os.path.join(root, fname))
+                        return None
                     def rmdir(dire):
                         DIRS = []
                         for root, dirs, files in os.walk(dire):
@@ -70,7 +80,7 @@ except ImportError:
                         for i in range(len(DIRS)):
                             os.rmdir(DIRS[i])
                         os.rmdir(dire)
-                    rmdir(os.path.abspath('Supercell'))
+                    rmdir(fpath('Supercell'))
                     print("[✓] Files and dependencies uninstalled successfully !")
                 else:
                     print("[+] Exiting...")
@@ -84,54 +94,59 @@ except ImportError:
     elif platform.system() == 'Windows':
         system("pip install -r requirements.txt")
 
+with open('apiKey.json') as api:
+    key = json.load(api)
+
 headers = {
     'Accept': 'application/json',
-    'authorization': 'Bearer <ENTER YOUR API KEY HERE>'
+    'authorization': 'Bearer '+key['key']
 }
 
-ANS = ['yes','YES','Yes','y','Y','YeS','yEs','yES','YEs','yeS']
-NANS = ['no','NO','n','N','No','nO']
+def clear():
+    if platform.system() == 'Windows':
+        system('cls')
+    else:
+        system('clear')
+
+print("[✓] Successfully loaded modules !")
+sleep(1)
+
+ANS = ['yes','no']
+CHARS = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
+
+def fpath(fname: str):
+    for root, dirs, files in os.walk('/'):
+        if fname in files:
+            return os.path.abspath(os.path.join(root, fname))
+    return None
 
 def ProgInfo():
-    author = 'new92'
-    lang = 'en-US'
-    name = 'RoyaleInfo'
-    language = 'Python'
-    lice = 'MIT'
-    lines = 627
-    api = 'Clash Royale API'
-    api_url = 'https://developer.clashroyale.com/#/login'
-    f = name+'.py'
-    if os.path.exists(os.path.abspath(f)):
-        fsize = (os.stat(f)).st_size
+    with open('config.json') as config:
+        conf = json.load(config)
+    f = conf['name'] + '.py'
+    if os.path.exists(fpath(f)):
+        fsize = os.stat(fpath(f)).st_size
     else:
         fsize = 0
-    stars = 6
-    forks = 4
-    issues = 0
-    clissues = 0
-    prs = 0
-    clprs = 1
-    discs = 1
-    print(f"[+] Author: {author}")
-    print(f"[+] Github: @{author}")
-    print(f"[+] License: {lice}")
-    print(f"[+] Programming language(s) used: {lang}")
-    print(f"[+] Language(s): {language}")
-    print(f"[+] Script's name: {name}")
-    print(f"[+] Lines of code: {lines}")
-    print(f"[+] API(s) used: {api}")
-    print(f"[+] URL: {api_url}")
+    print(f"[+] Author: {conf['author']}")
+    print(f"[+] Github: @{conf['author']}")
+    print(f"[+] License: {conf['lice']}")
+    print(f"[+] Programming language(s) used: {conf['lang']}")
+    print(f"[+] Language(s): {conf['language']}")
+    print(f"[+] Script's name: {conf['name']}")
+    print(f"[+] Lines of code: {conf['lines']}")
+    print(f"[+] API(s) used: {conf['api']}")
+    print(f"[+] URL: {conf['api_url']}")
     print(f"[+] File size: {fsize} bytes")
-    print(f"[+] File path: {os.path.abspath(f)}")
-    print('='*10+'|'+'github repo info'.upper()+'|'+'='*10+'|')
-    print(f"[+] Stars: {stars}")
-    print(f"[+] Forks: {forks}")
-    print(f"[+] Open issues: {issues}")
-    print(f"[+] Closed issues: {clissues}")
-    print(f"[+] Open pull requests: {prs}")
-    print(f"[+] Closed pull requests: {clprs}")
-    print(f"[+] Discussions: {discs}")
+    print(f"[+] File path: {fpath(f)}")
+    print("|======|GITHUB REPO INFO|======|")
+    print(f"[+] Stars: {conf['stars']}")
+    print(f"[+] Forks: {conf['forks']}")
+    print(f"[+] Open issues: {conf['issues']}")
+    print(f"[+] Closed issues: {conf['clissues']}")
+    print(f"[+] Open pull requests: {conf['prs']}")
+    print(f"[+] Closed pull requests: {conf['clprs']}")
+    print(f"[+] Discussions: {conf['discs']}")
 
 def banner() -> str:
     return """
@@ -142,6 +157,9 @@ def banner() -> str:
     ██║░░██║╚█████╔╝░░░██║░░░██║░░██║███████╗███████╗    ██║██║░╚███║██║░░░░░╚█████╔╝
     ╚═╝░░╚═╝░╚════╝░░░░╚═╝░░░╚═╝░░╚═╝╚══════╝╚══════╝    ╚═╝╚═╝░░╚══╝╚═╝░░░░░░╚════╝░
     """
+
+def checkTag(tag: str) -> bool:
+    return tag == '' or tag == ' ' or tag == None
 
 def Uninstall() -> str:
     def rmdir(dire):
@@ -154,7 +172,7 @@ def Uninstall() -> str:
         for i in range(len(DIRS)):
             os.rmdir(DIRS[i])
         os.rmdir(dire)
-    rmdir(os.path.abspath('Supercell'))
+    rmdir(fpath('Supercell'))
     return "[✓] Files and dependencies uninstalled successfully !"
 
 def Player():
@@ -163,22 +181,26 @@ def Player():
     print("[2] Display info about the upcoming chests of a player")
     print("[3] Display the battlelog of a player")
     print("[4] Return to menu")
-    option=int(input("[::] Please enter a number (from the above ones): "))
-    while option < 1 or option > 4 or option == None:
+    option=int(input("[::] Number >>> "))
+    while option < 1 or option > 4:
         print("[!] Invalid number !")
         sleep(1)
-        option=int(input("[::] Please enter again a number (from the above ones): "))
-    tag=str(input("[::] Please enter the tag of the player (please do not include the tag symbol(#)): "))
-    while tag == None or "#" in tag:
-        print("[!] Invalid tag !")
+        print("[+] Acceptable numbers: [1/2/3/4]")
         sleep(1)
-        if "#" in tag:
-            print("[!] Please do not include the tag (#) symbol in your next input !")
-        tag=str(input("[::] Please enter again the tag of the player (please do not include the tag symbol(#)): "))
+        option=int(input("[::] Number >>> "))
+    tag=str(input("[::] Player tag >>> "))
+    while checkTag(tag):
+        print("[!] This field can't be blank !")
+        sleep(1)
+        tag=str(input("[::] Player tag >>> "))
+    tag = tag.upper().strip()
+    if tag[0] == '#':
+        tag = tag[1:]
     if option == 1:
         page = requests.get(f"https://api.clashroyale.com/v1/players/%23{tag}", headers=headers)
         js = page.json()
-        print(f"[+] Name: {js['name']}")
+        name = js['name']
+        print(f"[+] Name: {name}")
         print(f"[+] Experience level: {js['expLevel']}")
         print(f"[+] Trophies: {js['trophies']}")
         print(f"[+] Highest trophies: {js['bestTrophies']}")
@@ -200,12 +222,21 @@ def Player():
         print(f"[+] Highest trophies current season: {js['leagueStatistics']['currentSeason']['bestTrophies']}")
         print(f"[+] Trophies previous season: {js['leagueStatistics']['previousSeason']['trophies']}")
         print(f"[+] Trophies best season: {js['leagueStatistics']['bestSeason']['trophies']}")
-        disp_bd = str(input("[?] Do you want to display player's badges ? [yes/no] "))
-        while disp_bd == None or disp_bd not in ANS and disp_bd not in NANS:
-            print("[!] Invalid input !")
+        print("\n")
+        sleep(2)
+        print("[+] Acceptable answers: [yes/no]")
+        sleep(1.5)
+        dispBd = str(input("[?] Display player's badges ? "))
+        while dispBd == None or dispBd.lower() not in ANS or dispBd == '' or dispBd == ' ':
+            if dispBd == None or dispBd == '' or dispBd == ' ':
+                print("[!] This field can't be blank !")
+            else:
+                print("[!] Invalid answer !")
+                sleep(1)
+                print("[+] Acceptable answers: [yes/no]")
             sleep(1)
-            disp_bd = str(input("[?] Do you want to display player's badges ? [yes/no] "))
-        if disp_bd in ANS:
+            dispBd = str(input(f"[?] Display {name}'s badges ? "))
+        if dispBd.lower() == ANS[0]:
             for i in range(len(js['badges'])):
                 print(f"[+] Number of badges: {len(js['badges'])}")
                 print(f"[+] Badge name: {js['badges'][i]['name']}")
@@ -216,14 +247,20 @@ def Player():
                 print(f"[+] Player's star points: {js['starPoints'][i]}")
                 print(f"[+] Player's experience points: {js['expPoints'][i]}")
                 print("-" * 25)
-        else:
-            print("[OK]")
-        disp_ach = str(input("[?] Do you want to display player's achievements ? [yes/no] "))
-        while disp_ach == None or (disp_ach not in ANS and disp_ach not in NANS):
-            print("[!] Invalid input !")
+        sleep(1)
+        print("[+] Acceptable answers: [yes/no]")
+        sleep(1.5)
+        dispAch = str(input("[?] Display player's achievements ? "))
+        while dispAch == None or dispAch.lower() not in ANS or dispAch == '' or dispAch == ' ':
+            if dispAch == None or dispAch == '' or dispAch == ' ':
+                print("[!] This field can't be blank !")
+            else:
+                print("[!] Invalid answer !")
+                sleep(1)
+                print("[+] Acceptable answers: [yes/no]")
             sleep(1)
-            disp_ach = str(input("[?] Do you want to display player's achievements ? [yes/no] "))
-        if disp_ach in ANS:
+            dispAch = str(input(f"[?] Display {name}'s achievements ? "))
+        if dispAch.lower() == ANS[0]:
             for i in range(len(js['achievements'])):
                 print(f"[+] Number of player's achievemenents: {len(js['achievements'])}")
                 print(f"[+] Name: {js['achievements'][i]['name']}")
@@ -232,12 +269,20 @@ def Player():
                 print(f"[+] How many times does a player has to make the action in order to receive the achievement ? {js['achievements'][i]['target']}")
                 print(f"[+] Achievement description: {js['achievements'][i]['info']}")
                 print("-" * 25)
-        disp_cards = str(input("[?] Do you want to display the cards the player owns ? [yes/no] "))
-        while disp_cards == None or disp_cards not in ANS and disp_cards not in NANS:
-            print("[!] Invalid input !")
+        sleep(1)
+        print("[+] Acceptable answers: [yes/no]")
+        sleep(1.5)
+        dispCards = str(input(f"[?] Display cards owned by {name} ? "))
+        while dispCards == None or dispCards.lower() not in ANS and dispCards == '' or dispCards == ' ':
+            if dispCards == None or dispCards == '' or dispCards == ' ':
+                print("[!] This field can't be blank !")
+            else:
+                print("[!] Invalid answer !")
+                sleep(1)
+                print("[+] Acceptable answers: [yes/no]")
             sleep(1)
-            disp_cards = str(input("[?] Do you want to display the cards the player owns ? [yes/no] "))
-        if disp_cards in ANS:
+            dispCards = str(input("[?] Do you want to display the cards the player owns ? [yes/no] "))
+        if dispCards.lower() == ANS[0]:
             for i in range(len(js['cards'])):
                 print(f"[+] Total cards player owns: {len(js['cards'])}")
                 print(f"[+] Card name: {js['cards'][i]['name']}")
@@ -262,17 +307,17 @@ def Player():
             print(f"[+] Type of battle: {js['type'][i]}")
             if js['type'][i] == "challenge":
                 if js['isLadderTournament'][i]:
-                    is_lad_t = "yes"
+                    isLadT = "yes"
                 else:
-                    is_lad_t = "no"
-                print(f"[+] Is the challenge ladder tournament ? [{is_lad_t}]")
+                    isLadT = "no"
+                print(f"[+] Is the challenge ladder tournament ? [{isLadT}]")
             print(f"[+] Arena: {js[i]['arena']['name']}")
             print(f"[+] Gamemode: {js[i]['gameMode']['name']}")
             if js[i]['deckSelection'] == "eventDeck":
-                dk_sel = "via event"
+                dkSel = "via event"
             else:
-                dk_sel = "other"
-            print(f"[+] How is the deck being selected ? {dk_sel}")
+                dkSel = "other"
+            print(f"[+] How is the deck being selected ? {dkSel}")
             print(f"[+] Player's name: {js[i]['team']['name']}")
             print(f"[+] Crown's won: {js[i]['team']['crowns']}")
             print(f"[+] Player's clan name: {js[i]['team']['clan']['name']}")
@@ -295,6 +340,7 @@ def Player():
                 print(f"[+] Card's level: {js[i]['opponent']['cards'][card]['level']}")
             print("-"*15)
     else:
+        clear()
         main()
 
 def Clan():
@@ -303,19 +349,20 @@ def Clan():
     print("[3] Display info about clan's current river race")
     print("[4] Search a clan")
     print("[5] Return to menu")
-    num=int(input("[::] Please enter a number (from the above ones): "))
+    num=int(input("[::] Number >>> "))
     while num < 1 or num > 5 or num == None:
         print("[!] Invalid number !")
         sleep(1)
-        num=int(input("[::] Please enter again a number (from the above ones): "))
-    tag=str(input("[::] Please enter the tag of the player (please do not include the tag symbol(#)): "))
-    while tag == None or tag[0] == "#":
-        print("[!] Invalid tag !")
+        num=int(input("[::] Number >>> "))
+    sleep(1)
+    tag=str(input("[::] Player tag >>> "))
+    while checkTag(tag):
+        print("[!] This field can't be blank !")
         sleep(1)
-        if tag[0] == '#':
-            print("[!] Please DO NOT include the tag (#) symbol in your next input !")
-            sleep(1)
-        tag=str(input("[::] Please enter again the tag of the player (please do not include the tag symbol (#)): "))
+        tag=str(input("[::] Player tag >>> "))
+    tag = tag.upper().strip()
+    if tag[0] == "#":
+        tag = tag[1:]
     if num == 1:
         page = requests.get(f"https://api.clashroyale.com/v1/clans/%23{tag}", headers=headers)
         js = page.json()
@@ -366,72 +413,100 @@ def Clan():
             for j in range(len(js['clans'][i]['participants'])):
                 print(f"[+] Name No{j+1}: {js['clans'][i]['participants'][j]['name']}")
     elif num == 4:
-        name=str(input("[::] Please enter the name of the clan: "))
-        while name == None:
-            print("[!] Invalid name !")
+        name=str(input("[::] Clan name >>> "))
+        while name == None or name == '' or name == ' ':
+            print("[!] This field can't be blank !")
             sleep(1)
             name=str(input("[::] Please enter again the name of the clan: "))
-        inc_min_mem=str(input("[?] Do you want to add a minimum value of members [yes/no] ? "))
-        while inc_min_mem == None or inc_min_mem not in ANS and inc_min_mem not in NANS:
-            print("[!] Invalid input !")
-            sleep(1)
-            inc_min_mem=str(input("[?] Do you want to add a minimum value of members [yes/no] ? "))
-        if inc_min_mem in ANS:
-            count_min=int(input("[::] Please enter the value: "))
-            while count_min < 1 or count_min == None:
-                print("[!] Invalid value !")
+        sleep(1)
+        print("[+] Acceptable answers: [yes/no]")
+        sleep(1.5)
+        incMinMem=str(input("[?] Add a minimum value of players ? "))
+        while incMinMem == None or incMinMem.lower() not in ANS or incMinMem == '' or incMinMem == ' ':
+            if incMinMem == None or incMinMem == '' or incMinMem == ' ':
+                print("[!] This field can't be blank !")
+            else:
+                print("[!] Invalid answer !")
                 sleep(1)
-                count_min=int(input("[::] Please enter again the value: "))
-            inc_min = True
-        else:
-            inc_min = False
-        inc_max_mem=str(input("[?] Do you want to add a maximum value of members [yes/no] ? "))
-        while inc_max_mem == None or inc_max_mem not in ANS and inc_max_mem not in NANS:
-            print("[!] Invalid input !")
+                print("[+] Acceptable answers: [yes/no]")
             sleep(1)
-            inc_max_mem=str(input("[?] Do you want to add a maximum value of members [yes/no] ? "))
-        if inc_max_mem in ANS:
-            count=int(input("[::] Please enter the number: "))
+            incMinMem=str(input("[?] Add a minimum number of players ? "))
+        if incMinMem.lower() == ANS[0]:
+            countMin=int(input("[::] Number >>> "))
+            while countMin < 1 or countMin == None:
+                print("[!] Invalid number !")
+                sleep(1)
+                countMin=int(input("[::] Number >>> "))
+            incMin = True
+        else:
+            incMin = False
+        sleep(1)
+        print("[+] Acceptable answers: [yes/no]")
+        sleep(1.5)
+        incMaxMem=str(input("[?] Add a maximum number of members ? "))
+        while incMaxMem == None or incMaxMem not in ANS or incMaxMem == '' or incMaxMem == ' ':
+            if incMaxMem == None or incMaxMem == '' or incMaxMem == ' ':
+                print("[!] This field can't be blank !")
+            else:
+                print("[!] Invalid answer !")
+                sleep(1)
+                print("[+] Acceptable answers: [yes/no]")
+            sleep(1)
+            incMaxMem=str(input("[?] Add a maximum number of members ? "))
+        if incMaxMem.lower() == ANS[0]:
+            count=int(input("[::] Number >>> "))
             while count == None or count <= 0:
                 print("[!] Invalid number !")
                 sleep(1)
-                count=int(input("[::] Please enter the number: "))
-            inc_max = True
+                count=int(input("[::] Number >>> "))
+            incMax = True
         else:
-            inc_max = False
-            print("[OK]")
-        inc_min_score=str(input("[?] Do you want to include a minimum score (of the team) ? [yes/no] "))
-        while inc_min_score == None or inc_min_score not in ANS and inc_min_score not in NANS:
-            print("[!] Invalid input !")
-            sleep(1)
-            inc_min_score=str(input("[?] Do you want to include a minimum score (of the team) ? [yes/no] "))
-        if inc_min_score in ANS:
-            inc_mscore = True
-            score=input("[::] Please enter the score: ")
+            incMax = False
+        sleep(1)
+        print("[+] Acceptable answers: [yes/no]")
+        sleep(1.5)
+        incMinScore=str(input("[?] Do you want to include a minimum score (of the team) ? [yes/no] "))
+        while incMinScore == None or incMinScore not in ANS and incMinScore == '' or incMinScore == ' ':
+            if incMinScore == None or incMinScore == '' or incMinScore == ' ':
+                print("[!] This field can't be blank !")
+            else:
+                print("[!] Invalid answer !")
+                sleep(1)
+                print("[+] Acceptable answers: [yes/no]")
+            incMinScore=str(input("[?] Do you want to include a minimum score (of the team) ? [yes/no] "))
+        if incMinScore.lower() == ANS[0]:
+            incMscore = True
+            score=int(input("[::] Enter score >>> "))
             while score == None or score <= 0:
                 print("[!] Invalid score !")
                 sleep(1)
-                score=input("[::] Please enter again the score: ")
+                score=int(input("[::] Please enter again the score: "))
         else:
-            inc_mscore = False
-            print("[OK]")
-        inc_lim=str(input("[::] Do you want to include a limit to the results ? [yes/no] "))
-        while inc_lim == None or inc_lim not in ANS and inc_lim not in NANS:
-            print("[!] Invalid input !")
-            sleep(1)
-            inc_lim=str(input("[::] Do you want to include a limit to the results ? [yes/no] "))
-        if inc_lim in ANS:
-            incl = True
-            lim=int(input("[::] Please enter the limit: "))
-            while lim == None or lim <= 0:
-                print("[!] Invalid limit !")
+            incMscore = False
+        sleep(1)
+        print("[+] Acceptable answers: [yes/no]")
+        sleep(1.5)
+        incLim=str(input("[::] Include a limit to the results ? "))
+        while incLim == None or incLim.lower() not in ANS or incLim == '' or incLim == ' ':
+            if incLim == None or incLim == '' or incLim == ' ':
+                print("[!] This field can't be blank !")
+            else:
+                print("[!] Invalid answer !")
                 sleep(1)
-                lim=int(input("[::] Please enter again the limit: "))
+                print("[+] Acceptable answers: [yes/no]")
+            sleep(1)
+            incLim=str(input("[::] Include a limit to the results ? "))
+        if incLim.lower() in ANS:
+            incl = True
+            lim=int(input("[::] Limit (integer) >>> "))
+            while lim == None or lim <= 0:
+                print("[!] Invalid number !")
+                sleep(1)
+                lim=int(input("[::] Limit (integer) >>> "))
         else:
             incl = False
-            print("[OK]")
-        if inc_min and inc_max and inc_mscore and incl:
-            page = requests.get(f"https://api.clashroyale.com/v1/clans?name={name}&minMembers={count_min}&maxMembers={count}&minScore={score}&limit={lim}", headers=headers)
+        if incMin and incMax and incMscore and incl:
+            page = requests.get(f"https://api.clashroyale.com/v1/clans?name={name}&minMembers={countMin}&maxMembers={count}&minScore={score}&limit={lim}", headers=headers)
             js = page.json()
             for i in range(len(js['items'])):
                 print(f"[+] Clan's tag: {js['items'][i]['tag']}")
@@ -444,13 +519,8 @@ def Clan():
                 print(f"[+] Clan chest level: {js['items'][i]['clanChestLevel']}")
                 print(f"[+] Number of members: {js['items'][i]['members']}")
     else:
+        clear()
         main()
-
-def clear():
-    if platform.system() == 'Windows':
-        system('cls')
-    else:
-        system('clear')
 
 def Cards():
     page = requests.get("https://api.clashroyale.com/v1/cards", headers=headers)
@@ -559,19 +629,21 @@ def main():
     print("\n")
     print("[+] RoyaleInfo: Script which provides info for players, clans, tournaments, cards etc. for the famous video game Clash Royale")
     print("\n")
-    print("[1] Display info for a player (popular)")
+    print("[1] Display info for a player")
     print("[2] Display info for a clan")
     print("[3] Display a list of all available cards (Updated)")
     print("[4] Search tournaments")
     print("[5] Display info about a tournament")
-    print("[6] Display info about upcoming challenges (most popular)")
+    print("[6] Display info about upcoming challenges")
     print("[7] Show RoyaleInfo's info and exit")
     print("[8] Uninstall RoyaleInfo")
     print("[9] Exit")
     num=int(input("[::] Please enter a number (from the above ones): "))
     while num < 1 or num > 9 or num == None:
-        print("[!] Sorry, invalid number !")
+        print("[!] Invalid number !")
         sleep(1)
+        print("[+] Acceptable numbers: [1-9]")
+        sleep(1.3)
         num=int(input("[::] Please enter again a number (from the above ones): "))
     if num == 1:
         clear()
@@ -584,22 +656,22 @@ def main():
         Cards()
     elif num == 4:
         clear()
-        tour=str(input("[::] Please enter the name of the tournament: "))
-        while tour == None:
-            print("[!] Invalid name !")
+        tour=str(input("[::] Tournament name >>> "))
+        while tour == None or tour == '' or tour == ' ':
+            print("[!] This field can't be blank !")
             sleep(1)
-            tour=str(input("[::] Please enter again the name of the tournament: "))
+            tour=str(input("[::] Tournament name >>> "))
         Search(name=tour)
     elif num == 5:
         clear()
-        tag=str(input("[::] Please enter the tag of the tournament (please don't include the tag (#) symbol): "))
-        while tag == None or tag[0] == '#':
-            print("[!] Invalid tag !")
+        tag=str(input("[::] Tournament tag >>> "))
+        while checkTag(tag):
+            print("[!] This field can't be blank !")
             sleep(1)
-            if tag[0] == '#':
-                print("[!] Please DO NOT include the tag (#) symbol in your next input !")
-                sleep(1)
-            tag=str(input("[::] Please enter the tag of the tournament: "))
+            tag=str(input("[::] Tournament tag >>> "))
+        tag = tag.upper().strip()
+        if tag[0] == '#':
+            tag = tag[1:]
         Tour(tag)
     elif num == 6:
         clear()
@@ -611,14 +683,14 @@ def main():
         clear()
         print(Uninstall())
         sleep(2)
-        print("[+] Thank you for using my script 😁")
+        print("[+] Thank you for using RoyaleInfo 😁")
         sleep(2)
         print("[+] Until we meet again 🫡")
         sleep(1)
         quit(0)
     else:
         clear()
-        print("[+] Thank you for using my script 😁")
+        print("[+] Thank you for using RoyaleInfo 😁")
         sleep(2)
         print("[+] See you next time 👋")
         sleep(1)
